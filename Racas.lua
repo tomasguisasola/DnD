@@ -273,7 +273,9 @@ return {
 		constituicao = 2,
 		carisma = 2,
 		deslocamento = 6,
-		poderes = {},
+		poderes = {
+			-- diletante = require"Classes.<Nome da Classe>".poderes.<nome_do_poder>,
+		},
 		pericias = {
 			diplomacia = 2,
 			intuicao = 2,
