@@ -4,13 +4,13 @@ local tipos_armas = require"DnD.TiposArmas"
 local mod = require"DnD.Modificadores"
 
 local function soma_bonus_dano (self, dado)
-	local bonus
+	local bonus = 0
 	if self.caracteristica_classe:match"[Dd]rac.nic" then
 		bonus = self.mod_for
 	elseif self.caracteristica_classe:match"[Ss]elvagem" then
 		bonus = self.mod_des
 	else
-		error ("Característica de classe deve ser 'dracônica' ou 'selvagem'")
+		print ("Sem bônus no dano: característica de classe deve ser 'dracônica' ou 'selvagem'")
 	end
 	if self.nivel >= 21 then
 		bonus = bonus + 4
