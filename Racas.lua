@@ -273,8 +273,13 @@ return {
 		constituicao = 2,
 		carisma = 2,
 		deslocamento = 6,
+		diletante = function (poder)
+			-- muda o uso "Sem Limite" para "por Encontro"
+			poder.uso = "En"
+			return poder
+		end,
 		poderes = {
-			-- diletante = require"Classes.<Nome da Classe>".poderes.<nome_do_poder>,
+			-- diletante = require"Racas".meio_elfo.diletante(require"Classes.<Nome da Classe>".poderes.<nome_do_poder>),
 		},
 		pericias = {
 			diplomacia = 2,
