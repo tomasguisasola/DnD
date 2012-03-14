@@ -2,25 +2,25 @@ local ArmasBasicas = require"DnD.ArmasBasicas"
 local soma_dano = require"DnD.Soma".soma
 local set = require"DnD.Set"
 
-local function magica (nome, nv)
+local function magica (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
 		basica = nome,
-		ataque = nv,
-		dano = nv,
-		decisivo = nv.."d6",
+		ataque = bonus,
+		dano = bonus,
+		decisivo = bonus.."d6",
 	}
 	return setmetatable (m, { __index = arma, })
 end
 
-local function algida (nome, nv)
+local function algida (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
 		nome = arma.nome.." Álgida",
 		basica = nome,
-		ataque = nv,
-		dano = nv,
-		decisivo = nv.."d6",
+		ataque = bonus,
+		dano = bonus,
+		decisivo = bonus.."d6",
 		poder = {
 			nome = "Arma Álgida",
 			uso = "Diário",
@@ -32,27 +32,27 @@ local function algida (nome, nv)
 	return setmetatable (m, { __index = arma, })
 end
 
-local function inescapavel (nome, nv)
+local function inescapavel (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
 		nome = arma.nome.." Inescapável",
 		basica = nome,
-		ataque = nv,
-		dano = nv,
-		decisivo = nv.."d6",
+		ataque = bonus,
+		dano = bonus,
+		decisivo = bonus.."d6",
 		efeito = "Efeito: sempre que fracassar em um ataque com esta arma, recebe +1 (até o bônus\n    máximo da arma) no próximo ataque contra o mesmo alvo.\n    O bônus se encerra se acertar o alvo ou trocar de alvo.",
 	}
 	return setmetatable (m, { __index = arma, })
 end
 
-local function rapida (nome, nv)
+local function rapida (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
 		nome = arma.nome.." Rápida",
 		basica = nome,
-		proficiencia = nv+arma.proficiencia,
-		dano = soma_dano ({}, arma.dano, nv),
-		decisivo = nv.."d6",
+		proficiencia = bonus+arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
 		poder = {
 			nome = "Arma Rápida",
 			uso = "Diário",
