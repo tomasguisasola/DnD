@@ -41,8 +41,11 @@ return {
 		return math.floor((self.nivel-1)/10).."d6"
 	end,
 	nome_adicional = "Maldição",
-	caracteristicas_classe = {},
+	caracteristicas_classe = {
+------- Características de Classe ----------------------------------------------
+	},
 	poderes = {
+------- Poderes Sem Limite nível 1 ---------------------------------------------
 		olhar_pungente = {
 			nome = "Olhar Pungente",
 			uso = "SL",
@@ -114,6 +117,7 @@ return {
 			dano = mod.dobra_21("1d8", "carisma", "Glamour Vingativo"),
 			efeito = "Se o alvo estiver com o máximo de PV, o dado de dano é um d12.",
 		},
+------- Poderes por Encontro nível 1 -------------------------------------------
 		lancar_peconha = {
 			nome = "Lançar Peçonha",
 			uso = "En",
@@ -223,6 +227,7 @@ return {
 				return "O alvo sofre -"..p.." de penalidade em Vontade, até o FdPT do bruxo."
 			end
 		},
+------- Poderes Diários nível 1 ------------------------------------------------
 		armadura_de_agathys = {
 			nome = "Armadura de Agathys",
 			uso = "Di",
@@ -308,6 +313,7 @@ return {
 				return "Antes do ataque, o bruxo pode causar "..self.mod_car.." de dano a um aliado adjacente, ganhando +2 de bônus no ataque e causando +"..continuo.." de dano venenoso contínuo (TR encerra)."
 			end,
 		},
+------- Poderes Utilitários nível 2 --------------------------------------------
 		efugio_da_aranha = {
 			nome = "Efúgio da Aranha",
 			uso = "En",
@@ -317,6 +323,7 @@ return {
 			alvo = "pessoal",
 			efeito = "Adquire deslocamento de escalada igual ao deslocamento normal, mesmo se estiver\nderrubado, até o FdPT.",
 		},
+------- Poderes por Encontro nível 3 -------------------------------------------
 		vossa_deliciosa_fraqueza = {
 			nome = "Vossa Deliciosa Fraqueza",
 			uso = "En",
