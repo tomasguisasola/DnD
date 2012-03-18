@@ -33,7 +33,15 @@ return {
 		tolerancia = true,
 	},
 	total_pericias = 4,
-	caracteristicas_classe = {},
+	caracteristicas_classe = {
+------- Características de Classe ----------------------------------------------
+	},
 	poderes = {
+------- Poderes Sem Limite nível 1 ---------------------------------------------
+------- Poderes por Encontro nível 1 -------------------------------------------
+------- Poderes Diários nível 1 ------------------------------------------------
+------- Poderes Utilitários nível 2 --------------------------------------------
+------- Poderes por Encontro nível 3 -------------------------------------------
+------- Poderes Diários nível 5 ------------------------------------------------
 	},
 }

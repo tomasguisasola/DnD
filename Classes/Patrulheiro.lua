@@ -348,6 +348,7 @@ print("!",...)
 				return "Quando um inimigo lhe causar dano, pode ajustar até "..self.mod_sab.." quadrados e recebe +2 em\ntodas as defesas até o final do próximo turno."
 			end,
 		},
+------- Poderes por Encontro nível 3 -------------------------------------------
 		golpe_da_vespa_das_sombras = {
 			nome = "Golpe da Vespa das Sombras",
 			uso = "En",

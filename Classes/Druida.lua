@@ -47,9 +47,11 @@ return {
 		tolerancia = true,
 	},
 	total_pericias = 3,
-	caracteristicas_classe = {},
+	caracteristicas_classe = {
+------- Características de Classe ----------------------------------------------
+	},
 	poderes = {
-------- Poderes SL nível 1 ---------------------------------------------
+------- Poderes Sem Limite nível 1 ---------------------------------------------
 		acometida = {
 			nome = "Acometida",
 			uso = "SL",
@@ -141,6 +143,24 @@ return {
 			efeito = "O alvo é conduzido 1 quadrado.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
+		lampejo_algido = {
+			nome = "Lampejo Álgido",
+			uso = "En",
+			acao = "padrão",
+			origem = set("congelante", "implemento", "primitivo"),
+			tipo_ataque = "distância 1",
+			alvo = "uma criatura",
+			ataque = mod.sabedoria,
+			defesa = "Fort",
+			dano = function(self, ...)
+				local dano = self.mod_sab
+				if self.caracteristica_classe:match"uardi.o" then
+					dano = dano + self.mod_con
+				end
+				return soma_dano(self, "1d6", dano, "Lampejo Álgido")
+			end,
+			efeito = "Sucesso: o alvo fica imobilizado até o FdPT.",
+		},
 		convocar_relampagos = {
 			nome = "Convocar Relâmpagos",
 			uso = "En",
@@ -208,24 +228,6 @@ return {
 			efeito = function (self)
 				return "Sucesso: +5 contínuo flamejante (TR encerra). Uma criatura a até 5 quadrados do alvo recupera "..self.mod_con.." PV."
 			end,
-		},
-		lampejo_algido = {
-			nome = "Lampejo Álgido",
-			uso = "En",
-			acao = "padrão",
-			origem = set("congelante", "implemento", "primitivo"),
-			tipo_ataque = "distância 1",
-			alvo = "uma criatura",
-			ataque = mod.sabedoria,
-			defesa = "Fort",
-			dano = function(self, ...)
-				local dano = self.mod_sab
-				if self.caracteristica_classe:match"uardi.o" then
-					dano = dano + self.mod_con
-				end
-				return soma_dano(self, "1d6", dano, "Lampejo Álgido")
-			end,
-			efeito = "Sucesso: o alvo fica imobilizado até o FdPT.",
 		},
 		nevoa_da_escuridao = {
 			nome = "Névoa da Escuridão",

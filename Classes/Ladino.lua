@@ -89,8 +89,11 @@ return {
 		percepcao = true,
 	},
 	total_pericias = 4,
-	caracteristicas_classe = {},
+	caracteristicas_classe = {
+------- Características de Classe ----------------------------------------------
+	},
 	poderes = {
+------- Poderes Sem Limite nível 1 ---------------------------------------------
 		floreio_ardiloso = {
 			nome = "Floreio Ardiloso",
 			uso = "SL",
@@ -148,6 +151,7 @@ return {
 			defesa = "Refl",
 			dano = mod.dobra_21("[A]", "destreza", "Golpe Perfurante"),
 		},
+------- Poderes por Encontro nível 1 -------------------------------------------
 		castelo_real = {
 			nome = "Castelo Real",
 			uso = "En",
@@ -190,6 +194,7 @@ return {
 				end
 			end,
 		},
+------- Poderes Diários nível 1 ------------------------------------------------
 		alvo_facil = {
 			nome = "Alvo Fácil",
 			uso = "Di",
@@ -226,6 +231,7 @@ return {
 			dano = mod.dado_mod("3[A]", "destreza", "Golpe Traiçoeiro"),
 			efeito = "Até o final do encontro, sempre que acertar de novo o alvo, este é conduzido 1 quadrado.",
 		},
+------- Poderes Utilitários nível 1 --------------------------------------------
 		dedos_rapidos = {
 			nome = "Dedos Rápidos",
 			uso = "En",
@@ -257,5 +263,6 @@ return {
 			dano = "Ação de Movimento",
 			efeito = "Não sofre penalidades no teste de Furtividade com deslocamento normal.",
 		},
+------- Poderes por Encontro nível 3 -------------------------------------------
 	},
 }
