@@ -95,6 +95,8 @@ local armas = {
 	espada_grande_algida_3 = algida ("espada_grande", 1),
 
 	manopla_shuriken_rapida_3 = rapida ("manopla_shuriken", 1),
+	montante_magica_1 = magica ("montante", 1),
+	montante_magico_1 = magica ("montante", 1),
 }
 
 return setmetatable (armas, { __index = ArmasBasicas })
