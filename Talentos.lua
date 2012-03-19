@@ -1342,7 +1342,6 @@ return {
 	proficiencia_com_arma = { -- LJ1 -------------------------------------------
 		nome = "Proficiência com Arma",
 		proficiencia = function(self, arma)
-print(armas, arma, armas[arma])
 			if self.talentos.proficiencia_com_arma == armas[arma] then
 				return true
 			end
