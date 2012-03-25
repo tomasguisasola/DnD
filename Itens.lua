@@ -154,6 +154,21 @@ return {
 		ca = 1,
 		reflexos = 1,
 	},
+	escudo_leve_de_arremesso_6 = escudo_leve{
+		nome = "Escudo Leve de Arremesso",
+		tipo = "escudo",
+		posicao = "braço",
+		preco = 1800,
+		poder = {
+			nome = "Escudo Leve de Arremesso",
+			uso = "SL",
+			ataque = function(self) return self.mod_for + 2 end,
+			dano = function (self, dano, arma)
+				return soma_dano(self, "1d8", self.mod_for)
+			end,
+			efeito = "Uma vez por dia, quando acertar este ataque, o alvo pode ser empurrado 1 quadrado.",
+		},
+	},
 	escudo_pesado = escudo_pesado{
 		nome = "Escudo Pesado",
 		tipo = "escudo",
@@ -234,6 +249,15 @@ return {
 		posicao = "mãos",
 		preco = 360,
 		ladinagem = 1,
+	},
+	manto_da_distorcao_4 = {
+		nome = "Manto da Distorção",
+		tipo = "manto",
+		posicao = "pescoço",
+		fortitude = 1,
+		reflexos = 1,
+		vontade = 1,
+		efeito = "Recebe +1 em todas as defesas contra AaD realizados a mais de 5 quadrados.",
 	},
 	manto_da_rainha_de_rapina = {
 		nome = "Manto da Rainha de Rapina",
