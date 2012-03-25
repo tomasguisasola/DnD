@@ -210,6 +210,18 @@ return {
 			--dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
 			efeito = "Cancele a VdC de um ataque.",
 		},
+		passar_adiante = {
+			nome = "Passar Adiante",
+			uso = "SL",
+			acao = "movimento",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			--alvo = "uma criatura",
+			--ataque = mod.forca,
+			--defesa = "CA",
+			--dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
+			efeito = "Escolha um inimigo adjacente e percorra seu deslocamento.\n   Desde que termine adjacente ao mesmo inimigo, o movimento não provoca AdO.",
+		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		chuva_de_golpes = {
 			nome = "Chuva de Golpes",
@@ -222,6 +234,18 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
 			efeito = "Dois ataques.", -- três ataques se usar lamina leve, lanca ou mangual
+		},
+		danca_de_aco = {
+			nome = "Dança de Aço",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Dança de Aço"),
+			efeito = "Se usar uma haste ou lâmina pesada, o alvo fica imobilizado até o FdPT.",
 		},
 	},
 }
