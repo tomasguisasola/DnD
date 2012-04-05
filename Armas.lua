@@ -41,7 +41,13 @@ local function inescapavel (nome, bonus) -- AA 72
 		proficiencia = bonus + arma.proficiencia,
 		dano = soma_dano ({}, arma.dano, bonus),
 		decisivo = bonus.."d6",
-		efeito = "Efeito: sempre que fracassar em um ataque com esta arma, recebe +1 (até o bônus\n    máximo da arma) no próximo ataque contra o mesmo alvo.\n    O bônus se encerra se acertar o alvo ou trocar de alvo.",
+		poder = {
+			nome = "Arma Inescapável",
+			uso = "SL",
+			acao = "livre",
+			origem = set("marcial"),
+			efeito = "Efeito: sempre que fracassar em um ataque com esta arma, recebe +1 (até o bônus\n    máximo da arma) no próximo ataque contra o mesmo alvo.\n    O bônus se encerra se acertar o alvo ou trocar de alvo.",
+		},
 	}
 	return setmetatable (m, { __index = arma, })
 end
