@@ -591,8 +591,9 @@ function Personagem:meus_poderes()
 		end
 	end
 	-- Copia os poderes das armaduras
-	if self.armadura.poder then
-		self.poderes[self.armadura.poder.nome] = self.armadura.poder
+	local minha_armadura = armaduras[self.armadura.magica or self.armadura.categoria]
+	if minha_armadura.poder then
+		self.poderes[minha_armadura.poder.nome] = minha_armadura.poder
 	end
 	-- Copia os poderes das armas
 	for nome in pairs(self.armas) do
