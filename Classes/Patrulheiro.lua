@@ -146,7 +146,8 @@ return {
 			tipo_ataque = "corpo/distância",
 			gatilho = "um inimigo realiza um ataque CaC contra você",
 			alvo = "uma criatura",
-			efeito = "Efeito: você ajusta 1 quadrado e realiza um ataque básico contra o inimigo.",
+			efeito = function(self)
+				return "Efeito: ajusta 1 quadrado e realiza um ataque básico contra o inimigo com +"..self.mod_sab.." no ataque.",
 		},
 		golpe_com_a_mao_inabil = {
 			nome = "Golpe com a Mão Inábil",
@@ -169,7 +170,7 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("1[A]", "destreza", "Golpe das Duas Presas"),
+			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe das Duas Presas"),
 			efeito = function (self)
 				return "Dois ataques.  Se acertar os dois ataques, causa +"..self.mod_sab
 			end,
@@ -261,12 +262,12 @@ return {
 			uso = "Di",
 			acao = "padrão",
 			origem = set("arma", "marcial"),
-			tipo_ataque = "distância",
+			tipo_ataque = "corpo/distância",
 			alvo = "uma criatura",
-			ataque = mod.destreza,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("2[A]", "destreza", "Armadilha do Caçador de Ursos"),
-			efeito = "Sucesso: o alvo fica lento e sofre +5 de dano contínuo (TR encerra).\nFracasso: metade do dano e lento até o final do próximo turno.",
+			dano = mod.dado_mod("2[A]", "forca/destreza", "Armadilha do Caçador de Ursos"),
+			efeito = "Sucesso: alvo fica lento e sofre 5 de dano contínuo (TR encerra ambos).\nFracasso: metade do dano e lento até o FdPT.",
 		},
 		assalto_do_javali = {
 			nome = "Assalto do Javali",
@@ -277,7 +278,7 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("2[A]", "destreza", "Assalto do Javali"),
+			dano = mod.dado_mod("2[A]", "forca/destreza", "Assalto do Javali"),
 			efeito = function (self)
 				return "Sucesso: você recebe "..self.mod_sab.." PVT.\nFracasso: metade do dano.\nEfeito: até que o alvo caia a 0 PV, você recebe "..self.mod_sab.." PVT sempre que acertá-lo."
 			end,
@@ -291,7 +292,7 @@ return {
 			alvo = "uma criatura sangrando",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("3[A]", "destreza", "Fim da Caçada"),
+			dano = mod.dado_mod("3[A]", "forca/destreza", "Fim da Caçada"),
 			efeito = "Fracasso: metade do dano.\nEfeito: se o alvo for a presa, 19 ou 20 no dado resultam em um sucesso decisivo.",
 		},
 		golpe_subito = {
@@ -303,10 +304,8 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.forca,
 			defesa = "CA",
-			dano = mod.dado_mod("1[A]", "destreza", "Golpe Súbito"),
-			efeito = function(self)
-				return "Ataque secundário" -- falta cadastrar direito
-			end,
+			dano = mod.dado_mod("1[A]", "forca", "Golpe Súbito"),
+			efeito = "Efeito: ajusta 1 quadrado e realiza um ataque secundário.\n    Força X CA -> 2[A]+Força e fica enfraquecido até o FdPT.",
 		},
 		mandibulas_do_lobo = {
 			nome = "Mandíbulas do Lobo",
@@ -332,15 +331,28 @@ return {
 			dano = mod.dado_mod("2[A]", "destreza", "Repartir Disparo"),
 			efeito = "Jogue dois d20 e fique com o melhor contra os dois alvos.",
 		},
-------- Poderes Utilitários nível 1 --------------------------------------------
+------- Poderes Utilitários nível 2 --------------------------------------------
 		bloqueio_desequilibrante = {
 			nome = "Bloqueio Desequilibrante",
 			uso = "En",
-			acao = "??",
+			acao = "reação imediata",
 			origem = set("marcial"),
-			tipo_ataque = "utilitario",
-			alvo = "pessoal",
-			efeito = "??",
+			tipo_ataque = "corpo 1",
+			gatilho = "Inimigo fracassa em um ataque CaC contra você",
+			alvo = "um inimigo",
+			efeito = "Efeito: alvo é conduzido 3 quadrados para um quadrado adjacente a você,\n    que ganha VdC contra ele até o FdPT.",
+		},
+		conselho_crucial = {
+			nome = "Conselho Crucial",
+			uso = "En",
+			acao = "Reação Imediata",
+			origem = set("marcial"),
+			tipo_ataque = "distância 5",
+			gatilho = "Aliado no alcance (tem que ver e ouví-lo) realiza um teste de perícia treinada pelo patrulheiro",
+			alvo = "aliado",
+			efeito = function (self)
+				return "Efeito: aliado refaz o teste com +"..self.mod_sab.." de bônus de poder."
+			end,
 		},
 		servir_se_do_solo = {
 			nome = "Servir-se do Solo",
@@ -354,6 +366,35 @@ return {
 			end,
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
+		cortar_e_correr = {
+			nome = "Cortar e Correr",
+			uso = "En",
+			acao = "padrao",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distância",
+			alvo = "uma ou duas criaturas",
+			ataque = mod.forca_ou_destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca/destreza", "Cortar e Correr"),
+			efeito = function(self)
+				return "Efeito: dois ataques; depois de qualquer um deles, você pode ajustar "..(1+self.mod_sab)
+			end,
+		},
+		golpe_de_distracao = {
+			nome = "Golpe de Distração",
+			uso = "En",
+			acao = "interrupção imediata",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distancia",
+			gatilho = "Você ou aliado é atacado",
+			alvo = "o atacante",
+			ataque = mod.forca_ou_destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe de Distração"),
+			efeito = function(self)
+				return "Sucesso: o alvo sofre -"..(3+self.mod_sab).." neste ataque."
+			end,
+		},
 		golpe_da_vespa_das_sombras = {
 			nome = "Golpe da Vespa das Sombras",
 			uso = "En",
@@ -363,7 +404,7 @@ return {
 			alvo = "a Presa do patrulheiro",
 			ataque = mod.forca_ou_destreza,
 			defesa = "Refl",
-			dano = mod.dado_mod("2[A]", "destreza", "Golpe da Vespa das Sombras"),
+			dano = mod.dado_mod("2[A]", "forca/destreza", "Golpe da Vespa das Sombras"),
 		},
 		golpe_do_javali_presa_do_trovao = {
 			nome = "Golpe do Javali Presa do Trovão",
@@ -374,7 +415,7 @@ return {
 			alvo = "uma ou duas criaturas",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("1[A]", "destreza", "Golpe da Vespa das Sombras"),
+			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe da Vespa das Sombras"),
 			efeito = function (self)
 				return "Efeito: Dois ataques.\nSucesso: a cada sucesso, o alvo é empurrado 1 quadrado.  Se os dois golpes\n    atingirem o mesmo alvo, ele é empurrado "..(1+self.mod_sab).."quadrados."
 			end,
