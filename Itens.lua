@@ -42,6 +42,20 @@ return {
 		reflexos = 1,
 		vontade = 1,
 	},
+	bandurra_fochlucana_3 = {
+		nome = "Bandurra Fochlucana",
+		tipo = "instrumento",
+		posicao = "mochila",
+		ataque = function(self, ataque, arma)
+			return soma_dano(self, 1, ataque, arma)
+		end,
+		dano = function(self, dano, arma)
+			return soma_dano(self, 1, dano, arma)
+		end,
+		decisivo = function(self, dano, arma)
+			return soma_dano(self, "+1d6", dano, arma)
+		end,
+	},
 	bastao_solar = {
 		nome = "Bastão Solar",
 		tipo = "bastao",
