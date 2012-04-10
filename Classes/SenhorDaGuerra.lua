@@ -57,9 +57,9 @@ return {
 				if c:match"destemida" then -- PM
 					return "Quando um aliado na linha de visão gasta um PdA, pode escolher um benefício:\nse acertar, pode realizar um ataque básico ou ação de movimento (livre);\nse errar, concede VdC a todos os inimigos até o FdPT."
 				elseif c:match"engenhosa" then -- PM
-					return "Quando um aliado na linha de visão gasta um PdA, recebe +"..(meio_nivel + self.mod_int).." no dano.\nSe fracassar, recebe "..(meio_nivel + self.mod_car).."PVT."
+					return "Quando um aliado na linha de visão gasta um PdA, recebe +"..(meio_nivel + self.mod_int).." no dano.\nSe fracassar, recebe "..(meio_nivel + self.mod_car).." PVT."
 				elseif c:match"inspiradora" then -- LJ1
-					return "Quando um aliado na linha de visão gasta um PdA, recupera +"..(meio_nivel + self.mod_car).."PV perdidos."
+					return "Quando um aliado na linha de visão gasta um PdA, recupera +"..(meio_nivel + self.mod_car).." PV perdidos."
 				elseif c:match"t.tica" then -- LJ1
 					return "Quando um aliado na linha de visão gasta um PdA, recebe +"..math.floor(self.mod_int/2).." no ataque."
 				else
