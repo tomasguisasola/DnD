@@ -672,10 +672,11 @@ function Personagem:meus_poderes()
 			local linhas = { (modelo_poder_arma_nome:tagged (caracs)) }
 			for nome_arma in pairs(self.armas) do --{
 				local arma = armas[nome_arma]
+				local poder_arma = poder.."+"..nome_arma
 				local tipo = arma.tipo:match"^%w+" -- primeira palavra
 				if esse_poder.tipo_ataque:match(tipo) then --{
 					caracs.arma = arma.nome
-					local at = soma_dano (self, arma.ataque, ataque_poder, poder)
+					local at = soma_dano (self, arma.ataque, ataque_poder, poder_arma)
 					if minha_classe.ataque then
 						at = soma_dano(self, at, minha_classe.ataque(self, arma), nome)
 					end
@@ -700,7 +701,7 @@ function Personagem:meus_poderes()
 					end --}
 					caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
 					if type(caracs.dano) == "function" then
-						caracs.dano = caracs.dano (self)
+						caracs.dano = caracs.dano (self, nil, poder_arma)
 					end
 					linhas[#linhas+1] = modelo_poder_arma_ataque:tagged (caracs)
 				end --}
