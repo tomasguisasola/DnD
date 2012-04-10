@@ -91,6 +91,26 @@ local function rapida (nome, bonus) -- AA 76
 	return setmetatable (m, { __index = arma, })
 end
 
+local function trovejante (nome, bonus) -- LJ1 ??
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." Trovejante",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma Trovejante",
+			uso = "Di",
+			acao = "livre",
+			origem = set("trovejante"),
+			dano = "+1d8 trovejante",
+			efeito = "Efeito: empurra o alvo 1 quadrado",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
@@ -98,6 +118,7 @@ local armas = {
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
+	espada_longa_trovejante_4 = trovejante ("espada_longa", 1),
 	espada_grande_algida_3 = algida ("espada_grande", 1),
 
 	manopla_shuriken_rapida_3 = rapida ("manopla_shuriken", 1),
