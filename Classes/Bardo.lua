@@ -16,6 +16,8 @@ return {
 	pc_dia = 7,
 	implementos = {
 		varinha = true,
+		lamina_da_cancao = true,
+		instrumento = true,
 	},
 	pericias = {
 		arcanismo = "treinada",
@@ -176,7 +178,7 @@ return {
 				if self.caracteristica_classe == "virtude da bravura" then
 					deslocamento = self.mod_con
 				end
-				return "Alvos são empurrados "..deslocamento.." quadrado(s) e aliados conduzidos "..deslocamento.." quadrado(s)."
+				return "Sucesso: alvos atingidos são empurrados "..deslocamento.." quadrado(s).\nEfeito: aliados na rajada são conduzidos "..deslocamento.." quadrado(s)."
 			end,
 		},
 		refrao_inspirador = {
