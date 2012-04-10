@@ -696,7 +696,7 @@ function Personagem:meus_poderes()
 						for car in pairs(set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")) do --{
 							if talento[car] then
 								local bonus = talento[car] (self, esse_poder, arma, valor)
-								caracs[car] = soma_dano (self, caracs[car], bonus, poder)
+								caracs[car] = soma_dano (self, bonus, caracs[car], poder)
 							end
 						end --}
 					end --}
