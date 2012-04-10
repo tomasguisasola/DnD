@@ -1159,7 +1159,7 @@ return {
 	medico_de_combate = { -- LJ2 -----------------------------------------------
 		nome = "Médico de Combate",
 		requisito = {
-			pericias = set("socorro"),
+			pericias = treinamento("socorro"),
 		},
 		socorro = 2,
 		efeito = "Ação mínima (ao invés da padrão) para estabilizar criatura morrendo.\n+2 nos testes de socorro.",
@@ -1531,7 +1531,8 @@ return {
 		nome = "Soldado Eladrin",
 		requisito = {
 			raca = "eladrin",
-		}, efeito = "Proficiência com todas as lanças, +2 de bônus com espadas longas e lanças.",
+		},
+		efeito = "Proficiência com todas as lanças, +2 de bônus com espadas longas e lanças.",
 	},
 
 	sopro_adaptavel = { -- D ---------------------------------------------------
