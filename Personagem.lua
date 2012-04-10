@@ -700,7 +700,7 @@ function Personagem:meus_poderes()
 							end
 						end --}
 					end --}
-					caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
+					caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder_arma)
 					if type(caracs.dano) == "function" then
 						caracs.dano = caracs.dano (self, nil, poder_arma)
 					end
