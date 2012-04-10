@@ -63,6 +63,12 @@ return {
 		dano = implemento_basico("cajado", 2),
 		decisivo = implemento_basico("cajado", "+2d6"),
 	},
+	lamina_da_cancao_pungente_3 = { -- LJ2 204
+		tipo = "lamina_da_cancao",
+		ataque = implemento_basico("lamina_da_cancao", 1),
+		dano = implemento_basico("lamina_da_cancao", 1),
+		decisivo = implemento_basico("lamina_da_cancao", "+1d6"),
+	},
 	simbolo_da_vida_2 = {
 		tipo = "simbolo",
 		ataque = implemento_basico("simbolo_sagrado", 1),
