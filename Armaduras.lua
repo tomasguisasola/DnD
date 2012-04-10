@@ -125,12 +125,12 @@ return {
 		preco = 840,
 		ca = 1,
 		poder = {
-			nome = "Armadura Snaguínea",
+			nome = "Armadura Sanguínea",
 			uso = "Diário",
 			acao = "minima",
 			origem = set("armadura"),
 			condicao = "O personagem precisa estar sangrando.",
-			efeito = "Adquire resitência 10 contra todos os tipos de dano até o final do próximo turno.",
+			efeito = "Adquire resitência 10 contra todos os tipos de dano até o FdPT.",
 		},
 	},
 	skald_3 = {
@@ -142,9 +142,10 @@ return {
 		poder = {
 			nome = "Armadura de Skald",
 			uso = "Diário",
+			acao = "interrupção imediata",
 			origem = set("armadura"),
-			gatilho = "O personagem é alvo de um poder de ataque corpo-a-corpo.",
-			efeito = "O inimigo que ativou o gatilho realiza o ataque contra outra criatura a escolha do personagem.",
+			gatilho = "O personagem é alvo de um poder de ataque CaC.",
+			efeito = "O inimigo realiza o ataque contra outra criatura a escolha do personagem.",
 		},
 	},
 }
