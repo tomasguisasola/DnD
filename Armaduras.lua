@@ -46,6 +46,7 @@ return {
 			nome = "Armadura Casca de Árvore",
 			uso = "Diário",
 			acao = "mínima",
+			origem = set("armadura"),
 			efeito = "Recebe +2 de bônus de poder na CA até o FdE.\n    Sempre que um golpe atingir sua CA, reduza este bônus em 1 ponto até 0.",
 		},
 	},
@@ -62,7 +63,9 @@ return {
 		ca = 1,
 		resistencia = 2, -- poder diario
 		poder = {
+			nome = "Armadura do Explorador",
 			uso = "Diário",
+			origem = set("armadura"),
 			efeito = "Repita um teste de resistência com +2 bônus",
 		},
 	},
@@ -73,6 +76,7 @@ return {
 		poder = {
 			nome = "Armadura do Sacrifício",
 			uso = "Diário",
+			origem = set("armadura"),
 			efeito = "Efeito: você gasta um PC (mínima) e um aliado a até 5 recupera PV\n    como se tivesse gasto um PC.",
 		},
 	},
@@ -81,7 +85,9 @@ return {
 		categoria = set("corselete", "gibao"),
 		ca = 1,
 		poder = {
+			nome = "Armadura dos Mortos",
 			uso = "Diário",
+			origem = set("armadura"),
 			gatilho = "O personagem é alvo de um poder de ataque corpo-a-corpo.",
 			efeito = function (self)
 				return "O inimigo que ativou o gatilho sofre 1d10+"..self.mod_car.." de dano necrótico."
@@ -93,8 +99,24 @@ return {
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
 		ca = 2,
 		poder = {
+			nome = "Armadura Invocada",
 			uso = "Sem Limite",
+			origem = set("armadura"),
 			efeito = "O personagem bane a armadura para um local extradimensional seguro. Em qualquer\nmomento no futuro -- a menos que esteja usando outra armadura -- ele pode usar\noutra ação mínima para fazer com que a armadura retorne, aparecendo no corpo do personagem como se ele a tivesse vestido normalmente.",
+		},
+	},
+	robe_da_contingencia_4 = {
+		nome = "Robe da Contingência +1",
+		categoria = set("traje"),
+		preco = 840,
+		ca = 1,
+		poder = {
+			nome = "Robe da Contingência",
+			uso = "Diário",
+			acao = "reação imediata",
+			origem = set("cura", "teleporte"),
+			gatilho = "Estar sangrando e ser atingido por um ataque",
+			efeito = "Efeito: você se teleporta 6 quadrados e pode gastar um PC.",
 		},
 	},
 	sanguinea_4 = {
@@ -103,8 +125,10 @@ return {
 		preco = 840,
 		ca = 1,
 		poder = {
+			nome = "Armadura Snaguínea",
 			uso = "Diário",
 			acao = "minima",
+			origem = set("armadura"),
 			condicao = "O personagem precisa estar sangrando.",
 			efeito = "Adquire resitência 10 contra todos os tipos de dano até o final do próximo turno.",
 		},
@@ -116,7 +140,9 @@ return {
 		blefe = 2,
 		diplomacia = 2,
 		poder = {
+			nome = "Armadura de Skald",
 			uso = "Diário",
+			origem = set("armadura"),
 			gatilho = "O personagem é alvo de um poder de ataque corpo-a-corpo.",
 			efeito = "O inimigo que ativou o gatilho realiza o ataque contra outra criatura a escolha do personagem.",
 		},
