@@ -583,10 +583,11 @@ function Personagem:meus_poderes()
 		self.poderes[poder] = meu_poder
 	end
 	-- Copia os poderes dos implementos
-	for implemento, meu_implemento in pairs(self.implementos) do
-		local esse_poder = meu_implemento.poder or assert(implementos[implemento], "Não achei o implemento "..implemento).poder
+	for nome in pairs(self.implementos) do
+		local implemento = assert(implementos[nome], "Não achei o implemento "..nome)
+		local esse_poder = implemento.poder
 		if esse_poder then
-			self.poderes[implemento] = esse_poder
+			self.poderes[nome] = esse_poder
 		end
 	end
 	-- Copia os poderes das armaduras
@@ -708,8 +709,12 @@ function Personagem:meus_poderes()
 		elseif esse_poder.origem.implemento then
 			for nome_impl, implemento in pairs(self.implementos or {}) do
 				local implemento = implementos[nome_impl] or implemento
-				caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
-				caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
+				if minha_classe.implementos[implemento.tipo] then
+					caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
+					caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
+				else
+					print(nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
+				end
 			end
 			caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
 			if type(caracs.dano) == "function" then
