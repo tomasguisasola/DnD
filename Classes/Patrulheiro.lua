@@ -66,12 +66,17 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
 			alvo = "uma criatura",
-			ataque = function (self,...)
-print("!",...)
-				return self.mod_des+2
+			ataque = function (self, ataque, poder_arma)
+				local poder, nome_arma = poder_arma:match"^([^+]*)%+(.*)$"
+				local arma = armas[nome_arma]
+				if arma.tipo:match"dist" then
+					return soma_dano(self, self.mod_des+2, ataque, poder_arma)
+				else
+					return soma_dano(self, self.mod_for+2, ataque, poder_arma)
+				end
 			end,
 			defesa = "CA",
-			dano = mod.dobra_21("[A]", "destreza", "Ataque Cauteloso"),
+			dano = mod.dobra_21("[A]", "forca/destreza", "Ataque Cauteloso"),
 		},
 		bater_e_correr = {
 			nome = "Bater e Correr",
@@ -103,7 +108,7 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
 			alvo = "uma ou duas criaturas",
-			ataque = mod.destreza,
+			ataque = mod.forca_ou_destreza,
 			condicao = "Deve empunhar duas armas corpo-a-corpo ou uma à distância.",
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "", "Golpes Gêmeos"),
@@ -162,7 +167,7 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
 			alvo = "uma criatura",
-			ataque = mod.forca,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "destreza", "Golpe das Duas Presas"),
 			efeito = function (self)
@@ -199,11 +204,11 @@ print("!",...)
 			uso = "En",
 			acao = "padrão",
 			origem = set("arma", "marcial"),
-			tipo_ataque = "distancia",
+			tipo_ataque = "corpo/distancia",
 			alvo = "uma criatura",
-			ataque = mod.destreza,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("2[A]", "destreza", "Golpe Evasivo"),
+			dano = mod.dado_mod("2[A]", "forca/destreza", "Golpe Evasivo"),
 			efeito = function(self)
 				return "Efeito: você pode ajustar "..(1+self.mod_sab).." quadrados antes ou depois do ataque."
 			end,
@@ -270,7 +275,7 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distância",
 			alvo = "uma criatura",
-			ataque = mod.destreza, -- ou mod.forca,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "destreza", "Assalto do Javali"),
 			efeito = function (self)
@@ -284,7 +289,7 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distância",
 			alvo = "uma criatura sangrando",
-			ataque = mod.destreza, -- ou mod.forca,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("3[A]", "destreza", "Fim da Caçada"),
 			efeito = "Fracasso: metade do dano.\nEfeito: se o alvo for a presa, 19 ou 20 no dado resultam em um sucesso decisivo.",
@@ -356,7 +361,7 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
 			alvo = "a Presa do patrulheiro",
-			ataque = mod.destreza,
+			ataque = mod.forca_ou_destreza,
 			defesa = "Refl",
 			dano = mod.dado_mod("2[A]", "destreza", "Golpe da Vespa das Sombras"),
 		},
@@ -367,10 +372,12 @@ print("!",...)
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
 			alvo = "uma ou duas criaturas",
-			ataque = mod.destreza,
+			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "destreza", "Golpe da Vespa das Sombras"),
-			efeito = "Dois ataques e o alvo é empurrado 1 quadrado.",
+			efeito = function (self)
+				return "Efeito: Dois ataques.\nSucesso: a cada sucesso, o alvo é empurrado 1 quadrado.  Se os dois golpes\n    atingirem o mesmo alvo, ele é empurrado "..(1+self.mod_sab).."quadrados."
+			end,
 		},
 	},
 }
