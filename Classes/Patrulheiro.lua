@@ -147,7 +147,8 @@ return {
 			gatilho = "um inimigo realiza um ataque CaC contra você",
 			alvo = "uma criatura",
 			efeito = function(self)
-				return "Efeito: ajusta 1 quadrado e realiza um ataque básico contra o inimigo com +"..self.mod_sab.." no ataque.",
+				return "Efeito: ajusta 1 quadrado e realiza um ataque básico contra o inimigo com +"..self.mod_sab.." no ataque."
+			end,
 		},
 		golpe_com_a_mao_inabil = {
 			nome = "Golpe com a Mão Inábil",
