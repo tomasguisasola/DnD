@@ -45,7 +45,7 @@ return {
 				origem = {},
 				tipo_ataque = "rajada contígua 3",
 				alvo = "criaturas na rajada",
-				ataque = function(self)
+				ataque = function(self, ataque, poder_arma)
 					local bonus
 					if self.nivel >= 21 then
 						bonus = 6
@@ -54,7 +54,7 @@ return {
 					else
 						bonus = 2
 					end
-					return bonus+self["mod_"..self.mod_sopro]
+					return soma_dano(self, bonus+self["mod_"..self.mod_sopro], ataque, poder_arma)
 				end,
 				defesa = "Ref",
 				dano = function(self)
