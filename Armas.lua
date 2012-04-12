@@ -91,7 +91,7 @@ local function rapida (nome, bonus) -- AA 76
 	return setmetatable (m, { __index = arma, })
 end
 
-local function trovejante (nome, bonus) -- LJ1 ??
+local function trovejante (nome, bonus) -- LJ1 235
 	local arma = ArmasBasicas[nome]
 	local m = {
 		nome = arma.nome.." Trovejante",
