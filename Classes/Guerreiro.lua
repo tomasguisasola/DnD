@@ -142,12 +142,12 @@ return {
 			uso = "En",
 			acao = "padrão",
 			origem = set("arma", "marcial"),
-			tipo_ataque = "corpo", --"explosão contígua 1",
-			alvo = "os inimigos adjacentes e na linha de visão",
+			tipo_ataque = "corpo",
+			alvo = "duas criaturas",
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Ataque de Passagem"),
--- falta terminar
+			efeito = "Sucesso: pode ajustar 1 quadrado; realize um ataque secundário com +2 no ataque\n    contra outro inimigo.",
 		},
 		lamina_da_serpente_de_aco = {
 			nome = "Lâmina da Serpente de Aço",
@@ -160,6 +160,18 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Lâmina da Serpente de Aço"),
 			efeito = "O alvo fica lento e não pode ajustar até o final do próximo turno.",
+		},
+		rasteira_giratoria = {
+			nome = "Rasteira Giratória",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Rasteira Giratória"),
+			efeito = "Sucesso: alvo fica derrubado.",
 		},
 ------- Poderes Diários nível 1 ------------------------------------------------
 		ameacar_o_vilao = {
@@ -197,18 +209,33 @@ return {
 				return "Adquire regeneração "..2+self.mod_con.." quando estiver sangrando."
 			end,
 		},
-------- Poderes Utilitários nível 1 --------------------------------------------
+------- Poderes Utilitários nível 2 --------------------------------------------
+		comigo_agora = {
+			nome = "Comigo, Agora!",
+			uso = "En",
+			acao = "movimento",
+			origem = set("marcial"),
+			tipo_ataque = "corpo 1",
+			alvo = "aliado adjacente",
+			efeito = "O alvo é conduzido 2 quadrados para um quadrado adjacente a você.",
+		},
 		fechar_a_guarda = {
 			nome = "Fechar a Guarda",
 			uso = "En",
 			acao = "int. imediata",
 			origem = set("marcial"),
 			tipo_ataque = "corpo",
-			--alvo = "uma criatura",
-			--ataque = mod.forca,
-			--defesa = "CA",
-			--dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
 			efeito = "Cancele a VdC de um ataque.",
+		},
+		irrefreavel = {
+			nome = "Irrefreável",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("cura", "marcial"),
+			tipo_ataque = "pessoal",
+			efeito = function(self)
+				return "Você recebe 2d6+"..self.mod_con.." PVT."
+			end,
 		},
 		passar_adiante = {
 			nome = "Passar Adiante",
@@ -216,11 +243,17 @@ return {
 			acao = "movimento",
 			origem = set("marcial"),
 			tipo_ataque = "pessoal",
-			--alvo = "uma criatura",
-			--ataque = mod.forca,
-			--defesa = "CA",
-			--dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
 			efeito = "Escolha um inimigo adjacente e percorra seu deslocamento.\n   Desde que termine adjacente ao mesmo inimigo, o movimento não provoca AdO.",
+		},
+		tolerancia_ilimitada = {
+			nome = "Tolerância Ilimitada",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("cura", "marcial", "postura"),
+			tipo_ataque = "pessoal",
+			efeito = function(self)
+				return "Você adquire regeneração "..(2+self.mod_con).." quando estiver sangrando."
+			end,
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		chuva_de_golpes = {
@@ -233,7 +266,13 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Chuva de Golpes"),
-			efeito = "Dois ataques.", -- três ataques se usar lamina leve, lanca ou mangual
+			efeito = function(self)
+				local extra = ""
+				if self.destreza >= 15 then
+					extra = "  Se usar uma lâmina leve, lança ou mangual,\n    realize um 3o. ataque contra o mesmo alvo ou outra criatura."
+				end
+				return "Efeito: dois ataques."..extra
+			end,
 		},
 		danca_de_aco = {
 			nome = "Dança de Aço",
@@ -245,7 +284,82 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Dança de Aço"),
-			efeito = "Se usar uma haste ou lâmina pesada, o alvo fica imobilizado até o FdPT.",
+			efeito = "Efeito: se usar uma haste ou lâmina pesada, o alvo fica imobilizado até o FdPT.",
 		},
+		estocada_contra_armaduras = {
+			nome = "Estocada contra Armaduras",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = function(self, ataque, poder_arma)
+				local bonus = 0
+				local arma = armas[poder_arma:match"%+(.*)"]
+				if arma.grupo == "leve" or arma.grupo == "lanca" then
+					bonus = self.mod_des
+				end
+				return self.mod_for + bonus
+			end,
+			defesa = "Ref",
+			dano = function(self, dano, poder_arma)
+				local bonus = 0
+				local arma = armas[poder_arma:match"%+(.*)"]
+				if arma.grupo == "leve" or arma.grupo == "lanca" then
+					bonus = self.mod_des
+				end
+				return soma_dano(self, "1[A]", self.mod_for + bonus, "Estocada contra Armaduras")
+			end,
+		},
+		golpe_esmagador = {
+			nome = "Golpe Esmagador",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = function(self, dano, poder_arma)
+				local bonus = 0
+				local arma = armas[poder_arma:match"%+(.*)"]
+				if arma.grupo == "machado" or arma.grupo == "martelo" or arma.grupo == "maca" then
+					bonus = self.mod_con
+				end
+				return soma_dano(self, "2[A]", self.mod_for + bonus, "Golpe Esmagador")
+			end,
+		},
+		golpe_rasteiro = {
+			nome = "Golpe Rasteiro",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "explosão contígua 1",
+			alvo = "inimigos na área e linha de visão",
+			ataque = function(self, ataque, poder_arma)
+				local bonus = 0
+				local arma = armas[poder_arma:match"%+.(.*)"]
+				if arma.grupo == "machado" or arma.grupo == "mangual" or arma.grupo == "pesada" or arma.grupo == "picareta" then
+					bonus = math.floor(self.mod_for/2)
+				end
+				return soma_dano(self, "1[A]", self.mod_for + bonus, "Golpe Rasteiro")
+			end,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Golpe Rasteiro"),
+		},
+		golpe_preciso = {
+			nome = "Golpe Preciso",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = function(self, ataque, poder_arma)
+				return self.mod_for + 4
+			end,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Golpe Preciso"),
+		},
+------- Poderes Diários nível 5 ------------------------------------------------
 	},
 }
