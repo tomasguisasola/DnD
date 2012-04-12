@@ -104,7 +104,7 @@ local function trovejante (nome, bonus) -- LJ1 ??
 			uso = "Di",
 			acao = "livre",
 			origem = set("trovejante"),
-			dano = "+1d8 trovejante",
+			dano = "+"..math.floor((bonus+1)/2).."d8",
 			efeito = "Efeito: empurra o alvo 1 quadrado",
 		},
 	}
@@ -118,7 +118,7 @@ local armas = {
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
-	espada_longa_trovejante_4 = trovejante ("espada_longa", 1),
+	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_grande_algida_3 = algida ("espada_grande", 1),
 
 	manopla_shuriken_rapida_3 = rapida ("manopla_shuriken", 1),
