@@ -231,7 +231,7 @@ return {
 			dano = mod.dado_mod("3[A]", "destreza", "Golpe Traiçoeiro"),
 			efeito = "Até o final do encontro, sempre que acertar de novo o alvo, este é conduzido 1 quadrado.",
 		},
-------- Poderes Utilitários nível 1 --------------------------------------------
+------- Poderes Utilitários nível 2 --------------------------------------------
 		dedos_rapidos = {
 			nome = "Dedos Rápidos",
 			uso = "En",
@@ -264,5 +264,56 @@ return {
 			efeito = "Não sofre penalidades no teste de Furtividade com deslocamento normal.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
+		atrair_e_comutar = {
+			nome = "Atrair e Comutar",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "Von",
+			dano = mod.dado_mod("2[A]", "destreza", "Atrair e Comutar"),
+			efeito = function (self)
+				local ajuste = 1
+				if self.caracteristica_classe:lower():match"esquivo" then
+					ajuste = self.mod_car
+				end
+				return "Sucesso: troca de lugar com o alvo e depois pode ajustar "..ajuste.." quadrado(s)."
+			end,
+		},
+		desabar = {
+			nome = "Desabar",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = function (self, mais)
+-- !!! funciona ???
+				if self.caracteristica_classe:lower():match"brutal" then
+					return self.mod_des + self.mod_for
+				else
+					return self.mod_des
+				end
+			end,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "destreza", "Desabar"),
+			efeito = "Sucesso: o alvo fica derrubado.",
+		},
+		lamina_do_trapaceiro = {
+			nome = "Lâmina do Trapaçeiro",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distancia",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "destreza", "Lâmina do Trapaçeiro"),
+			efeito = function (self)
+				return "Sucesso: ganhe +"..self.mod_car.." na CA até o CdPT."
+			end,
+		},
 	},
 }
