@@ -57,6 +57,19 @@ return {
 		atletismo = 1,
 		furtividade = 1,
 	},
+	da_furtividade_3 = {
+		nome = "da Furtividade +1",
+		categoria = set("traje", "corselete"),
+		ca = 1,
+		furtividade = 2,
+		poder = {
+			nome = "Armadura da Furtividade",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("armadura"),
+			efeito = "Obtém sucesso automático no próximo teste de Furtividade.",
+		},
+	},
 	do_explorador_1 = {
 		nome = "do Explorador +1",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
