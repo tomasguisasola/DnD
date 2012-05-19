@@ -80,7 +80,7 @@ return {
 		poderes = {
 			nuvem_da_escuridao = {
 				nome = "Nuvem da Escuridão",
-				uso = "Encontro",
+				uso = "En",
 				origem = {},
 				tipo_ataque = "explosão contígua 1",
 --[[

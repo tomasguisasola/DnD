@@ -573,7 +573,7 @@ return {
 		requisito = {
 			raca = "drow",
 		},
-		efeito = "Aumenta a área de explosão 2 para explosão 1.",
+		efeito = "Aumenta a área de explosão 1 para explosão 2.",
 	},
 
 	duravel = { -- LJ1 ---------------------------------------------------------
