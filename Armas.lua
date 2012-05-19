@@ -33,6 +33,20 @@ local function algida (nome, bonus)
 	return setmetatable (m, { __index = arma, })
 end
 
+local function traicoeira (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." Traiçoeira",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		alcance = arma.alcance:gsub ("(%d+)%/(%d+)", function (n, e) return (n+2)..'/'..(n+4) end),
+		efeito = "Sempre que acertar um at. traiçoeiro, cause +5 de dano.",
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function inescapavel (nome, bonus) -- AA 72
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -113,6 +127,7 @@ end
 
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
+	adaga_traicoeira_4 = traicoeira ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
 	azagaia_magica_1 = magica ("azagaia", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
