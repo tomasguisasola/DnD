@@ -934,7 +934,7 @@ function Personagem:minhas_pericias()
 	if total > total_pericias then
 		return "Mais perícias do que o possível"
 	elseif total < total_pericias then
-		print "Menos perícias do que o possível"
+		return "Menos perícias do que o possível"
 	end
 	return true
 end
