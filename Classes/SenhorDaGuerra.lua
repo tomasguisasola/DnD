@@ -5,6 +5,7 @@ local tipos_armas = require"DnD.TiposArmas"
 local mod = require"DnD.Modificadores"
 
 return {
+	nome = "Senhor da Guerra",
 	fonte_de_poder = "marcial",
 	fortitude = 1,
 	vontade = 1,
