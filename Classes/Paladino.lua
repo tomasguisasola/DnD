@@ -138,6 +138,9 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "carisma"),
+			efeito = function (self)
+				return "Sucesso: Até o FdPT, um aliado a até 5 recebe +"..self.mod_sab.." na CA."
+			end,
 		},
 		punicao_radiante = {
 			nome = "Punição Radiante",
