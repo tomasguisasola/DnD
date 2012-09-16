@@ -50,7 +50,7 @@ return {
 			efeito = "Recebe +2 de bônus de poder na CA até o FdE.\n    Sempre que um golpe atingir sua CA, reduza este bônus em 1 ponto até 0.",
 		},
 	},
-	silvestre_1 = {
+	silvestre_3 = {
 		nome = "Silvestre +1",
 		categoria = set("traje", "corselete", "gibao"),
 		ca = 1,
