@@ -52,11 +52,14 @@ return {
 				return "+"..self.mod_int.." no dano contra inimigos sangrando."
 			end,
 			efeito = function(self)
-				local c = assert(self.caracteristica_classe, "Falta escolher a característica de classe"):lower()
+				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"erseguidor" then
 					return "Aliados adjacentes ao CE recebem +"..self.mod_int.." no dano contra inimigos sangrando."
 				elseif c:match"rotetor" then
 					return "Aliados adjacentes ao CE recuperam +"..self.mod_con.." PV ao retomar o fôlego ou nos poderes de cura aplicados pelo personagem."
+				else
+					Personagem.warn"Sem característica de classe definida."
+					return "Sem efeito, pois não há característica de classe definida."
 				end
 			end,
 		},
@@ -70,14 +73,16 @@ return {
 			ataque = mod.sabedoria,
 			defesa = "Ref",
 			dano = function(self)
-				if self.caracteristica_classe:match"erseguidor" then
+				if (self.caracteristica_classe or ''):match"erseguidor" then
 					return mod.dobra_21("1d10", "sabedoria", "Presas do Espírito")(self)
-				elseif self.caracteristica_classe:match"rotetor" then
+				elseif (self.caracteristica_classe or ''):match"rotetor" then
 					return self.mod_sab
+				else
+					return 0
 				end
 			end,
 			efeito = function(self)
-				if self.caracteristica_classe:match"rotetor" then
+				if (self.caracteristica_classe or ''):match"rotetor" then
 					return "Um aliado a até 5 quadrados recupera "..self.mod_con.." PV."
 				else
 					return ""

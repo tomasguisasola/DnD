@@ -24,7 +24,7 @@ return {
 	pericias = set("atletismo", "intimidacao", "manha", "socorro", "tolerancia"),
 	total_pericias = 3,
 	talentos = function (self)
-		local c = assert(self.caracteristica_classe, "Falta definir a característica de classe"):lower()
+		local c = (self.caracteristica_classe or ''):lower()
 		if c:match"guerreiro tempestuoso" then
 			return "defesa_com_duas_armas", true
 		end

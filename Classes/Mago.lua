@@ -3,6 +3,7 @@ local soma_dano = require"DnD.Soma".soma
 local armas = require"DnD.Armas"
 local tipos_armas = require"DnD.TiposArmas"
 local mod = require"DnD.Modificadores"
+local Personagem = require"DnD.Personagem"
 
 return {
 	nome = "Mago",
@@ -10,7 +11,7 @@ return {
 	vontade = 2,
 	armaduras = set("traje"),
 	ca = function (self)
-		if self.caracteristica_classe:match"[Cc]ajado" then
+		if (self.caracteristica_classe or ''):match"[Cc]ajado" then
 			return false, 1
 		else
 			return false, 0
@@ -51,13 +52,16 @@ return {
 			--defesa = "CA",
 			--dano
 			efeito = function(self)
-				local c = assert(self.caracteristica_classe, "Falta definir a característica de classe"):lower()
+				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"ajado" then
 					return "Com uma interrupção imediata, após o resultado do dano que for receber, ganhar +"..self.mod_con.." na CA contra este ataque (o que pode anulá-lo)."
 				elseif c:match"orbe" then
 					return "-"..self.mod_sab.." de penalidade no próximo TR contra um efeito provocado por uma de suas magias que uma criatura for fazer."
 				elseif c:match"varinha" then
 					return "+"..self.mod_des.." na próxima jogada de ataque."
+				else
+					Personagem.warn"Sem característica de classe definida."
+					return "Sem efeito, pois não há característica de classe definida."
 				end
 			end,
 		},
