@@ -207,6 +207,8 @@ Personagem = {
 
 	intuicao_passiva = function(self) return 10 + self.intuicao end,
 	percepcao_passiva = function(self) return 10 + self.percepcao end,
+
+	warn = print,
 }
 
 function Personagem:ca()
@@ -230,7 +232,7 @@ function Personagem:ca()
 		self.talentos.proficiencia_com_armadura == self.armadura.categoria then
 		armadura = categoria_armadura.bonus
 	else
-		print("\t!!! O personagem não é proficiente com esse tipo de armadura: "..self.armadura.categoria.."!!!")
+		Personagem.warn ("\t!!! O personagem não é proficiente com esse tipo de armadura: "..self.armadura.categoria.."!!!")
 	end
 	local magica = 0
 	if armadura_magica then
@@ -270,7 +272,7 @@ function Personagem:ca()
 	end
 	self.ca_oportunidade = oportunidade
 --!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
---print(string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(cajado de mago)+%d(classe)", math.floor(self.nivel/2), atrib, armadura, magica, item, implemento, cajado_mago, classe))
+--Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(cajado de mago)+%d(classe)", math.floor(self.nivel/2), atrib, armadura, magica, item, implemento, cajado_mago, classe))
 	return ca
 end
 
@@ -715,7 +717,7 @@ function Personagem:meus_poderes()
 					caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
 					caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
 				else
-					print(nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
+					Personagem.warn (nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
 				end
 			end
 			caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
@@ -934,7 +936,7 @@ function Personagem:minhas_pericias()
 	if total > total_pericias then
 		return "Mais perícias do que o possível"
 	elseif total < total_pericias then
-		return "Menos perícias do que o possível"
+		Personagem.warn"Menos perícias do que o possível"
 	end
 	return true
 end
