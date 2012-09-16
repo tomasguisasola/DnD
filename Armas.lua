@@ -86,6 +86,26 @@ local function da_cancao_pungente (nome, bonus) -- LJ2 204
 	return setmetatable (m, { __index = arma, })
 end
 
+local function matadora_dragoes (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." Matadora de Dragões",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		efeito = "Resistência 5 contra sopro de dragões",
+		poder = {
+			nome = "Matadora de Dragões",
+			uso = "Di",
+			acao = "livre",
+			origem = {},
+			efeito = "Quando atingir um inimigo com esta arma, causa +"..bonus.."d6 (ou +"..bonus.."d10 contra dragões).",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function rapida (nome, bonus) -- AA 76
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -135,6 +155,7 @@ local armas = {
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
 	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_grande_algida_3 = algida ("espada_grande", 1),
+	espada_grande_matadora_de_dragoes_7 = matadora_dragoes ("espada_grande", 2),
 
 	manopla_shuriken_rapida_3 = rapida ("manopla_shuriken", 1),
 	montante_magica_1 = magica ("montante", 1),

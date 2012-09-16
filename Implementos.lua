@@ -70,20 +70,20 @@ return {
 		decisivo = implemento_basico("lamina_da_cancao", "+1d6"),
 	},
 	simbolo_da_vida_2 = {
-		tipo = "simbolo",
+		tipo = "simbolo_sagrado",
 		ataque = implemento_basico("simbolo_sagrado", 1),
 		dano = implemento_basico("simbolo_sagrado", 1),
 		decisivo = implemento_basico("simbolo_sagrado", "+1d6"),
 	},
 	simbolo_da_esperanca_3 = {
-		tipo = "simbolo",
+		tipo = "simbolo_sagrado",
 		ataque = implemento_basico("simbolo_sagrado", 1),
 		dano = implemento_basico("simbolo_sagrado", 1),
 		decisivo = implemento_basico("simbolo_sagrado", "+1d6"),
 		preco = 680,
 	},
 	simbolo_da_batalha_5 = {
-		tipo = "simbolo",
+		tipo = "simbolo_sagrado",
 		ataque = implemento_basico("simbolo_sagrado", 1),
 		dano = implemento_basico("simbolo_sagrado", 1),
 		decisivo = implemento_basico("simbolo_sagrado", "+1d8"),
