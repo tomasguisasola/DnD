@@ -2,6 +2,9 @@ local set = require"DnD.Set"
 
 local mt = {
 	__index = function (tab, key)
+		if key == nil then
+			return nil
+		end
 		local Key = key:gsub ("^(.)", string.upper)
 			:gsub ("_(.)([^_]*)", function (i, rest)
 				return i:upper()..rest:lower()

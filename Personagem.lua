@@ -986,7 +986,7 @@ setmetatable(Personagem, {
 		end
 		obj = setmetatable(obj, meta)
 		-- copia as proficienias com armaduras
-		local classe = classes[obj.classe]
+		local classe = assert (classes[obj.classe], "Não foi definida uma classe para o personagem")
 		local p = {}
 		for armadura in pairs(classe.armaduras) do
 			p[armadura] = true
