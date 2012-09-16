@@ -15,6 +15,7 @@ local mt = {
 
 return setmetatable ({
 	companheiro = {
+		nome = "Companheiro Animal",
 		ca = function(self)
 			local ca = 14 + self.nivel
 			self.ca_oportunidade = ca
