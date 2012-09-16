@@ -147,6 +147,7 @@ end
 
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
+	adaga_rapida_3 = rapida ("adaga", 1),
 	adaga_traicoeira_4 = traicoeira ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
 	azagaia_magica_1 = magica ("azagaia", 1),

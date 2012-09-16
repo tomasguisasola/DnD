@@ -283,6 +283,15 @@ return {
 		percepcao = 2,
 		furtividade = 2,
 	},
+	manto_elfico_7 = {
+		nome = "Manto Elfico",
+		tipo = "manto",
+		posicao = "pescoço",
+		fortitude = 2,
+		reflexos = 2,
+		vontade = 2,
+		furtividade = 2,
+	},
 	pocao_de_cura = {
 		nome = "Poção de Cura",
 		tipo = "poção",
