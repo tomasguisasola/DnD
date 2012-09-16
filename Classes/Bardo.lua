@@ -3,6 +3,7 @@ local soma_dano = require"DnD.Soma".soma
 local armas = require"DnD.Armas"
 local tipos_armas = require"DnD.TiposArmas"
 local mod = require"DnD.Modificadores"
+local Personagem = require"DnD.Personagem"
 
 return {
 	nome = "Bardo",
@@ -64,12 +65,12 @@ return {
 			end,
 		},
 		virtude = {
-			nome = "Virtude da Astúcia/Bravura",
+			nome = "Virtude de Bardo",
 			uso = "SL (1/rodada)",
 			acao = "livre",
 			origem = set"arcano",
 			efeito = function(self)
-				local c = assert(self.caracteristica_classe, "Falta definir a característica de classe"):lower()
+				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"ast.cia" then
 					local distancia = 5 + self.mod_int
 					return "Aliado a até "..distancia..", que for alvo de ataque fracassado é conduzido 1."
@@ -77,6 +78,9 @@ return {
 					local pvt = 2 * math.floor((self.nivel-1)/10)
 						+ 1 + self.mod_con
 					return "Aliado a até 5, que sangra ou mata inimigo recebe "..pvt.." PVT."
+				else
+					Personagem.warn"Sem característica de classe, não tem Virtude de Bardo."
+					return "Sem característica de classe, não tem Virtude de Bardo."
 				end
 			end,
 		},
