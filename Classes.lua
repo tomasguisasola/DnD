@@ -2,9 +2,9 @@ local set = require"DnD.Set"
 
 local mt = {
 	__index = function (tab, key)
-		local Key = key:gsub ("_(.)", string.upper)
-			:gsub ("^(.)(.*)$", function (i, r)
-				return i:upper()..r:lower()
+		local Key = key:gsub ("^(.)", string.upper)
+			:gsub ("_(.)([^_]*)", function (i, rest)
+				return i:upper()..rest:lower()
 			end)
 		return require("DnD.Classes."..Key)
 	end,
