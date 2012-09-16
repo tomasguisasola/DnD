@@ -23,7 +23,7 @@ local function atributo(atrib)
 		local classe = classes[self.classe][atrib] or 0
 		local racial = racas[self.raca][atrib] or 0
 		local humano = 0
-		if self.mod_humano == atrib then
+		if self.raca == "humano" and self.mod_humano == atrib then
 			humano = 2
 		end
 		return (self["_"..atrib] or 0) + classe + racial + humano
