@@ -935,9 +935,14 @@ function Personagem:minhas_pericias()
 		local _ = self[pericia]
 	end
 	if total > total_pericias then
-		return "Mais perícias do que o possível"
+		Personagem.warn"Mais perícias do que o possível!"
+		for i = 1, (total_pericias-total) do
+			local p = next(self.pericias)
+			Personagem.warn ("	apagando "..p)
+			self.pericias[p] = nil
+		end
 	elseif total < total_pericias then
-		Personagem.warn"Menos perícias do que o possível"
+		Personagem.warn"Menos perícias do que o possível!"
 	end
 	return true
 end
