@@ -927,7 +927,8 @@ function Personagem:minhas_pericias()
 			total = total+1
 		elseif talento_pericia then
 		else
-			return "A perícia '"..nome.."' não é da classe "..self.classe
+			Personagem.warn ("A perícia '"..nome.."' não é da classe "..self.classe)
+			self.pericias[nome] = nil
 		end
 	end
 	for pericia in pairs(pericias) do
