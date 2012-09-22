@@ -791,17 +791,21 @@ end
 function Personagem:meus_talentos()
 	local r = {}
 	for nome_talento, valor in pairs(self.talentos) do
-		local t = talentos[nome_talento]
-		local efeito
-		if type(t.efeito) == "function" then
-			efeito = t.efeito(self, valor)
+		if valor == false then
+			self.talentos[nome_talento] = nil
 		else
-			efeito = t.efeito or ''
+			local t = talentos[nome_talento]
+			local efeito
+			if type(t.efeito) == "function" then
+				efeito = t.efeito(self, valor)
+			else
+				efeito = t.efeito or ''
+			end
+			r[#r+1] = modelo_talento:tagged{
+				nome = t.nome,
+				efeito = efeito,
+			}
 		end
-		r[#r+1] = modelo_talento:tagged{
-			nome = t.nome,
-			efeito = efeito,
-		}
 	end
 	table.sort(r)
 	return r
