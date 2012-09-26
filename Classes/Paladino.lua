@@ -74,7 +74,7 @@ return {
 	},
 	poderes = {
 ------- Poderes Sem Limite nível 1 ---------------------------------------------
-		golpe_ardente = {
+		golpe_ardente = { -- PD
 			nome = "Golpe Ardente",
 			uso = "SL",
 			acao = "padrão",
@@ -138,7 +138,7 @@ return {
 			dano = mod.dobra_21("[A]", "forca", "Golpe Valente"),
 			efeito = "O ataque tem um bônus de +1 por inimigo adjacente.",
 		},
-		golpe_virtuoso = {
+		golpe_virtuoso = { -- PD
 			nome = "Golpe Virtuoso",
 			uso = "SL",
 			acao = "padrão",
@@ -151,7 +151,7 @@ return {
 			efeito = "Você ganha +2 de bônus no PC até o CdPT.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
-		chama_deslumbrante = {
+		chama_deslumbrante = { -- PD
 			nome = "Chama Deslumbrante",
 			uso = "En",
 			acao = "padrão",
@@ -163,7 +163,7 @@ return {
 			dano = mod.dado_mod("2d8", "carisma"),
 			efeito = "Sucesso: o alvo sofre -2 de penalidade nos ataques até o FdPT.",
 		},
-		castigo_valoroso = {
+		castigo_valoroso = { -- PD
 			nome = "Castigo Valoroso",
 			uso = "En",
 			acao = "padrão",
@@ -175,7 +175,7 @@ return {
 			dano = mod.dado_mod("2[A]", "carisma"),
 			efeito = "Sucesso: cada inimigo a até 3 quadrados de você fica sujeito à sua sanção divina até o FdPT.",
 		},
-		furia_negligente = {
+		furia_negligente = { -- PD
 			nome = "Fúria Negligente",
 			uso = "En",
 			acao = "padrão",
@@ -187,7 +187,7 @@ return {
 			dano = mod.dado_mod("3[A]", "forca"),
 			efeito = "Sucesso: você sofre -5 de penalidade em todas as defesas até o FdPT.",
 		},
-		guardiao_de_luz = {
+		guardiao_de_luz = { -- PD
 			nome = "Guardião de Luz",
 			uso = "En",
 			acao = "padrão",
@@ -201,7 +201,7 @@ return {
 				return "Sucesso: até o FdPT, você ganha +"..self.mod_sab.." em Fortitude, Reflexos e Vontade."
 			end,
 		},
-		perseguicao_divina = {
+		perseguicao_divina = { -- PD
 			nome = "Perseguição Divina",
 			uso = "En",
 			acao = "padrão",
