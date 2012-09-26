@@ -33,6 +33,20 @@ return {
 	},
 	poderes = {
 ------- Poderes Sem Limite nível 1 ---------------------------------------------
+		lamina_ingente = {
+			nome = "Lâmina Ingente",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("arcano", "arma", "trovejante"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.int,
+			defesa = "CA",
+			dano = mod.dobra_21("[A]", "inteligencia", "Lâmina Ingente"),
+			efeito = function (self)
+				return "Se o alvo começar seu turno adjacente ao lâmina e se afastar, sefre 1d6+"..self.mod_con.." de dano trovejante."
+			end,
+		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 ------- Poderes Diários nível 1 ------------------------------------------------
 ------- Poderes Utilitários nível 2 --------------------------------------------
