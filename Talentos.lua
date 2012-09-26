@@ -1718,7 +1718,7 @@ return {
 		efeito = "Aumenta o dado da Maldição do Bruxo de d6 para d8.",
 	},
 
-	furtividade_das_sombras = {
+	furtividade_das_sombras = { -- LJ1 -----------------------------------------
 		nome = "Furtividade das Sombras",
 		requisito = {
 			classe = function(self)
@@ -1728,5 +1728,32 @@ return {
 		},
 		ladinagem = "treinada",
 		efeito = "Adquire treinamento em Ladinagem e pode usar o At.Furtivo 1/encontro.",
+	},
+
+	bardo_diletante = { -- LJ2 -------------------------------------------------
+		nome = "Bardo Diletante",
+		requisito = {
+			classe = function(self)
+				return self.classe ~= "bardo"
+			end,
+			carisma = 13,
+		},
+		efeito = "Adquire treinamento em uma perícia de classe de bardo e pode usar a palavra majestosa 1/dia.",
+		poder = {
+			nome = "Palavra Majestosa",
+			uso = "Di",
+			origem = set("arcano", "cura"),
+			tipo_ataque = "distancia 5",
+			alvo = "aliado a até 5",
+			efeito = function (self)
+				local adicional = self.palavra_majestosa_adicional
+				if adicional then
+					adicional = "+ "..self.mod_car.." PVT"
+				else
+					adicional = ''
+				end
+				return "Efeito: aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
+			end,
+		},
 	},
 }
