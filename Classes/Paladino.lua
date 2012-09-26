@@ -224,6 +224,18 @@ return {
 			efeito = "A explosão cria uma zona que, até o final do encontro, concede ao paladino\ne seus aliados dentro da zona +1 de bônus de poder na CA",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
+		punicao_em_cadeia = {
+			nome = "Punição em Cadeia",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma ou duas criaturas",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca"),
+			efeito = "Sucesso: o(s) alvo(s) fica(m) marcado(s) até o FdPT.",
+		},
 		punicao_integra = {
 			nome = "Punição Íntegra",
 			uso = "En",
