@@ -71,6 +71,10 @@ return {
 		end
 	end,
 
+	forca_ou_carisma = function(self, ataque, poder_arma)
+		return soma_dano (self, math.max(self.mod_for, self.mod_car), ataque, poder_arma)
+	end,
+
 	forca_ou_destreza = function(self, ataque, poder_arma)
 		local poder, nome_arma = poder_arma:match"^([^+]*)%+(.*)$"
 		local arma = armas[nome_arma]
