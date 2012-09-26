@@ -608,158 +608,160 @@ function Personagem:meus_poderes()
 
 	local a = {}
 	for poder, esse_poder in pairs(self.poderes) do
-		if type(esse_poder) == "boolean" then
+		if esse_poder == true then
 			esse_poder = assert(minha_classe.poderes[poder]
 				or (talentos[poder] and talentos[poder].poder),
 				poder..": poder não cadastrado!")
 		end
-		local caracs = {
-			alvo = esse_poder.alvo,
-			ataque = esse_poder.ataque,
-			contragolpe = contragolpe,
-			dano = esse_poder.dano,
-			defesa = esse_poder.defesa,
-			tipo_ataque = esse_poder.tipo_ataque,
-		}
-		if type(caracs.contragolpe) == "function" then
-			caracs.contragolpe = caracs.contragolpe(self)
-		end
-		for nome_item, item in pairs(self.itens or {}) do
-			local item = itens[nome_item] or item
-			if esse_poder.origem.implemento then
-				caracs.ataque = soma_dano(self, caracs.ataque, item.ataque, poder)
-				caracs.dano = soma_dano(self, caracs.dano, item.dano, poder)
+		if esse_poder then
+			local caracs = {
+				alvo = esse_poder.alvo,
+				ataque = esse_poder.ataque,
+				contragolpe = contragolpe,
+				dano = esse_poder.dano,
+				defesa = esse_poder.defesa,
+				tipo_ataque = esse_poder.tipo_ataque,
+			}
+			if type(caracs.contragolpe) == "function" then
+				caracs.contragolpe = caracs.contragolpe(self)
 			end
-		end
-		for nome_talento, valor in pairs(self.talentos or {}) do
-			local talento = talentos[nome_talento]
-			local poder = talento[poder]
-			if poder then
-				for car in pairs(set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")) do
-					if poder[car] then
-						local bonus = poder[car] (self, poder, arma, valor)
-						caracs[car] = soma_dano (self, caracs[car], bonus, esse_poder.nome)
+			for nome_item, item in pairs(self.itens or {}) do
+				local item = itens[nome_item] or item
+				if esse_poder.origem.implemento then
+					caracs.ataque = soma_dano(self, caracs.ataque, item.ataque, poder)
+					caracs.dano = soma_dano(self, caracs.dano, item.dano, poder)
+				end
+			end
+			for nome_talento, valor in pairs(self.talentos or {}) do
+				local talento = talentos[nome_talento]
+				local poder = talento[poder]
+				if poder then
+					for car in pairs(set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")) do
+						if poder[car] then
+							local bonus = poder[car] (self, poder, arma, valor)
+							caracs[car] = soma_dano (self, caracs[car], bonus, esse_poder.nome)
+						end
 					end
 				end
 			end
-		end
-		if caracs.contragolpe then
-			caracs.contragolpe = "\n       CG:"..caracs.contragolpe
-		else
-			caracs.contragolpe = ""
-		end
-		local origem = {}
-		local i = 0
-		for o in pairs(assert (esse_poder.origem, "Poder `"..esse_poder.nome.."' sem origem!")) do
-			i = i+1
-			origem[i] = o
-		end
-		table.sort(origem)
-		origem = table.concat(origem, ", ")
-		local efeito = esse_poder.efeito
-		if type(efeito) == "function" then
-			efeito = "\n"..efeito(self)
-		elseif type(efeito) == "string" or type(efeito) == "number" then
-			efeito = "\n"..efeito
-		else
-			--efeito = nil
-			efeito = ''
-		end
-		caracs.nome = esse_poder.nome
-		caracs.uso = esse_poder.uso
-		caracs.origem = origem
-		caracs.efeito = efeito
-		if esse_poder.origem.arma then
-			local ataque_poder = caracs.ataque
-			local dano_poder = caracs.dano
-			local linhas = { (modelo_poder_arma_nome:tagged (caracs)) }
-			for nome_arma in pairs(self.armas) do --{
-				local arma = armas[nome_arma]
-				local poder_arma = poder.."+"..nome_arma
-				local tipo = arma.tipo:match"^%w+" -- primeira palavra
-				if esse_poder.tipo_ataque:match(tipo) then --{
-					caracs.arma = arma.nome
-					local at = soma_dano (self, arma.ataque, ataque_poder, poder_arma)
-					if minha_classe.ataque then
-						at = soma_dano(self, at, minha_classe.ataque(self, arma), nome)
-					end
-					if proficiente_arma (self, nome_arma) then
-						caracs.ataque = soma_dano (self, at, arma.proficiencia, poder)
-					end
-					if type(dano_poder) == "string" and dano_poder:match"A" then
-						caracs.dano = mult_dano (self, arma.dano, dano_poder, poder)
-					else
-						caracs.dano = dano_poder
-					end
-					caracs.tipo_ataque = arma.tipo
-					-- bônus de talentos
-					for nome_talento, valor in pairs(self.talentos) do --{
-						local talento = talentos[nome_talento]
-						for car in pairs(set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")) do --{
-							if talento[car] then
-								local bonus = talento[car] (self, esse_poder, arma, valor)
-								caracs[car] = soma_dano (self, bonus, caracs[car], poder)
-							end
+			if caracs.contragolpe then
+				caracs.contragolpe = "\n       CG:"..caracs.contragolpe
+			else
+				caracs.contragolpe = ""
+			end
+			local origem = {}
+			local i = 0
+			for o in pairs(assert (esse_poder.origem, "Poder `"..esse_poder.nome.."' sem origem!")) do
+				i = i+1
+				origem[i] = o
+			end
+			table.sort(origem)
+			origem = table.concat(origem, ", ")
+			local efeito = esse_poder.efeito
+			if type(efeito) == "function" then
+				efeito = "\n"..efeito(self)
+			elseif type(efeito) == "string" or type(efeito) == "number" then
+				efeito = "\n"..efeito
+			else
+				--efeito = nil
+				efeito = ''
+			end
+			caracs.nome = esse_poder.nome
+			caracs.uso = esse_poder.uso
+			caracs.origem = origem
+			caracs.efeito = efeito
+			if esse_poder.origem.arma then
+				local ataque_poder = caracs.ataque
+				local dano_poder = caracs.dano
+				local linhas = { (modelo_poder_arma_nome:tagged (caracs)) }
+				for nome_arma in pairs(self.armas) do --{
+					local arma = armas[nome_arma]
+					local poder_arma = poder.."+"..nome_arma
+					local tipo = arma.tipo:match"^%w+" -- primeira palavra
+					if esse_poder.tipo_ataque:match(tipo) then --{
+						caracs.arma = arma.nome
+						local at = soma_dano (self, arma.ataque, ataque_poder, poder_arma)
+						if minha_classe.ataque then
+							at = soma_dano(self, at, minha_classe.ataque(self, arma), nome)
+						end
+						if proficiente_arma (self, nome_arma) then
+							caracs.ataque = soma_dano (self, at, arma.proficiencia, poder)
+						end
+						if type(dano_poder) == "string" and dano_poder:match"A" then
+							caracs.dano = mult_dano (self, arma.dano, dano_poder, poder)
+						else
+							caracs.dano = dano_poder
+						end
+						caracs.tipo_ataque = arma.tipo
+						-- bônus de talentos
+						for nome_talento, valor in pairs(self.talentos) do --{
+							local talento = talentos[nome_talento]
+							for car in pairs(set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")) do --{
+								if talento[car] then
+									local bonus = talento[car] (self, esse_poder, arma, valor)
+									caracs[car] = soma_dano (self, bonus, caracs[car], poder)
+								end
+							end --}
 						end --}
+						caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder_arma)
+						if type(caracs.dano) == "function" then
+							caracs.dano = caracs.dano (self, nil, poder_arma)
+						end
+						linhas[#linhas+1] = modelo_poder_arma_ataque:tagged (caracs)
 					end --}
-					caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder_arma)
-					if type(caracs.dano) == "function" then
-						caracs.dano = caracs.dano (self, nil, poder_arma)
-					end
-					linhas[#linhas+1] = modelo_poder_arma_ataque:tagged (caracs)
 				end --}
-			end --}
-			a[#a+1] = table.concat (linhas, '\n')..efeito
-		elseif esse_poder.origem.implemento then
-			for nome_impl, implemento in pairs(self.implementos or {}) do
-				local implemento = implementos[nome_impl] or implemento
-				if minha_classe.implementos[implemento.tipo] then
-					caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
-					caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
-				else
-					Personagem.warn (nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
+				a[#a+1] = table.concat (linhas, '\n')..efeito
+			elseif esse_poder.origem.implemento then
+				for nome_impl, implemento in pairs(self.implementos or {}) do
+					local implemento = implementos[nome_impl] or implemento
+					if minha_classe.implementos[implemento.tipo] then
+						caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
+						caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
+					else
+						Personagem.warn (nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
+					end
 				end
+				caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
+				if type(caracs.dano) == "function" then
+					caracs.dano = caracs.dano (self)
+				end
+				local modelo = caracs.defesa and modelo_poder
+					or (caracs.dano and modelo_poder_sem_ataque or modelo_poder_sem_dano)
+				a[#a+1] = modelo:tagged{
+					nome = esse_poder.nome,
+					uso = esse_poder.uso,
+					origem = origem,
+					tipo_ataque = caracs.tipo_ataque,
+					alvo = caracs.alvo,
+					ataque = caracs.ataque,
+					defesa = caracs.defesa,
+					dano = caracs.dano,
+					contragolpe = caracs.contragolpe,
+					efeito = efeito,
+				}
+			else -- poderes raciais ou de classe
+				caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
+				if type(caracs.dano) == "function" then
+					caracs.dano = caracs.dano (self)
+				end
+				local modelo = caracs.defesa and modelo_poder
+					or (caracs.dano and modelo_poder_sem_ataque or modelo_poder_sem_dano)
+				a[#a+1] = modelo:tagged{
+					nome = esse_poder.nome,
+					uso = esse_poder.uso,
+					origem = origem,
+					tipo_ataque = caracs.tipo_ataque,
+					alvo = caracs.alvo,
+					ataque = caracs.ataque,
+					defesa = caracs.defesa,
+					dano = caracs.dano,
+					contragolpe = caracs.contragolpe,
+					efeito = efeito,
+				}
 			end
-			caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
-			if type(caracs.dano) == "function" then
-				caracs.dano = caracs.dano (self)
+			if not caracs.ataque and #a > 0 then
+				a[#a] = a[#a]:gsub("\n%+%$ataque[^\n]*", "")
 			end
-			local modelo = caracs.defesa and modelo_poder
-				or (caracs.dano and modelo_poder_sem_ataque or modelo_poder_sem_dano)
-			a[#a+1] = modelo:tagged{
-				nome = esse_poder.nome,
-				uso = esse_poder.uso,
-				origem = origem,
-				tipo_ataque = caracs.tipo_ataque,
-				alvo = caracs.alvo,
-				ataque = caracs.ataque,
-				defesa = caracs.defesa,
-				dano = caracs.dano,
-				contragolpe = caracs.contragolpe,
-				efeito = efeito,
-			}
-		else -- poderes raciais ou de classe
-			caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
-			if type(caracs.dano) == "function" then
-				caracs.dano = caracs.dano (self)
-			end
-			local modelo = caracs.defesa and modelo_poder
-				or (caracs.dano and modelo_poder_sem_ataque or modelo_poder_sem_dano)
-			a[#a+1] = modelo:tagged{
-				nome = esse_poder.nome,
-				uso = esse_poder.uso,
-				origem = origem,
-				tipo_ataque = caracs.tipo_ataque,
-				alvo = caracs.alvo,
-				ataque = caracs.ataque,
-				defesa = caracs.defesa,
-				dano = caracs.dano,
-				contragolpe = caracs.contragolpe,
-				efeito = efeito,
-			}
-		end
-		if not caracs.ataque and #a > 0 then
-			a[#a] = a[#a]:gsub("\n%+%$ataque[^\n]*", "")
 		end
 	end
 	-- Ordem de uso
