@@ -766,11 +766,12 @@ function Personagem:meus_poderes()
 	end
 	-- Ordem de uso
 	local ordem_uso = {
-		["SL"] = 1,
-		["Se"] = 1,
-		["En"] = 2,
-		["Di"] = 3,
-		["Ut"] = 4,
+		["Ca"] = 0, -- Característica
+		["SL"] = 1, -- Sem Limite
+		["Se"] = 1, -- Sem Limite
+		["En"] = 2, -- Encontro
+		["Di"] = 3, -- Diário
+		["Ut"] = 4, -- Utilitário
 	}
 	local function uso (s1, s2)
 		if s2 == nil then
