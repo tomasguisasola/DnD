@@ -38,7 +38,7 @@ return {
 			efeito = function(self)
 				local dano = 3 * (math.floor((self.nivel-1)/10)+1)
 					+ self.mod_car
-				return "O alvo fica marcado até trocar ou se não engajá-lo (atacar ou ficar adjacente).\nSofre "..dano.." de dano radiante se atacar aliado até o CdPT."
+				return "O alvo fica marcado até trocar ou se não engajá-lo (atacar ou ficar adjacente).\n    Sofre "..dano.." de dano radiante se atacar aliado até o CdPT."
 			end,
 		},
 		imposicao_de_maos = {
@@ -55,12 +55,37 @@ return {
 				else
 					bonus = ''
 				end
-				return "Você gasta um PC para que o alvo recupere PV como se ele tivesse gasto um PC"..bonus..".\nVocê pode usar esse poder "..self.mod_sab.." vezes por dia."
+				return "Você gasta um PC para que o alvo recupere PV como se ele tivesse gasto um PC"..bonus..".\n    Você pode usar esse poder "..self.mod_sab.." vezes por dia."
+			end,
+		},
+		sancao_divina = {
+			nome = "Sanção Divina",
+			uso = "Ca",
+			acao = "nenhuma",
+			origem = set("divino"),
+			tipo_ataque = "toque corpo",
+			alvo = "uma criatura",
+			efeito = function(self)
+				local dano = 3 * (math.floor((self.nivel-1)/10)+1)
+					+ self.mod_car
+				return "Efeito: o alvo fica marcado por você e, em toda rodada, a primeira vez que ele\n    fizer um ataque que não te inclua como alvo, sofre "..dano.." de dano radiante."
 			end,
 		},
 	},
 	poderes = {
 ------- Poderes Sem Limite nível 1 ---------------------------------------------
+		golpe_ardente = {
+			nome = "Golpe Ardente",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("arma", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca_ou_carisma,
+			defesa = "CA",
+			dano = mod.dobra_21("[A]", "carisma", "Golpe Ardente"),
+			efeito = "Sucesso: o alvo fica sob o efeito da sua sanção divina até o FdPT.",
+		},
 		golpe_debilitante = {
 			nome = "Golpe Debilitante",
 			uso = "SL",
@@ -113,7 +138,83 @@ return {
 			dano = mod.dobra_21("[A]", "forca", "Golpe Valente"),
 			efeito = "O ataque tem um bônus de +1 por inimigo adjacente.",
 		},
+		golpe_virtuoso = {
+			nome = "Golpe Virtuoso",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("arma", "divino", "radiante"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.carisma,
+			defesa = "CA",
+			dano = mod.dobra_21("[A]", "carisma", "Golpe Virtuoso"),
+			efeito = "Você ganha +2 de bônus no PC até o CdPT.",
+		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
+		chama_deslumbrante = {
+			nome = "Chama Deslumbrante",
+			uso = "En",
+			acao = "padrão",
+			origem = set("divino", "implemento", "radiante"),
+			tipo_ataque = "distância 5",
+			alvo = "uma criatura",
+			ataque = mod.carisma,
+			defesa = "Ref",
+			dano = mod.dado_mod("2d8", "carisma"),
+			efeito = "Sucesso: o alvo sofre -2 de penalidade nos ataques até o FdPT.",
+		},
+		castigo_valoroso = {
+			nome = "Castigo Valoroso",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.carisma,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "carisma"),
+			efeito = "Sucesso: cada inimigo a até 3 quadrados de você fica sujeito à sua sanção divina até o FdPT.",
+		},
+		furia_negligente = {
+			nome = "Fúria Negligente",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "forca"),
+			efeito = "Sucesso: você sofre -5 de penalidade em todas as defesas até o FdPT.",
+		},
+		guardiao_de_luz = {
+			nome = "Guardião de Luz",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "divino", "radiante"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca_ou_carisma,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca"),
+			efeito = function(self)
+				return "Sucesso: até o FdPT, você ganha +"..self.mod_sab.." em Fortitude, Reflexos e Vontade."
+			end,
+		},
+		perseguicao_divina = {
+			nome = "Perseguição Divina",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "Fort",
+			dano = mod.dado_mod("2[A]", "forca"),
+			efeito = function(self)
+				return "Sucesso: o alvo é empurrado "..self.mod_sab.." quadrados e você pode ajustar para o quadrado\n    adjacente ao alvo mais próximo."
+			end,
+		},
 		punicao_perfurante = {
 			nome = "Punição Perfurante",
 			uso = "En",
@@ -170,6 +271,33 @@ return {
 			end,
 		},
 ------- Poderes Diários nível 1 ------------------------------------------------
+		carga_gloriosa = { -- PD
+			nome = "Carga Gloriosa",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "cura", "divino"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.carisma,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "carisma", "Carga Gloriosa"),
+			efeito = function (self)
+				local pv = math.floor(self.nivel/2) + self.mod_sab
+				return "Efeito: depois do ataque, cada aliado a até 2 quadrados recupera "..pv.."PV.\n    Você pode usar este poder como o AtBas de uma investida."
+			end,
+		},
+		halo_majestoso = { -- PD
+			nome = "Halo Majestoso",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "divino", "radiante"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.carisma,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "carisma", "Halo Majestoso"),
+			efeito = "Fracasso: metade do dano.\nEfeito: até o final do encontro, qualquer inimigo que começar seu turno adjacente a você fica sujeito à sua sanção divina até o final de seu turno.",
+		},
 		julgamento_do_paladino = {
 			nome = "Julgamento do Paladino",
 			uso = "Di",
@@ -181,6 +309,30 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("3[A]", "forca", "Julgamento do Paladino"),
 			efeito = "Um aliado a até 5 quadrados pode gastar um PC (mesmo no fracasso).",
+		},
+		marca_ardente = { -- PD
+			nome = "Marca Ardente",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "confiável", "divino", "flamejante"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "Fort",
+			dano = mod.dado_mod("2[A]", "forca", "Marca Ardente"),
+			efeito = "Sucesso: o alvo sofre 5 de dano flamejante contínuo e concede VdC a qualquer\n    aliado do paladino adjacente a ele (TR encerra ambos).",
+		},
+		sangue_do_poderoso = { -- PD
+			nome = "Sangue do Poderoso",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("confiável", "divino", "implemento"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("4[A]", "forca", "Sangue do Poderoso"),
+			efeito = "Efeito: você sofre 5 de dano, que não pode ser reduzido de nenhuma forma.",
 		},
 		sob_pena_de_morte = {
 			nome = "Sob Pena de Morte",
