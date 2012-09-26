@@ -57,7 +57,7 @@ return {
 			efeito = function(self)
 				local adicional = self.palavra_majestosa_adicional
 				if adicional then
-					adicional = "e "..self.mod_car.." PVT "
+					adicional = "+ "..self.mod_car.." PVT "
 				else
 					adicional = ''
 				end
