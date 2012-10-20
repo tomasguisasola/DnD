@@ -54,7 +54,7 @@ return {
 			efeito = function(self)
 				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"ajado" then
-					return "Com uma interrupção imediata, após o resultado do dano que for receber, ganhar +"..self.mod_con.." na CA contra este ataque (o que pode anulá-lo)."
+					return "(II) após o resultado do dano que for receber, ganha +"..self.mod_con.." na CA contra este ataque\n    (o que pode anulá-lo)."
 				elseif c:match"orbe" then
 					return "-"..self.mod_sab.." de penalidade no próximo TR contra um efeito provocado por uma de suas magias que uma criatura for fazer."
 				elseif c:match"varinha" then
@@ -102,7 +102,7 @@ return {
 			tipo_ataque = "explosão de área 1 a até 10 quadrados",
 			alvo = "criaturas na área",
 			efeito = function(self)
-				return "Efeito: quem entrar ou começar o turno dentro da área, sofre "..math.max(self.mod_sab, 1).." (energético).\nA nuvem permanece até o final do próximo turno ou até dissipá-la (ação mínima)."
+				return "Efeito: quem entrar ou começar o turno dentro da área, sofre "..math.max(self.mod_sab, 1).." (energético).\n    A nuvem permanece até o FdPT ou até dissipá-la (ação mínima)."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Refl",
@@ -197,7 +197,7 @@ return {
 			tipo_ataque = "distancia 10",
 			alvo = "criatura adjacente à esfera",
 			efeito = function(self)
-				return "Criaturas que começarem o turno adjacente à esfera sofrem 1d4+"..self.mod_int.." (flamejante).\nDeslocamento da esfera = 6.  Persiste até o final do encontro."
+				return "Efeito: quem começar o turno adjacente à esfera sofre 1d4+"..self.mod_int.." (flamejante).\n    Deslocamento da esfera = 6.  Persiste até o FdE."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Ref",
@@ -210,7 +210,7 @@ return {
 			tipo_ataque = "distancia 20",
 			alvo = "uma criatura",
 			efeito = function(self)
-				return "Sucesso: ataque secundário contra criaturas adjacentes ao primário.\n  1d8+INT (ácido) + 5 contínuo (ácido) (TR encerra)."
+				return "Sucesso: ataque secundário contra criaturas adjacentes ao primário.\n    1d8+INT (ácido) + 5 contínuo (ácido) (TR encerra)."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Ref",
@@ -237,7 +237,7 @@ return {
 			ataque = mod.inteligencia,
 			defesa = "Von",
 			dano = nil,
-			efeito = "Sucesso: alvo fica lento (TR encerra ou deixa o alvo inconsciente;\n         2o. TR: volta a lento ou continua inconsciente)\nFracasso: alvo fica lento (TR encerra).",
+			efeito = "Sucesso: alvo fica lento (TR encerra ou deixa o alvo inconsciente;\n    2o. TR: volta a lento ou continua inconsciente)\nFracasso: alvo fica lento (TR encerra).",
 		},
 ------- Poderes Utilitários nível 2 --------------------------------------------
 		escudo_arcano = {
@@ -271,9 +271,9 @@ return {
 			nome = "Salto",
 			uso = "En",
 			origem = set("arcano"),
-			tipo_ataque = "distancia 10",
+			tipo_ataque = "distância 10",
 			alvo = "O personagem ou uma criatura",
-			efeito = "Realize um teste de Atletismo com +10 e considere com impulso, mesmo sem deslocamento.",
+			efeito = "Efeito: realize um teste de Atletismo com +10 e considere com impulso, mesmo\n    sem deslocamento.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		esfera_de_choque = {
