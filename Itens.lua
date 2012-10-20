@@ -4,6 +4,15 @@ local classes = require"DnD.Classes"
 
 local implemento_basico = require"DnD.Implemento_Basico"
 
+local function amuleto (amuleto, bonus)
+	amuleto.tipo = "amuleto"
+	amuleto.posicao = "pescoço"
+	amuleto.fortitude = bonus
+	amuleto.reflexos = bonus
+	amuleto.vontade = bonus
+	return amuleto
+end
+
 local function escudo_leve(escudo)
 	escudo.escudo = true
 	escudo.tipo = "bracadeira"
@@ -24,24 +33,19 @@ local function escudo_pesado(escudo)
 end
 
 return {
-	amuleto_da_saude_1 = {
+	amuleto_da_protecao_1 = amuleto ({
 		nome = "Amuleto da Saúde",
-		tipo = "amuleto",
-		posicao = "pescoço",
 		preco = 360,
-		fortitude = 1,
-		reflexos = 1,
-		vontade = 1,
-	},
-	amuleto_da_determinacao_fisica_2 = {
+	}, 1),
+	amuleto_da_saude_3 = amuleto ({
+		nome = "Amuleto da Saúde",
+		preco = 680,
+	}, 1),
+	amuleto_da_determinacao_fisica_2 = amuleto ({
 		nome = "Amuleto da Determinação Física",
-		tipo = "amuleto",
-		posicao = "pescoço",
 		preco = 520,
-		fortitude = 1,
-		reflexos = 1,
-		vontade = 1,
-	},
+		propriedade = "+2 nos TR X venenoso, enfraquecido, imobilizado ou lento.",
+	}, 1),
 	bandurra_fochlucana_3 = {
 		nome = "Bandurra Fochlucana",
 		tipo = "instrumento",
@@ -283,7 +287,7 @@ return {
 		percepcao = 2,
 		furtividade = 2,
 	},
-	manto_elfico_7 = {
+	manto_elfico_7 = { -- LJ1 253
 		nome = "Manto Elfico",
 		tipo = "manto",
 		posicao = "pescoço",
