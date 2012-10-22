@@ -31,6 +31,29 @@ return {
 	end,
 	caracteristicas_classe = {
 ------- Características de Classe ----------------------------------------------
+		desafio_de_combate = {
+			nome = "Desafio de Combate",
+			uso = "SL",
+			acao = "int. imediata",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "adjacente marcado",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Desafio de Combate"),
+			efeito = "Só pode ser usado contra alvos marcados adjacentes que ajustem ou que ataquem\n    sem incluir o guerreiro como alvo.",
+		},
+		superioridade_em_combate = {
+			nome = "Superioridade em Combate",
+			uso = "SL",
+			acao = "oportunidade",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "adj. que se move sem ajustar",
+			ataque = mod.soma_mod("for", "sab"),
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Superioridade em Combate"),
+		},
 	},
 	poderes = {
 ------- Poderes Sem Limite nível 1 ---------------------------------------------
