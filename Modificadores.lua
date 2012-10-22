@@ -84,4 +84,13 @@ return {
 			return soma_dano(self, self.mod_for, ataque, poder_arma)
 		end
 	end,
+
+	soma_mod = function (atr1, atr2)
+		return function (self, valor, poder_arma)
+			local a1 = self[modificador_atributo(atr1)]
+			local a2 = self[modificador_atributo(atr2)]
+			local atr = soma_dano (self, a1, a2, poder_arma)
+			return soma_dano (self, valor, atr, poder_arma)
+		end
+	end,
 }
