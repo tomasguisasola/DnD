@@ -209,6 +209,17 @@ return {
 			dano = mod.dado_mod("2[A]", "forca", "Ameaçar o Vilão"),
 			efeito = "Sucesso: recebe +2 no ataque e +4 no dano contra esse alvo até o FdE.\nFracasso: sem dano e recebe +1 no ataque e +2 no dano contra esse alvo até o FdE.",
 		},
+		golpe_brutal = {
+			nome = "Golpe Brutal",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "confiável", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "forca", "Golpe Brutal"),
+		},
 		golpe_de_revinda = {
 			nome = "Golpe de Revinda",
 			uso = "Di",
