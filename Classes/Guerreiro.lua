@@ -120,6 +120,9 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "forca", "Ímpeto Esmagador"),
+			efeito = function (self)
+				return "Sucesso: você ganha "..self.mod_con.." PVT."
+			end,
 		},
 		mare_de_ferro = {
 			nome = "Maré de Ferro",
