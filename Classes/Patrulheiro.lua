@@ -359,7 +359,7 @@ return {
 			nome = "Servir-se do Solo",
 			uso = "En",
 			acao = "Reação Imediata",
-			origem = set("arma", "marcial"),
+			origem = set("marcial"),
 			tipo_ataque = "utilitario",
 			alvo = "pessoal",
 			efeito = function(self)
