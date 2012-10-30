@@ -117,6 +117,13 @@ return {
 		vontade = 1,
 		pv_recuperado = 1, -- Ainda não funciona!!!!!!!!!!!!!!!!!
 	},
+	cinto_da_resistencia_1 = {
+		nome = "Cinto da Resistência", -- AA 140
+		tipo = "cinto",
+		posicao = "cintura",
+		preco = 360,
+		efeito = "Testes de Socorro para ajudar o personagem recebem +2",
+	},
 	cinto_do_vigor_2 = {
 		nome = "Cinto do Vigor",
 		tipo = "cinto",
@@ -143,8 +150,11 @@ return {
 		posicao = "braço",
 		preco = 680,
 		poder = {
+			nome = "Escudo Leve da Proteção",
 			uso = "Diário",
-			resistencia = 10, -- por dois turnos
+			origem = {},
+			acao = "padrão",
+			efeito = "Efeito: você e um aliado adjacente adquirem resistência 10 contra todos os tipos\n    de dano até o FdPT.",
 		},
 	},
 	escudo_pesado_da_protecao_3 = escudo_pesado{
@@ -153,8 +163,11 @@ return {
 		posicao = "braço",
 		preco = 680,
 		poder = {
+			nome = "Escudo Pesado da Proteção",
 			uso = "Diário",
-			resistencia = 10, -- por dois turnos
+			origem = {},
+			acao = "padrão",
+			efeito = "Efeito: você e um aliado adjacente adquirem resistência 10 contra todos os tipos\n    de dano até o FdPT.",
 		},
 	},
 	escudo_leve_flutuante = escudo_leve{
@@ -180,11 +193,12 @@ return {
 		poder = {
 			nome = "Escudo Leve de Arremesso",
 			uso = "SL",
+			origem = {},
 			ataque = function(self) return self.mod_for + 2 end,
 			dano = function (self, dano, arma)
 				return soma_dano(self, "1d8", self.mod_for)
 			end,
-			efeito = "Uma vez por dia, quando acertar este ataque, o alvo pode ser empurrado 1 quadrado.",
+			efeito = "Efeito: uma vez por dia, quando acertar este ataque, o alvo pode ser empurrado\n    1 quadrado.",
 		},
 	},
 	escudo_pesado = escudo_pesado{
@@ -204,8 +218,10 @@ return {
 		decisivo = implemento_basico("simbolo_sagrado", "+1d8"),
 		propriedade = "Este escudo pode ser usado como símbolo sagrado.",
 		poder = {
-			uso = "Encontro",
-			efeito = "Quando pelo menos 2 aliados (ou o próprio) estiverem sangrando, o personagem e seus aliados adjacentes recebem +1 na CA e os membros que estiverem sangrando recebem +1 em Vontade.",
+			nome = "Escudo de Platina",
+			uso = "En",
+			origem = {},
+			efeito = "Efeito: quando pelo menos 2 aliados (ou o próprio) estiverem sangrando, o personagem e seus aliados adjacentes recebem +1 na CA e os membros que estiverem sangrando recebem +1 em Vontade.",
 		},
 	},
 	estandarte_de_batalha_do_poder_4 = {
@@ -214,8 +230,10 @@ return {
 		posicao = "mochila",
 		preco = 840,
 		poder = {
+			nome = "Estandarte de Batalha do Poder",
 			uso = "Encontro",
-			efeito = "Cria zona (explosão contígua 5) +1 no dano.",
+			origem = {},
+			efeito = "Efeito: cria zona (explosão contígua 5) +1 no dano.",
 		},
 	},
 	estatueta_do_cao_de_onix_4 = {
