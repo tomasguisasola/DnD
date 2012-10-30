@@ -73,6 +73,26 @@ local function do_cruzado (nome, bonus) -- AA 67
 	return setmetatable (m, { __index = arma, })
 end
 
+local function do_duelista (nome, bonus) -- AA 70
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." do Duelista",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		efeito = "Decisivo: com VdC, troque o d6 por d8.",
+		poder = {
+			nome = "Arma do Duelista",
+			uso = "Di",
+			acao = "mínima",
+			origem = {},
+			efeito = "Efeito: você obtém VdC contra a criatura que atacar com esta arma no seu turno.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function dos_ferimentos (nome, bonus) -- AA 70
 	local arma = ArmasBasicas[nome]
 	local cont
@@ -96,6 +116,25 @@ local function dos_ferimentos (nome, bonus) -- AA 70
 			acao = "livre",
 			origem = {},
 			efeito = "Quando atingir alvo com esta arma, cause "..cont.." de dano contínuo (TR).",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
+local function da_explosao_trovejante (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." da Explosão Trovejante",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma da Explosão Trovejante",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial"),
+			efeito = "Efeito: o próx. At.Básico realizado com esta arma, antes do fim do turno,\n    torna-se uma explosão de área 1 centralizada no alvo X Fortitude.",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -301,9 +340,11 @@ end
 
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
+	adaga_do_duelista_3 = do_duelista ("adaga", 1),
 	adaga_rapida_3 = rapida ("adaga", 1),
 	adaga_traicoeira_4 = traicoeira ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
+	arco_longo_da_explosao_trovejante_4 = da_explosao_trovejante ("arco_longo", 1),
 	azagaia_magica_1 = magica ("azagaia", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
