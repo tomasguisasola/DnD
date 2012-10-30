@@ -605,6 +605,14 @@ function Personagem:meus_poderes()
 			self.poderes[arma] = esse_poder
 		end
 	end
+	-- Copia os poderes dos itens
+	for nome in pairs(self.itens) do
+		local item = assert(itens[nome], "Não achei o item "..nome)
+		local esse_poder = item.poder
+		if esse_poder then
+			self.poderes[nome] = esse_poder
+		end
+	end
 
 	local a = {}
 	for poder, esse_poder in pairs(self.poderes) do
