@@ -326,7 +326,7 @@ return {
 		posicao = "mochila",
 		preco = 50,
 	},
-	provisoes_infinitas = { -- LJ1 254
+	provisoes_infinitas_4 = { -- LJ1 254
 		nome = "Provisões Infinitas",
 		tipo = "maravilhoso",
 		posicao = "mochila",
