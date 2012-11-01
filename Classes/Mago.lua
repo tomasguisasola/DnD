@@ -130,7 +130,7 @@ return {
 			ataque = mod.inteligencia,
 			defesa = "For",
 			dano = mod.dobra_21("1d6", "inteligencia", "Raio Álgido"),
-			efeito = "Sucesso: alvos ficam lentos até o FdPT.",
+			efeito = "Sucesso: alvo fica lento até o FdPT.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 		golpe_resfriante = {
@@ -247,7 +247,7 @@ return {
 			tipo_ataque = "pessoal",
 			alvo = "O personagem",
 			gatilho = "Quando o personagem é atingido por um ataque",
-			efeito = "CA <- +4, Reflexos <- +4.  Até o final do próximo turno",
+			efeito = "(II) CA <- +4, Reflexos <- +4.  Até o final do próximo turno",
 		},
 		queda_suave = {
 			nome = "Queda Suave",
