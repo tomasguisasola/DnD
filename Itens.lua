@@ -314,11 +314,23 @@ return {
 		vontade = 2,
 		furtividade = 2,
 	},
+	mochila_de_carga_5 = { -- LJ1 254
+		nome = "Mochila de Carga",
+		tipo = "maravilhoso",
+		posicao = "costas",
+		efeito = "Permite armazenar até 100kg ou meio metro cúbico de volume, mas sempre pesa meio quilo.  Retirar um item de dentro exige uma ação mínima.",
+	},
 	pocao_de_cura = {
 		nome = "Poção de Cura",
 		tipo = "poção",
 		posicao = "mochila",
 		preco = 50,
+	},
+	provisoes_infinitas = { -- LJ1 254
+		nome = "Provisões Infinitas",
+		tipo = "maravilhoso",
+		posicao = "mochila",
+		efeito = "Após um descanso prolongado, você pode abrir a cesta e criar comida e água suficientes para alimentar até cinco criaturas médias ou pequenas (ou uma criatura grande) durante 24h.",
 	},
 	reagentes_alquimicos = {
 		nome = "Reagentes Alquímicos",
