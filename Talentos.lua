@@ -722,6 +722,14 @@ return {
 		efeito = "+1 na CA e Ref contra criaturas maiores.",
 	},
 
+	estudante_da_magia_da_lamina = { -- FR -------------------------------------
+		nome = "Estudante da Magia da Lâmina",
+		requisito = {
+			classe = "lamina_arcana",
+		},
+		efeito = "Acrescente uma magia diária de ataque dentre as conhecidas em cada nível.",
+	},
+
 	exatidao_elfica = { -- LJ1 -------------------------------------------------
 		nome = "Exatidão Élfica",
 		requisito = {
