@@ -1,4 +1,5 @@
 local set = require"DnD.Set"
+local soma_dano = require"DnD.Soma".soma
 
 return {
 	anao = {
