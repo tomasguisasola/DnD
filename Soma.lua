@@ -7,49 +7,27 @@ local function n_dado_mais(dano)
 	return n, dado, mais
 end
 
-local function soma_dado1(dn1, dn2, arma)
-	local t1, t2 = tonumber(dn1), tonumber(dn2)
-	if t1 and t2 then
-		return dn1+dn2
-	elseif t1 then
-		local n2, d2, m2 = n_dado_mais(dn2)
-		return n2..'d'..d2..'+'..(m2+dn1)
-	elseif t2 then
-		local n1, d1, m1 = n_dado_mais(dn1)
-		return n1..'d'..d1..'+'..(m1+dn2)
-	else
-		local n1, d1, m1 = n_dado_mais(dn1)
-		local n2, d2, m2 = n_dado_mais(dn2)
-		assert(d1 == d2, "Nao sei somar danos com dados diferentes ("..d1.." x "..d2..") para a arma "..tostring(arma))
-		return (n1+n2)..'d'..d1..(m1+m2)
-	end
-end
-
 local function soma_dados(dados, dado)
-	local a = dado:match"(%d+)%[A%]"
-	if a then
-		dados.A = dados.A + a
+	if tonumber(dado) then
+		dados.constante = dados.constante + dado
+	else
+		local a = dado:match"(%d+)%[A%]"
+		if a then
+			dados.A = dados.A + a
+		end
+		for n, d in dado:gmatch"(%d+)d(%d+)" do
+			d = tonumber(d)
+			dados[d] = (dados[d] or 0) + n
+			dados.max = math.max(dados.max, d)
+		end
+		dados.constante = dados.constante + (dado:match"%+(%d+)$" or 0)
 	end
-	for n, d in dado:gmatch"(%d+)d(%d+)" do
-		d = tonumber(d)
-		dados[d] = (dados[d] or 0) + n
-		dados.max = math.max(dados.max, d)
-	end
-	dados.constante = dados.constante + (dado:match"%+(%d+)$" or 0)
 end
 
-local function soma_dado2(dn1, dn2, arma)
+local function soma_dado(dn1, dn2)
 	local dados = { A = 0, max = 0, constante = 0, }
-	if tonumber(dn1) then
-		dados.constante = dn1
-	else
-		soma_dados(dados, dn1)
-	end
-	if tonumber(dn2) then
-		dados.constante = dados.constante + dn2
-	else
-		soma_dados(dados, dn2)
-	end
+	soma_dados(dados, dn1)
+	soma_dados(dados, dn2)
 	-- Gera o resultado
 	local r = ""
 	if dados.A > 0 then
@@ -72,40 +50,23 @@ local function soma_dado2(dn1, dn2, arma)
 	return r
 end
 
-local soma_dado = soma_dado2
-
-function soma_dano(self, valor, mais, arma)
+local function soma_dano(self, valor, mais, arma)
+	valor = valor or 0
+	mais = mais or 0
 	local ts = type(self)
 	assert(ts == "table", "bad argument #1 (table expected, got "..ts..")")
-	local tm = type(mais)
-	if not mais then
-		return valor
-	elseif not valor then
-		if tm == "function" then
-			return mais(self, valor, arma)
-		else
-			return mais
-		end
+	local tm, tv = type(mais), type(valor)
+	if tm == "function" then
+		return mais(self, valor, arma)
+	elseif tv == "function" then
+		return valor(self, mais, arma)
 	else
-		if tm == "function" then
-			return mais(self, valor, arma)
-		elseif tm == "number" then
-			return soma_dado(valor, mais, arma)
-		elseif tm == "string" then
-			if mais:sub(1,1) == '+' then
-				mais = mais:sub(2)
-			end
-				--return soma_dado(valor, mais:sub(2), arma)
-			--else
-				--return mais
-				return soma_dado(valor, mais, arma)
-			--end
-		end
+		return soma_dado(valor, mais, arma)
 	end
 end
 
 
-function mult_dano (self, valor, mult, arma)
+local function mult_dano (self, valor, mult, arma)
 	local ts = type(self)
 	assert(ts == "table", "bad argument #1 (table expected, got "..ts..")")
 	local tv = assert (type(valor), "bad argument #2 (value expected, got nil)")

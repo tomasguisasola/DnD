@@ -509,14 +509,26 @@ function Personagem:minhas_armas()
 		else
 			adicional = ""
 		end
-		if alcance ~= "" then
-			alcance = "("..alcance..")"
+		if alcance then
+			if alcance == 0 or alcance == "" then
+				alcance = ""
+			else
+				alcance = "("..alcance..")"
+			end
 		end
 		if decisivo then
-			decisivo = decisivo:match"%d.*"
+			if type(decisivo) ~= "number" then
+				decisivo = decisivo:match"%d.*"
+			elseif decisivo == 0 then
+				decisivo = ""
+			end
 		end
 		if dano_oport then
-			dano = dano.." [+"..dano_oport.."]"
+			if dano_oport == 0 then
+				dano_oport = ""
+			else
+				dano = dano.." [+"..dano_oport.."]"
+			end
 		end
 		-- Geral
 		a[#a+1] = modelo_arma:tagged{
