@@ -73,6 +73,19 @@ return {
 		preco = 680,
 		furtividade = 2,
 	},
+	bracadeira_do_alivio_2 = {
+		nome = "Braçadeira do Alívio",
+		tipo = "bracadeira",
+		posicao = "braço",
+		preco = 520,
+		poder = {
+			nome = "Braçadeira do Alívio",
+			uso = "Diário",
+			origem = {},
+			acao = "livre",
+			efeito = "Efeito: quando um aliado adjacente recupera PV, você ou outro aliado recupera\n    1d8 PV.",
+		},
+	},
 	bracadeira_do_golpe_poderoso_2 = {
 		nome = "Braçadeira do Golpe Poderoso",
 		tipo = "bracadeira",
