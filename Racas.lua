@@ -84,7 +84,11 @@ return {
 	},
 	drow = {
 		destreza = 2,
-		carisma = 2,
+		atributos_opcionais = {
+			nome = "mod_drow",
+			carisma = 2,
+			sabedoria = 2,
+		},
 		deslocamento = 6,
 		poderes = {
 			nuvem_da_escuridao = {
