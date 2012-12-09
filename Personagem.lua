@@ -21,12 +21,14 @@ end
 local function atributo(atrib)
 	return function (self)
 		local classe = classes[self.classe][atrib] or 0
-		local racial = racas[self.raca][atrib] or 0
-		local humano = 0
-		if self.raca == "humano" and self.mod_humano == atrib then
-			humano = 2
+		local minha_raca = racas[self.raca]
+		local racial = minha_raca[atrib] or 0
+		local op = minha_raca.atributos_opcionais
+		local racial_opcional = 0
+		if op and self[op.nome] == atrib then
+			racial_opcional = op[self[op.nome]]
 		end
-		return (self["_"..atrib] or 0) + classe + racial + humano
+		return (self["_"..atrib] or 0) + classe + racial + racial_opcional
 	end
 end
 

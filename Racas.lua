@@ -4,7 +4,11 @@ local soma_dano = require"DnD.Soma".soma
 return {
 	anao = {
 		constituicao = 2,
-		sabedoria = 2,
+		atributos_opcionais = {
+			nome = "mod_anao",
+			sabedoria = 2,
+			forca = 2,
+		},
 		deslocamento = 5,
 		armas = { martelo_de_arremesso = true, martelo_de_guerra = true, },
 		pericias = {
@@ -36,8 +40,12 @@ return {
 		},
 	},
 	draconato = {
-		forca = 2,
 		carisma = 2,
+		atributos_opcionais = {
+			nome = "mod_draconato",
+			forca = 2,
+			constituicao = 2,
+		},
 		deslocamento = 6,
 		poderes = {
 			sopro = {
@@ -117,8 +125,12 @@ return {
 		},
 	},
 	eladrin = {
-		destreza = 2,
 		inteligencia = 2,
+		atributos_opcionais = {
+			nome = "mod_eladrin",
+			carisma = 2,
+			destreza = 2,
+		},
 		vontade = 1,
 		deslocamento = 6,
 		armas = { espada_longa = true, },
@@ -143,7 +155,11 @@ return {
 	},
 	elfo = {
 		destreza = 2,
-		sabedoria = 2,
+		atributos_opcionais = {
+			nome = "mod_elfo",
+			inteligencia = 2,
+			sabedoria = 2,
+		},
 		deslocamento = 7,
 		armas = { arco_curto = true, arco_longo = true, },
 		pericias = {
@@ -236,7 +252,11 @@ return {
 	},
 	halfling = {
 		destreza = 2,
-		carisma = 2,
+		atributos_opcionais = {
+			nome = "mod_halfling",
+			constituicao = 2,
+			carisma = 2,
+		},
 		deslocamento = 6,
 		poderes = {
 			segunda_chance = {
@@ -261,6 +281,15 @@ return {
 		},
 	},
 	humano = {
+		atributos_opcionais = {
+			nome = "mod_humano",
+			forca = 2,
+			constituicao = 2,
+			destreza = 2,
+			inteligencia = 2,
+			sabedoria = 2,
+			carisma = 2,
+		},
 		deslocamento = 6,
 		fortitude = 1,
 		reflexos = 1,
@@ -272,7 +301,11 @@ return {
 	},
 	meio_elfo = {
 		constituicao = 2,
-		carisma = 2,
+		atributos_opcionais = {
+			nome = "mod_meio_elfo",
+			sabedoria = 2,
+			carisma = 2,
+		},
 		deslocamento = 6,
 		diletante = function (poder)
 			-- muda o uso "Sem Limite" para "por Encontro"
@@ -290,6 +323,11 @@ return {
 	meio_orc = {
 		forca = 2,
 		destreza = 2,
+		atributos_opcionais = {
+			nome = "mod_meio_orc",
+			forca = 2,
+			constituicao = 2,
+		},
 		deslocamento = 6,
 		pericias = {
 			intimidacao = 2,
@@ -319,8 +357,12 @@ return {
 		poderes = {},
 	},
 	tiefling = {
-		inteligencia = 2,
 		carisma = 2,
+		atributos_opcionais = {
+			nome = "mod_tiefling",
+			constituicao = 2,
+			inteligencia = 2,
+		},
 		deslocamento = 6,
 		poderes = {},
 		pericias = {
