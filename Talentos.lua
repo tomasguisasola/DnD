@@ -529,7 +529,7 @@ return {
 			end
 		end,
 		efeito = function(self)
-			return "Some +"..self.mod_con.." no dano do Desafio Potente."
+			return "Some +"..self.mod_con.." no dano do Desafio de Combate."
 		end,
 	},
 
