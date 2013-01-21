@@ -500,5 +500,36 @@ return {
 				return "Sucesso: "..naliados.." aliado(s) a até 5 podem ajustar 1 quadrado."
 			end,
 		},
+------- Poderes Diários nível 5 ------------------------------------------------
+		levantar_os_caidos = {
+			nome = "Levantar os Caídos",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "cura", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "forca", "Monção de Aço"),
+			efeito = function (self)
+				return "Efeito: os aliados a até 10 quadrados podem gastar um PC e recuperar +"..self.mod_car.." PV."
+			end,
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		palavras_instigantes = { -- PM
+			nome = "Palavras Instigantes",
+			uso = "En",
+			acao = "mínima",
+			origem = set("cura", "marcial"),
+			tipo_ataque = "explosão contígua 5",
+			alvo = "você e um aliado",
+			efeito = function (self)
+				local bonus = ''
+				if self.caracteristica_classe:match"[Ii]nspiradora" then
+					bonus = " e recebem + "..self.mod_car.." PV"
+				end
+				return "Efeito: você e um aliado a até 5 podem gastar 2 PC"..bonus.."."
+			end,
+		},
 	},
 }

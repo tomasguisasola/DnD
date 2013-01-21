@@ -39,7 +39,7 @@ return {
 	armas = set("adaga", "besta_mao", "shuriken", "funda", "espada_curta"),
 	implementos = {},
 	ataque = function (self, arma)
-		if arma.nome == "Adaga" then
+		if arma.nome:match"Adaga" then
 			return 1
 		else
 			return 0
@@ -313,6 +313,33 @@ return {
 			dano = mod.dado_mod("2[A]", "destreza", "Lâmina do Trapaçeiro"),
 			efeito = function (self)
 				return "Sucesso: ganhe +"..self.mod_car.." na CA até o CdPT."
+			end,
+		},
+------- Poderes Diários nível 5 ------------------------------------------------
+		ferido_ambulante = {
+			nome = "Ferido Ambulante",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distancia",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "Fort",
+			dano = mod.dado_mod("2[A]", "destreza", "Ferido Ambulante"),
+			efeito = function (self)
+				return "Sucesso: o alvo fica derrubado e, até o FdEn, toda vez que o alvo percorrer mais\n    da metade do deslocamento na mesma ação, ele fica derrubado no final.\nFracasso: metade do dano e o alvo não fica derrubado."
+			end,
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		escapar_ileso = {
+			nome = "Escapar Ileso",
+			uso = "En",
+			acao = "movimento",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			alvo = "pessoal",
+			efeito = function (self)
+				return "Efeito: se estiver marcado, a marca se encerra e pode ajustar o deslocamento."
 			end,
 		},
 	},

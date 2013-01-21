@@ -427,7 +427,7 @@ return {
 			ataque = mod.carisma,
 			defesa = "Ref",
 			dano = mod.dado_mod("2d6", "carisma"),
-			efeito = "Cria uma zona de luz plena que permanece ativa até o final do encontro.\nEnquanto estiverem na zona, o paladino e seus aliados recebem +1 nas defesas.",
+			efeito = "Efeito: cria uma zona de luz plena que permanece ativa até o FdEn.\n    Enquanto estiverem na zona, você e seus aliados recebem +1 nas defesas.",
 		},
 		retribuicao_do_martir = {
 			nome = "Retribuição do Mártir",
@@ -440,6 +440,18 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("4[A]", "forca"),
 			efeito = "fracasso: metade do dano",
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		colera_dos_deuses = {
+			nome = "Cólera dos Deuses",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("divino"),
+			tipo_ataque = "explosão contígua 1",
+			alvo = "o personagem e seus aliados",
+			efeito = function (self)
+				return "Efeito: os alvos causam +"..self.mod_car.." nas jogadas de dano até o FdEn."
+			end,
 		},
 	},
 }
