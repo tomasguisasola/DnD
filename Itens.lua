@@ -34,9 +34,13 @@ end
 
 return {
 	amuleto_da_protecao_1 = amuleto ({
-		nome = "Amuleto da Saúde",
+		nome = "Amuleto da Proteção",
 		preco = 360,
 	}, 1),
+	amuleto_da_protecao_6 = amuleto ({
+		nome = "Amuleto da Proteção",
+		preco = 1800,
+	}, 2),
 	amuleto_da_saude_3 = amuleto ({
 		nome = "Amuleto da Saúde",
 		preco = 680,
@@ -99,6 +103,26 @@ return {
 				return dano
 			end
 		end,
+	},
+	bracadeira_dos_golpes_estrategicos_6 = {
+		nome = "Braçadeira dos Golpes Estratégicos",
+		tipo = "bracadeira",
+		posicao = "braço",
+		preco = 1800,
+		propriedade = "Propriedade: causa +1d6 nos AdO.",
+	},
+	bracadeira_do_poder_mental_6 = {
+		nome = "Braçadeira do Poder Mental",
+		tipo = "bracadeira",
+		posicao = "braço",
+		preco = 1800,
+		poder = {
+			nome = "Braçadeira do Poder Mental",
+			uso = "Encontro",
+			origem = {},
+			acao = "livre",
+			efeito = "Efeito: quando for realizar um ataque baseado na Força, um teste de Força ou um\n    teste de perícia baseado em Força, use outro modificador dentre\n    Inteligência, Sabedoria ou Carisma no lugar daquele.",
+		},
 	},
 	bracadeira_do_tiro_perfeito_3 = {
 		nome = "Braçadeira do Tiro Perfeito",

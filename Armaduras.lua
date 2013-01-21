@@ -57,6 +57,13 @@ return {
 		atletismo = 1,
 		furtividade = 1,
 	},
+	da_durabilidade_9 = {
+		nome = "da Durabilidade +2",
+		categoria = set("gibão", "cota", "brunea", "placas"),
+		ca = 2,
+		pc = 2,
+		efeito = "Quando gasta um PC, ganha +2 PV.",
+	},
 	da_furtividade_3 = {
 		nome = "da Furtividade +1",
 		categoria = set("traje", "corselete"),
@@ -116,6 +123,18 @@ return {
 			uso = "Sem Limite",
 			origem = set("armadura"),
 			efeito = "O personagem bane a armadura para um local extradimensional seguro. Em qualquer\nmomento no futuro -- a menos que esteja usando outra armadura -- ele pode usar\noutra ação mínima para fazer com que a armadura retorne, aparecendo no corpo do personagem como se ele a tivesse vestido normalmente.",
+		},
+	},
+	repulsora_7 = {
+		nome = "Repulsora +2",
+		categoria = set("traje", "corselete"),
+		ca = 2,
+		poder = {
+			nome = "Armadura Repulsora",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("armadura"),
+			efeito = "Sempre que um inimigo se deslocar para um quadrado adjacente ao do personagem,\n    o usuário pode fazer com que a criatura seja empurrada 1 quadrado usando\n    uma reação imediata. Este efeito persiste até o FdE.",
 		},
 	},
 	robe_da_contingencia_4 = {

@@ -140,6 +140,29 @@ local function da_explosao_trovejante (nome, bonus)
 	return setmetatable (m, { __index = arma, })
 end
 
+local function do_cruzado_do_sol (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." do Cruzado do Sol",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		efeito = "Efeito: metade do dano é radiante e pode ser usada como implemento",
+		poder = {
+			nome = "Arma do Cruzado do Sol",
+			uso = "Di",
+			acao = "padrão",
+			origem = {},
+			ataque = function(self) return self.mod_car end,
+			defesa = "Ref",
+			dano = soma_dano ({}, "1d8", 0),
+			efeito = "Efeito: partículas de luz irrompem da arma e prendem-se aos inimigos adjacentes,\n    realizando um ataque de explosão contígua 1.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function inescapavel (nome, bonus) -- AA 72
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -153,7 +176,7 @@ local function inescapavel (nome, bonus) -- AA 72
 			uso = "SL",
 			acao = "livre",
 			origem = set("marcial"),
-			efeito = "Efeito: sempre que fracassar em um ataque com esta arma, recebe +1 (até o bônus\n    máximo da arma) no próximo ataque contra o mesmo alvo.\n    O bônus se encerra se acertar o alvo ou trocar de alvo.",
+			efeito = "Efeito: sempre que fracassar em um ataque com esta arma, recebe +1 (máx +"..bonus..")\n    no próximo ataque contra o mesmo alvo (até acertar ou trocar de alvo)."
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -250,7 +273,26 @@ local function rapida (nome, bonus) -- AA 76
 			uso = "Di",
 			acao = "livre",
 			origem = {},
-			efeito = "Efeito: quando acertar inimigo, realiza At.Básico (livre) contra inimigo qualquer.",
+			efeito = "Efeito: quando acertar inimigo, realiza AtB (livre) contra inimigo qualquer.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
+local function resoluta (nome, bonus) -- AA 77
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." Resoluta",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma Resoluta",
+			uso = "Di",
+			acao = "livre",
+			origem = {},
+			efeito = "Efeito: quando fracassar em um ataque à distância com essa arma;\n    a arma não retorna imediatamente à sua mão para, no CdPT do ALVO, realizar\n    um ataque básico à distância contra ele e então voltar à sua mão.",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -341,6 +383,7 @@ end
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
 	adaga_do_duelista_3 = do_duelista ("adaga", 1),
+	adaga_inescapavel_8 = inescapavel ("adaga", 2),
 	adaga_rapida_3 = rapida ("adaga", 1),
 	adaga_traicoeira_4 = traicoeira ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
