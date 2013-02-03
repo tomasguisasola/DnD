@@ -53,6 +53,19 @@ local function da_cancao_pungente (nome, bonus) -- LJ2 204
 	return setmetatable (m, { __index = arma, })
 end
 
+local function de_drenar_vitalidade (nome, bonus) -- LJ1 234
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." de Drenar Vitalidade",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		efeito = "Propriedade: Quando você reduz um inimigo a 0 PV ou menos com esta arma, recebe\n    5 PVT.",
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function do_cruzado (nome, bonus) -- AA 67
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -392,6 +405,7 @@ local armas = {
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
+	espada_longa_de_drenar_vitalidade_5 = de_drenar_vitalidade ("espada_longa", 1),
 	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_longa_magica_6 = magica ("espada_longa", 2),
 	espada_longa_lamina_do_sol_9 = lamina_do_sol ("espada_longa", 2),

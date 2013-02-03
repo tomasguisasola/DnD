@@ -334,6 +334,33 @@ return {
 		efeito = "+2 no dano em troca de -2 no ataque.",
 	},
 
+	bardo_diletante = { -- LJ2 -------------------------------------------------
+		nome = "Bardo Diletante",
+		requisito = {
+			classe = function(self)
+				return self.classe ~= "bardo"
+			end,
+			carisma = 13,
+		},
+		efeito = "Adquire treinamento em uma perícia de classe de bardo e pode usar a palavra majestosa 1/dia.",
+		poder = {
+			nome = "Palavra Majestosa",
+			uso = "Di",
+			origem = set("arcano", "cura"),
+			tipo_ataque = "distancia 5",
+			alvo = "aliado a até 5",
+			efeito = function (self)
+				local adicional = self.palavra_majestosa_adicional
+				if adicional then
+					adicional = "+ "..self.mod_car.." PVT"
+				else
+					adicional = ''
+				end
+				return "Efeito: aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
+			end,
+		},
+	},
+
 	bencao_do_obscuro_aprimorada = { -- LJ1 ------------------------------------
 		nome = "Bênção do Obscuro Aprimorada",
 		requisito = {
@@ -794,6 +821,15 @@ return {
 		end,
 	},
 
+	fogo_arcano = { -- AP ------------------------------------------------------
+		nome = "Fogo Arcano",
+		requisito = {
+			inteligencia = 13,
+			classe = OU("bardo", "bruxo", "feiticeiro", "lamina_arcana", "mago"),
+		},
+		efeito = "Quando você atinge um inimigo com um poder arcano flamejante, o alvo adquire vulnerabilidade 5 a dano congelante no primeiro ataque que você realizar contra ele até o FdPT.",
+	},
+
 	fogo_astral = { -- LJ1 -----------------------------------------------------
 		nome = "Fogo Astral",
 		requisito = {
@@ -897,6 +933,18 @@ return {
 		efeito = "O druida recebe +1 de bônus nas jogadas de ataque dos poderes primitivos contra inimigos sangrando.",
 	},
 
+	furtividade_das_sombras = { -- LJ1 -----------------------------------------
+		nome = "Furtividade das Sombras",
+		requisito = {
+			classe = function(self)
+				return self.classe ~= "ladino"
+			end,
+			destreza = 13,
+		},
+		ladinagem = "treinada",
+		efeito = "Adquire treinamento em Ladinagem e pode usar o At.Furtivo 1/encontro.",
+	},
+
 	golpe_primoroso = { -- PM --------------------------------------------------
 		nome = "Golpe Primoroso",
 		requisito = {
@@ -926,7 +974,7 @@ return {
 			classe = "mago",
 			sabedoria = 13,
 		},
-		efeito = "Acrescente uma magia diária de ataque dentre as conhecidas em cada nível.",
+		efeito = "Acrescente uma magia diária de ataque dentre as conhecidas\n    em cada nível.",
 	},
 
 	harmonia_de_erathis = { -- LJ1 ---------------------------------------------
@@ -1467,6 +1515,15 @@ return {
 		efeito = "Quando obtiver sucesso em um ataque usando Cólera Infernal, o alvo também é empurrado 1 quadrado.",
 	},
 
+	reserva_arcana = { -- AP ---------------------------------------------------
+		nome = "Reserva Arcana",
+		requisito = {
+			raca = OU("humano", "meio_elfo"),
+			classe = OU("bardo", "bruxo", "feiticeiro", "lamina_arcana", "mago"),
+		},
+		efeito = "Ganha +2 de bônus nos dados de dano dos poderes de ataque SL\n    desde que não tenha mais nenhum poder de ataque pEn para usar.",
+	},
+
 	resgate_de_avandra = { -- LJ1 ----------------------------------------------
 		nome = "Resgate de Avandra",
 		requisito = {
@@ -1645,6 +1702,15 @@ return {
 		pv_estagio = 5,
 	},
 
+	vitoria_gloriosa = { -- D --------------------------------------------------
+		nome = "Vitória Gloriosa",
+		requisito = {
+			raca = "draconato",
+			classe = OU("guerreiro", "ladino", "patrulheiro", "senhor_da_guerra"),
+		},
+		efeito = "Uma vez por encontro, quando reduz um inimigo a 0 PV ou menos,\n    você pode gastar um PC.",
+	},
+
 	ajuste_largo = { -----------------------------------------------------------
 		nome = "Ajuste Largo",
 		requisito = {
@@ -1724,44 +1790,5 @@ return {
 			end
 		end,
 		efeito = "Aumenta o dado da Maldição do Bruxo de d6 para d8.",
-	},
-
-	furtividade_das_sombras = { -- LJ1 -----------------------------------------
-		nome = "Furtividade das Sombras",
-		requisito = {
-			classe = function(self)
-				return self.classe ~= "ladino"
-			end,
-			destreza = 13,
-		},
-		ladinagem = "treinada",
-		efeito = "Adquire treinamento em Ladinagem e pode usar o At.Furtivo 1/encontro.",
-	},
-
-	bardo_diletante = { -- LJ2 -------------------------------------------------
-		nome = "Bardo Diletante",
-		requisito = {
-			classe = function(self)
-				return self.classe ~= "bardo"
-			end,
-			carisma = 13,
-		},
-		efeito = "Adquire treinamento em uma perícia de classe de bardo e pode usar a palavra majestosa 1/dia.",
-		poder = {
-			nome = "Palavra Majestosa",
-			uso = "Di",
-			origem = set("arcano", "cura"),
-			tipo_ataque = "distancia 5",
-			alvo = "aliado a até 5",
-			efeito = function (self)
-				local adicional = self.palavra_majestosa_adicional
-				if adicional then
-					adicional = "+ "..self.mod_car.." PVT"
-				else
-					adicional = ''
-				end
-				return "Efeito: aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
-			end,
-		},
 	},
 }

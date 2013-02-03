@@ -357,6 +357,12 @@ return {
 		posicao = "costas",
 		efeito = "Permite armazenar até 100kg ou meio metro cúbico de volume, mas sempre pesa meio quilo.  Retirar um item de dentro exige uma ação mínima.",
 	},
+	oculos_dos_olhos_de_aguia_2 = { -- AA 136
+		nome = "Óculos dos Olhos de Águia",
+		tipo = "oculos",
+		posicao = "cabeça",
+		efeito = "Ganha +1 nos ataques básicos à distância."
+	},
 	pocao_de_cura = {
 		nome = "Poção de Cura",
 		tipo = "poção",

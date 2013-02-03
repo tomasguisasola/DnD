@@ -247,6 +247,15 @@ return {
 			end,
 		},
 ------- Poderes Utilitários nível 2 --------------------------------------------
+		criar_abertura = {
+			nome = "Criar Abertura",
+			uso = "En",
+			acao = "mínima",
+			origem = set("marcial"),
+			tipo_ataque = "corpo 1",
+			alvo = "uma criatura",
+			efeito = "Efeito: o alvo fica marcado até o FdPT e pode realizar um AtB CaC contra você,\n    (livre) com -2 no ataque.  Um aliado adjacente ao alvo ajusta o próprio\n    deslocamento (livre).",
+		},
 		comigo_agora = {
 			nome = "Comigo, Agora!",
 			uso = "En",
@@ -254,7 +263,7 @@ return {
 			origem = set("marcial"),
 			tipo_ataque = "corpo 1",
 			alvo = "aliado adjacente",
-			efeito = "O alvo é conduzido 2 quadrados para um quadrado adjacente a você.",
+			efeito = "Efeito: o alvo é conduzido 2 quadrados para um quadrado adjacente a você.",
 		},
 		fechar_a_guarda = {
 			nome = "Fechar a Guarda",
@@ -262,7 +271,15 @@ return {
 			acao = "int. imediata",
 			origem = set("marcial"),
 			tipo_ataque = "corpo",
-			efeito = "Cancele a VdC de um ataque.",
+			efeito = "Efeito: cancele a VdC de um ataque.",
+		},
+		flancos_protegidos = {
+			nome = "Flancos Protegidos",
+			uso = "En",
+			acao = "mínima",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: até o FdPT, +2 -> CA e Reflexos e não concede VdC a quem o estiver\n    flanquenado.",
 		},
 		irrefreavel = {
 			nome = "Irrefreável",
@@ -271,7 +288,7 @@ return {
 			origem = set("cura", "marcial"),
 			tipo_ataque = "pessoal",
 			efeito = function(self)
-				return "Você recebe 2d6+"..self.mod_con.." PVT."
+				return "Efeito: recebe 2d6+"..self.mod_con.." PVT."
 			end,
 		},
 		passar_adiante = {
@@ -280,7 +297,26 @@ return {
 			acao = "movimento",
 			origem = set("marcial"),
 			tipo_ataque = "pessoal",
-			efeito = "Escolha um inimigo adjacente e percorra seu deslocamento.\n   Desde que termine adjacente ao mesmo inimigo, o movimento não provoca AdO.",
+			efeito = "Efeito: escolha um inimigo adjacente e percorra seu deslocamento.\n   Desde que termine adjacente ao mesmo inimigo, o movimento não provoca AdO.",
+		},
+		postura_defensiva = {
+			nome = "Postura Defensiva",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial", "postura"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: enquanto adotar esta postura, você fica lento e +2 -> CA.  Além disso,\n    você pode ajustar 1 (RA) sempre que um inimigo fracassar em um AtB CaC\n    contra você.  Use uma ação livre para sair da postura.",
+		},
+		reposicionamento_perspicaz = {
+			nome = "Reposicionamento Perspicaz",
+			uso = "En",
+			acao = "reação imediata",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			gatilho = "Você é atingido por um ataque",
+			efeito = function(self)
+				return "Efeito: com uma RA a um ataque, você ajusta "..self.mod_sab.." quadrados."
+			end,
 		},
 		tolerancia_ilimitada = {
 			nome = "Tolerância Ilimitada",
@@ -289,7 +325,7 @@ return {
 			origem = set("cura", "marcial", "postura"),
 			tipo_ataque = "pessoal",
 			efeito = function(self)
-				return "Você adquire regeneração "..(2+self.mod_con).." quando estiver sangrando."
+				return "Efeito: adquire regeneração "..(2+self.mod_con).." quando estiver sangrando."
 			end,
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
@@ -347,6 +383,18 @@ return {
 				end
 				return soma_dano(self, "1[A]", self.mod_for + bonus, "Estocada contra Armaduras")
 			end,
+		},
+		golpe_do_rinoceronte = {
+			nome = "Golpe do Rinoceronte",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Golpe do Rinoceronte"),
+			efeito = "Condição: você deve realizar uma investida e usar este poder no lugar do AtB CaC\n    Se empunhar um escudo, o movimento não provoca AdO.",
 		},
 		golpe_esmagador = {
 			nome = "Golpe Esmagador",
