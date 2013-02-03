@@ -82,7 +82,7 @@ return {
 			nome = "Mísseis Mágicos",
 			uso = "SL",
 			origem = set("arcano", "energetico", "implemento"),
-			tipo_ataque = "distancia 10",
+			tipo_ataque = "distancia 20",
 			alvo = "Uma criatura",
 			--ataque = "Sempre acerta",
 			dano = function(self)
