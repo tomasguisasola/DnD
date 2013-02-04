@@ -261,6 +261,18 @@ return {
 			efeito = "Efeito: quando pelo menos 2 aliados (ou o próprio) estiverem sangrando, o personagem e seus aliados adjacentes recebem +1 na CA e os membros que estiverem sangrando recebem +1 em Vontade.",
 		},
 	},
+	estandarte_de_batalha_da_honra_2 = {
+		nome = "Estandarte de Batalha da Honra",
+		tipo = "estandarte",
+		posicao = "mochila",
+		preco = 520,
+		poder = {
+			nome = "Estandarte de Batalha da Honra",
+			uso = "Encontro",
+			origem = {},
+			efeito = "Efeito: cria zona (explosão contígua 5), onde os inimigos marcados sofram -1 no dano contra criaturas que não os tiverem marcado.",
+		},
+	},
 	estandarte_de_batalha_do_poder_4 = {
 		nome = "Estandarte de Batalha do Poder",
 		tipo = "estandarte",
