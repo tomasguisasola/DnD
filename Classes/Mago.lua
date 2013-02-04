@@ -54,7 +54,7 @@ return {
 			efeito = function(self)
 				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"ajado" then
-					return "(II) após o resultado do dano que for receber, ganha +"..self.mod_con.." na CA contra este ataque\n    (o que pode anulá-lo)."
+					return "(II) após o resultado do dano que for receber, ganha +"..self.mod_con.." em uma defesa contra\n    este ataque (o que pode anulá-lo)."
 				elseif c:match"orbe" then
 					return "-"..self.mod_sab.." de penalidade no próximo TR contra um efeito provocado por uma de suas magias que uma criatura for fazer."
 				elseif c:match"varinha" then
@@ -164,7 +164,7 @@ return {
 			defesa = "Ref",
 			dano = mod.dado_mod("2d8", "inteligencia", "Orbe de Energia"),
 			efeito = function(self)
-				return "Sucesso: ataque secundário contra um alvo adjacente ao primário -> "..soma_dano(self, "1d10", self.mod_int, "Orbe de Energia")
+				return "Sucesso: ataque secundário contra inimigos adjacentes ao primário -> "..soma_dano(self, "1d10", self.mod_int, "Orbe de Energia")
 			end,
 		},
 		raio_de_enfraquecimento = {
@@ -225,7 +225,7 @@ return {
 			efeito = "Criaturas que entram ou começam o turno na área, são alvos de novos ataques.\nPersiste até o final do próximo turno ou até dissipá-la (mínima).",
 			ataque = mod.inteligencia,
 			defesa = "Fort",
-			dano = mod.dado_mod("1d8", "inteligencia", "Nuvem Congelante"),
+			dano = mod.dado_mod("2d8", "inteligencia", "Nuvem Congelante"),
 			fracasso = "metade do dano",
 		},
 		sono = {
