@@ -134,6 +134,26 @@ local function dos_ferimentos (nome, bonus) -- AA 70
 	return setmetatable (m, { __index = arma, })
 end
 
+local function da_explosao_flamejante (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local dano = math.floor ((bonus+1) / 2)
+	local m = {
+		nome = arma.nome.." da Explosão Flamejante",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma da Explosão Flamejante",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial"),
+			efeito = "Efeito: o próximo ABaD realizado com esta arma, antes do FdsT, torna-se uma\n    explosão de área 1 centralizada no alvo X Reflexos.\n    Ao invés do dano normal, cada alvo sofre "..(dano * 5).." de dano contínuo flamejante.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function da_explosao_trovejante (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -171,6 +191,26 @@ local function do_cruzado_do_sol (nome, bonus)
 			defesa = "Ref",
 			dano = soma_dano ({}, "1d8", 0),
 			efeito = "Efeito: partículas de luz irrompem da arma e prendem-se aos inimigos adjacentes,\n    realizando um ataque de explosão contígua 1.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
+local function flamejante (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local adicional = math.floor ((bonus+1) / 2)
+	local m = {
+		nome = arma.nome.." Flamejante",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma Flamejante",
+			uso = "Di",
+			acao = "livre",
+			origem = set("marcial"),
+			efeito = "Efeito: você pode ativar este poder quando atinge um inimigo com esta arma.\n    O alvo sofre +"..adicional.."d6 de dano flamejante e "..(adicional*5).." de dano contínuo flamejante (TR).",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -393,6 +433,26 @@ local function vampirica (nome, bonus) -- AA 79
 	return setmetatable (m, { __index = arma, })
 end
 
+local function unidas (nome, bonus) -- AA 80
+	local arma = ArmasBasicas[nome]
+	local adicional = math.floor ((bonus+1) / 2)
+	local m = {
+		nome = arma.nome.." Unidas",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Armas Unidas",
+			uso = "Di",
+			acao = "mínima",
+			origem = {},
+			efeito = "Efeito: divida a arma em duas idênticas (mínima), portando uma em cada mão.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
 	adaga_do_duelista_3 = do_duelista ("adaga", 1),
@@ -400,8 +460,10 @@ local armas = {
 	adaga_rapida_3 = rapida ("adaga", 1),
 	adaga_traicoeira_4 = traicoeira ("adaga", 1),
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
+	arco_longo_da_explosao_flamejante_3 = da_explosao_flamejante ("arco_longo", 1),
 	arco_longo_da_explosao_trovejante_4 = da_explosao_trovejante ("arco_longo", 1),
 	azagaia_magica_1 = magica ("azagaia", 1),
+	espada_curta_unidas_3 = unidas ("espada_curta", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
