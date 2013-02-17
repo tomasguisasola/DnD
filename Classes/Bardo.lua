@@ -47,7 +47,7 @@ return {
 			origem = set("arcano"),
 			tipo_ataque = "pessoal",
 			alvo = "pessoal",
-			efeito = "Você recebe +5 no próximo teste de Diplomacia até o FdPT.",
+			efeito = "Efeito: você recebe +5 no próximo teste de Diplomacia até o FdPT.",
 		},
 		palavra_majestosa = {
 			nome = "Palavra Majestosa",
@@ -61,7 +61,7 @@ return {
 				else
 					adicional = ''
 				end
-				return "Aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
+				return "Efeito: aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
 			end,
 		},
 		virtude = {
@@ -73,11 +73,11 @@ return {
 				local c = (self.caracteristica_classe or ''):lower()
 				if c:match"ast.cia" then
 					local distancia = 5 + self.mod_int
-					return "Aliado a até "..distancia..", que for alvo de ataque fracassado é conduzido 1."
+					return "Efeito: aliado a até "..distancia..", que for alvo de ataque fracassado é conduzido 1."
 				elseif c:match"bravura" then
 					local pvt = 2 * math.floor((self.nivel-1)/10)
 						+ 1 + self.mod_con
-					return "Aliado a até 5, que sangra ou mata inimigo recebe "..pvt.." PVT."
+					return "Efeito: aliado a até 5, que sangra ou mata inimigo recebe "..pvt.." PVT."
 				else
 					Personagem.warn"Sem característica de classe, não tem Virtude de Bardo."
 					return "Sem característica de classe, não tem Virtude de Bardo."
@@ -97,7 +97,7 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "carisma", "Golpe Condutor"),
-			efeito = "O alvo sofre -2 numa defesa a sua escolha até o FdPT.",
+			efeito = "Efeito: o alvo sofre -2 numa defesa a sua escolha até o FdPT.",
 		},
 		golpe_da_cancao_de_guerra = {
 			nome = "Golpe da Canção de Guerra",
@@ -110,7 +110,7 @@ return {
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "carisma", "Golpe da Canção de Guerra"),
 			efeito = function(self)
-				return "Os aliados que atingirem o alvo até o FdPT recebem "..self.mod_con.." PVT."
+				return "Efeito: os aliados que atingirem o alvo até o FdPT recebem "..self.mod_con.." PVT."
 			end,
 		},
 		marca_indireta = {
@@ -123,7 +123,7 @@ return {
 			ataque = mod.car,
 			defesa = "Refl",
 			dano = mod.dobra_21("d8", "carisma", "Marca Indireta"),
-			efeito = "O alvo fica marcado por um aliado a até 5 quadrados até FdPT.",
+			efeito = "Efeito: o alvo fica marcado por um aliado a até 5 quadrados até FdPT.",
 		},
 		zombaria_malevola = {
 			nome = "Zombaria Malévola",
@@ -135,7 +135,7 @@ return {
 			ataque = mod.car,
 			defesa = "Vont",
 			dano = mod.dobra_21("d6", "carisma", "Zombaria Malévola"),
-			efeito = "O alvo sofre -2 nos ataques até o FdPT.",
+			efeito = "Efeito: o alvo sofre -2 nos ataques até o FdPT.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 		amigos_rapidos = {
@@ -147,7 +147,7 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.car,
 			defesa = "Vont",
-			efeito = "O alvo não pode atacar o bardo ou um aliado a sua escolha até o FdPT ou até que o bardo ou um aliado ataque o alvo.",
+			efeito = "Efeito: o alvo não pode atacar um membro a sua escolha até o FdPT ou até que\n    este membro ataque o alvo.",
 		},
 		gafe = {
 			nome = "Gafe",
@@ -164,7 +164,7 @@ return {
 				if self.caracteristica_classe == "virtude da astúcia" then
 					bonus = 1+self.mod_int
 				end
-				return "O alvo é conduzido 2 quadrados, provocando um AdO com +"..bonus.." no ataque."
+				return "Efeito: o alvo é conduzido 2 quadrados, provocando AdO com +"..bonus.." no ataque."
 			end,
 		},
 		grito_do_triunfo = {
@@ -195,7 +195,7 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "carisma", "Refrão Inspirador"),
-			efeito = "Os aliados recebem +1 nos ataques até o FdPT do bardo.",
+			efeito = "Efeito: aliados recebem +1 nos ataques até o FdPT do bardo.",
 		},
 ------- Poderes Diários nível 1 ------------------------------------------------
 		cancao_do_matador = {
@@ -208,7 +208,7 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "carisma", "Canção do Matador"),
-			efeito = "O alvo concede VdC ao bardo e aliados (TR encerra).\nFracasso = metade do dano.\nAté o final do encontro, sempre que você acertar um alvo, este concede VdC ao\nbardo e aliados até o FdPT do bardo.",
+			efeito = "Sucesso: o alvo concede VdC ao bardo e aliados (TR encerra).\nFracasso = metade do dano.\nEfeito: até o FdEn, sempre que você acertar um alvo, este concede VdC a você\n    e seus aliados até o FdPT (do bardo).",
 		},
 		ecos_do_guardiao = {
 			nome = "Ecos do Guardião",
@@ -220,7 +220,7 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "carisma", "Ecos do Guardião"),
-			efeito = "O alvo fica marcado por um aliado a até 5 quadrados deste até o FdPT.\nFracasso = metade do dano.\nAté o final do encontro, sempre que o bardo acertar um alvo pode marcá-lo por um\naliado a até 5 quadrados deste até o FdPT.",
+			efeito = "Sucesso: o alvo fica marcado por um aliado a até 5 quadrados deste até o FdPT.\nFracasso = metade do dano.\nEfeito: até o FdEn, sempre que você acertar um alvo, pode marcá-lo por um\n    aliado a até 5 de você até o FdPT.",
 		},
 		grito_inspirador = {
 			nome = "Grito Inspirador",
@@ -233,7 +233,7 @@ return {
 			defesa = "Vont",
 			dano = mod.dado_mod("2d6", "carisma", "Grito Inspirador"),
 			efeito = function(self)
-				return "Até o final do encontro, sempre que um aliado atingir o alvo, recupera "..self.mod_car.." PV."
+				return "Efeito: até o FdEn, sempre que um aliado atingir o alvo, recupera "..self.mod_car.." PV."
 			end,
 		},
 		verso_do_triunfo = {
@@ -246,7 +246,7 @@ return {
 			ataque = mod.car,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "carisma", "Verso do Triunfo"),
-			efeito = "Até o final do encontro, o bardo e aliados a até 5 quadrados recebem +1 no dano\ne nos TR, e sempre que um membro reduzir um inimigo a 0 PV (ou menos), o bardo\ne seus aliados a até 5 quadrados do inimigo podem ajustar 1 quadrado (livre).",
+			efeito = "Efeito: até o FdEn, você e seus aliados a até 5 recebem +1 no dano e nos TR,\n    e sempre que um membro reduzir um inimigo a 0 PV (ou menos), você e seus\n    aliados a até 5 quadrados do inimigo podem ajustar 1 quadrado (livre).",
 		},
 ------- Poderes Utilitários nível 2 --------------------------------------------
 		cancao_da_coragem = {
@@ -256,7 +256,7 @@ return {
 			origem = set("arcano", "zona"),
 			tipo_ataque = "explosão contígua 5",
 			alvo = "o bardo e aliados",
-			efeito = "A zona (centralizada no bardo) concede +1 nos ataques aos membros.\nSe desloca com o bardo e persiste com uma ação mínima.",
+			efeito = "Efeito: a zona (centralizada em você) concede +1 nos ataques aos aliados.\n    Se desloca com você e persiste com uma ação mínima.",
 		},
 		cancao_da_defesa = {
 			nome = "Canção da Defesa",
@@ -265,7 +265,7 @@ return {
 			origem = set("arcano", "zona"),
 			tipo_ataque = "explosão contígua 5",
 			alvo = "o bardo e aliados",
-			efeito = "A zona (centralizada no bardo) concede +1 na CA aos membros.\nSe desloca com o bardo e persiste com uma ação mínima.",
+			efeito = "Efeito: a zona (centralizada no bardo) concede +1 na CA aos aliados.\n    Se desloca com você e persiste com uma ação mínima.",
 		},
 		inspirar_competencia = {
 			nome = "Inspirar Competência",
@@ -274,16 +274,16 @@ return {
 			origem = set("arcano", "zona"),
 			tipo_ataque = "explosão contígua 5",
 			alvo = "o bardo e aliados",
-			efeito = "Até o final do encontro, os alvos recebem +2 no próximo teste com uma perícia\nescolhida pelo bardo.",
+			efeito = "Efeito: até o FdEn, os alvos recebem +2 no próximo teste de perícia escolhida.",
 		},
-		melodia_do_cadador = {
+		melodia_do_cacador = {
 			nome = "Melodia do Caçador",
 			uso = "Di",
 			acao = "mínima",
 			origem = set("arcano"),
 			tipo_ataque = "distância 10",
 			alvo = "um aliado",
-			efeito = "Até o FdPT, o alvo recebe +5 nos testes de Furtividade e não\nsofre penalidade por se deslocar mais de 2 quadrados ou correr.\nUma ação mínima persiste o efeito, desde que o alvo continue dentro do alcance.",
+			efeito = "Efeito: até o FdPT, o alvo recebe +5 nos testes de Furtividade e não sofre\n    penalidade por se deslocar mais de 2 quadrados ou correr.\nUma ação mínima persiste o efeito, desde que o alvo continue dentro do alcance.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		chamado_aos_cavalos_de_batalha = {
