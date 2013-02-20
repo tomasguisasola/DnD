@@ -1407,6 +1407,18 @@ return {
 	proficiencia_com_armadura = { -- LJ1 ---------------------------------------
 		nome = "Proficiência com Armadura",
 		requisito = {
+			forca = function (self, categoria, err_msg)
+				local exigem_forca_13 = set("gibao", "cota", "brunea", "placas")
+				if exigem_forca_13[categoria] then
+					return self.forca >= 13, "Proficiência com "..categoria.." exige força 13, a sua é "..self.forca
+				end
+			end,
+			constituicao = function (self, categoria, err_msg)
+				local exigem_constituicao_13 = set("gibao", "cota", "brunea", "placas")
+				if exigem_constituicao_13[categoria] then
+					return self.constituicao >= 13, "Proficiência com "..categoria.." exige constituição 13, a sua é "..self.constituicao
+				end
+			end,
 			armadura = function (self, categoria, err_msg)
 				local armaduras = require"DnD.Armaduras"
 				for i = 1, #armaduras do
