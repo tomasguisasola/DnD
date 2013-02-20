@@ -54,7 +54,7 @@ return {
 			alvo = "uma criatura",
 			ataque = 1,
 			defesa = nil,
-			efeito = "Se você for o aliado mais próximo do alvo, +1 no ataque à distância contra ele."
+			efeito = "Efeito: se você for o aliado mais próximo do alvo, +1 no ataque à distância contra ele."
 		},
 	},
 	poderes = {
@@ -88,7 +88,7 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "forca", "Bater e Correr"),
-			efeito = "Depois desse ataque, pode se mover sem provocar AdO no primeiro quadrado.",
+			efeito = "Efeito: depois do ataque, pode se mover sem provocar AdO no primeiro quadrado.",
 		},
 		cercar_e_golpear = {
 			nome = "Cercar e Golpear",
@@ -112,7 +112,7 @@ return {
 			condicao = "Deve empunhar duas armas corpo-a-corpo ou uma à distância.",
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "", "Golpes Gêmeos"),
-			efeito = "Dois ataques.",
+			efeito = "Efeito: dois ataques.",
 		},
 		golpe_lepido = {
 			nome = "Golpe Lépido",
@@ -124,7 +124,7 @@ return {
 			ataque = mod.destreza,
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "destreza", "Golpe Lépido"),
-			efeito = "Ajusta um quadrado antes ou depois do ataque.",
+			efeito = "Efeito: ajusta um quadrado antes ou depois do ataque.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 		aproximar_se_da_presa = {
@@ -173,7 +173,7 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe das Duas Presas"),
 			efeito = function (self)
-				return "Dois ataques.  Se acertar os dois ataques, causa +"..self.mod_sab
+				return "Efeito: dois ataques.  Se acertar os dois ataques, causa +"..self.mod_sab
 			end,
 		},
 		golpe_do_carcaju_atroz = {
@@ -201,7 +201,7 @@ return {
 				return "Sucesso: se estiver flanqueando, causa +"..self.mod_sab
 			end,
 		},
-		golpe_evasivo = {
+		golpe_evasivo = { -- LJ1
 			nome = "Golpe Evasivo",
 			uso = "En",
 			acao = "padrão",
@@ -215,7 +215,7 @@ return {
 				return "Efeito: você pode ajustar "..(1+self.mod_sab).." quadrados antes ou depois do ataque."
 			end,
 		},
-		golpe_sincronizado = {
+		golpe_sincronizado = { -- PM
 			nome = "Golpe Sincronizado",
 			uso = "En",
 			acao = "padrão",
@@ -229,7 +229,7 @@ return {
 				return "Efeito: ataque do animal X CA -> 1[C]\n        "..self.mod_for.." X Refl -> 1[A]+"..self.mod_for.."\n    Se o animal for uma ave de rapina, javali, lagarto, serpente ou urso, o at.\n    secundário causa +"..self.mod_sab
 			end,
 		},
-		salva_veloz = {
+		salva_veloz = { -- PM
 			nome = "Salva Veloz",
 			uso = "En",
 			acao = "padrão",
@@ -243,7 +243,7 @@ return {
 				return "Efeito: se atacar apenas uma criatura, +2 no dano;\n        se atacar duas criaturas, -2 nos ataques.\n======> NÃO ESCOLHA ESTE PODER; troque pelo Golpe das Duas Presas!"
 			end,
 		},
-		tiro_singular = {
+		tiro_singular = { -- PM
 			nome = "Tiro Singular",
 			uso = "En",
 			acao = "padrão",
@@ -252,7 +252,7 @@ return {
 			alvo = "uma ou duas criaturas",
 			ataque = mod.destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("1[A]", "destreza", "Tiro Singular"),
+			dano = mod.dado_mod("2[A]", "destreza", "Tiro Singular"),
 			efeito = function(self)
 				return "Sucesso: se nenhuma criatura estiver adjacente ao alvo, causa +"..self.mod_sab
 			end,
@@ -318,7 +318,7 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Mandíbulas do Lobo"),
-			efeito = "Dois ataques.",
+			efeito = "Efeito: dois ataques.",
 		},
 		repartir_disparo = {
 			nome = "Repartir Disparo",
@@ -330,7 +330,7 @@ return {
 			ataque = mod.destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "destreza", "Repartir Disparo"),
-			efeito = "Jogue dois d20 e fique com o melhor contra os dois alvos.",
+			efeito = "Efeito: jogue dois d20 e fique com o melhor contra os dois alvos.",
 		},
 ------- Poderes Utilitários nível 2 --------------------------------------------
 		bloqueio_desequilibrante = {
@@ -363,7 +363,7 @@ return {
 			tipo_ataque = "utilitario",
 			alvo = "pessoal",
 			efeito = function(self)
-				return "Quando um inimigo lhe causar dano, pode ajustar até "..self.mod_sab.." quadrados e recebe +2 em\ntodas as defesas até o final do próximo turno."
+				return "Efeito: quando um inimigo lhe causar dano, pode ajustar até "..self.mod_sab.." quadrados\n    e recebe +2 em todas as defesas até o FdPT."
 			end,
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
@@ -372,7 +372,7 @@ return {
 			uso = "En",
 			acao = "padrao",
 			origem = set("arma", "marcial"),
-			tipo_ataque = "corpo/distância",
+			tipo_ataque = "corpo/distancia",
 			alvo = "uma ou duas criaturas",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
@@ -402,7 +402,7 @@ return {
 			acao = "padrão",
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo/distancia",
-			alvo = "a Presa do patrulheiro",
+			alvo = "a Presa",
 			ataque = mod.forca_ou_destreza,
 			defesa = "Refl",
 			dano = mod.dado_mod("2[A]", "forca/destreza", "Golpe da Vespa das Sombras"),
@@ -416,9 +416,9 @@ return {
 			alvo = "uma ou duas criaturas",
 			ataque = mod.forca_ou_destreza,
 			defesa = "CA",
-			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe da Vespa das Sombras"),
+			dano = mod.dado_mod("1[A]", "forca/destreza", "Golpe do Javali Presa do Trovão"),
 			efeito = function (self)
-				return "Efeito: Dois ataques.\nSucesso: a cada sucesso, o alvo é empurrado 1 quadrado.  Se os dois golpes\n    atingirem o mesmo alvo, ele é empurrado "..(1+self.mod_sab).."quadrados."
+				return "Efeito: Dois ataques.\nSucesso: a cada sucesso, o alvo é empurrado 1 quadrado.  Se os dois golpes\n    atingirem o mesmo alvo, ele é empurrado "..(1+self.mod_sab).." quadrados."
 			end,
 		},
 	},
