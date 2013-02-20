@@ -154,6 +154,35 @@ return {
 		vontade = 1,
 		pv_recuperado = 1, -- Ainda não funciona!!!!!!!!!!!!!!!!!
 	},
+	broche_da_protecao_3 = {
+		nome = "Broche da Proteção",
+		tipo = "broche",
+		posicao = "pescoço",
+		fortitude = 1,
+		reflexos = 1,
+		vontade = 1,
+		efeito = "Efeito: adquire resistência 10 a dano energético.",
+		poder = {
+			nome = "Broche da Proteção",
+			uso = "Di",
+			origem = {},
+			efeito = "Efeito: quando for atingido por um ataque de área, contíguo ou à distância,\n    adquire resistência 10 contra o dano deste ataque.",
+		},
+	},
+	capa_do_saltimbanco_5 = {
+		nome = "Capa do Saltimbanco",
+		tipo = "capa",
+		posicao = "pescoço",
+		fortitude = 1,
+		reflexos = 1,
+		vontade = 1,
+		poder = {
+			nome = "Capa do Saltimbanco",
+			uso = "Di",
+			origem = { teleporte = true, },
+			efeito = "Efeito: uma vez por dia, quando for atingido por um ataque (reação imediata)\n    teleporta 5 e obtém VdC contra o atacante até o FdPT.",
+		},
+	},
 	cinto_da_resistencia_1 = {
 		nome = "Cinto da Resistência", -- AA 140
 		tipo = "cinto",
@@ -328,7 +357,7 @@ return {
 		posicao = "mochila",
 		preco = 15,
 	},
-	luvas_do_gatuno = {
+	luvas_do_gatuno_1 = {
 		nome = "Luvas do Gatuno",
 		tipo = "luvas",
 		posicao = "mãos",
