@@ -203,6 +203,13 @@ return {
 		posicao = "cabeça",
 		preco = 840,
 		at_oportunidade = 1,
+		poder = {
+			nome = "Elmo da Oportunidade",
+			uso = "SL",
+			origem = {},
+			acao = "nenhuma",
+			efeito = "Propriedade: +1 nos ataques de oportunidade.",
+		},
 	},
 	escudo_leve = escudo_leve{
 		nome = "Escudo Leve",

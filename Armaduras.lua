@@ -77,6 +77,17 @@ return {
 			efeito = "Obtém sucesso automático no próximo teste de Furtividade.",
 		},
 	},
+	do_aperfeicoamento_3 = {
+		nome = "do Aperfeiçoamento +1",
+		categoria = set("cota", "brunea", "placas"),
+		ca = 1,
+		poder = {
+			nome = "Armadura do Aperfeiçoamento",
+			uso = "Marco",
+			origem = set("armadura"),
+			efeito = "Propriedade: sempre que alcançar um marco, o bônus da armadura aumenta em 1.\n    O bônus é zerado após um descanso prolongado.",
+		},
+	},
 	do_explorador_1 = {
 		nome = "do Explorador +1",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
@@ -112,6 +123,17 @@ return {
 			efeito = function (self)
 				return "O inimigo que ativou o gatilho sofre 1d10+"..self.mod_car.." de dano necrótico."
 			end,
+		},
+	},
+	escorregadia_2 = {
+		nome = "Escorregadia +1",
+		categoria = set("traje", "corselete", "gibao"),
+		ca = 1,
+		poder = {
+			nome = "Armadura Escorregadia",
+			uso = "SL",
+			origem = set("armadura"),
+			efeito = "Propriedade: +2 em Acrobacia para escapar.",
 		},
 	},
 	invocada_6 = {
