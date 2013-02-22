@@ -792,6 +792,7 @@ function Personagem:meus_poderes()
 		["SL"] = 1, -- Sem Limite
 		["Se"] = 1, -- Sem Limite
 		["En"] = 2, -- Encontro
+		["Ma"] = 2, -- Marco
 		["Di"] = 3, -- Diário
 		["Ut"] = 4, -- Utilitário
 	}

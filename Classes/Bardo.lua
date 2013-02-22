@@ -61,7 +61,7 @@ return {
 				else
 					adicional = ''
 				end
-				return "Efeito: aliado a até 5 pode gastar um PC, recupera "..self.mod_car.." PV "..adicional.."adicionais\n    e pode ser conduzido 1 quadrado."
+				return "Efeito: aliado a até 5 pode gastar um PC, recupera +"..self.mod_car.." PV "..adicional.."\n    e pode ser conduzido 1 quadrado."
 			end,
 		},
 		virtude = {
