@@ -77,6 +77,33 @@ return {
 		preco = 680,
 		furtividade = 2,
 	},
+	botas_do_movimento_livre_6 = {
+		nome = "Botas do Movimento Livre",
+		tipo = "bota",
+		posicao = "pés",
+		preco = 1800,
+		efeito = "Propriedade: +2 nos TRs contra impedido, imobilizado ou lento.",
+		poder = {
+			nome = "Botas do Movimento Livre",
+			uso = "En",
+			origem = {},
+			acao = "mínima",
+			efeito = "Efeito: realiza um teste (mínima) contra impedido, imobilizado ou lento.",
+		},
+	},
+	botinas_do_goblin_6 = {
+		nome = "Botinas do Goblin",
+		tipo = "bota",
+		posicao = "pés",
+		preco = 1800,
+		poder = {
+			nome = "Botinas do Goblin",
+			uso = "En",
+			origem = {},
+			acao = "RA",
+			efeito = "Efeito: quando NÃO for atingido por AtCaC, ajusta 1 quadrado.",
+		},
+	},
 	bracadeira_do_alivio_2 = {
 		nome = "Braçadeira do Alívio",
 		tipo = "bracadeira",
@@ -464,6 +491,18 @@ return {
 		nome = "Reagentes Alquímicos",
 		tipo = "reagentes",
 		posicao = "mochila",
+	},
+	sandalias_de_folhas_feericas_2 = {
+		nome = "Sandálias de Folhas Feéricas",
+		tipo = "bota",
+		posicao = "pés",
+		preco = 520,
+		poder = {
+			nome = "Sandálias de Folhas Feéricas",
+			uso = "Di",
+			origem = set("teleporte"),
+			efeito = "Efeito: quando cai, ao invés disso se teleporta em segurança para a superfície\n    horizontal mais próxima a até 5 que possa suportar seu peso sem sofrer dano",
+		},
 	},
 	sandalias_do_passo_preciso_6 = {
 		nome = "Sandálias do Passo Preciso",
