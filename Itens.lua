@@ -90,6 +90,29 @@ return {
 			efeito = "Efeito: quando um aliado adjacente recupera PV, você ou outro aliado recupera\n    1d8 PV.",
 		},
 	},
+	bracadeira_do_arqueirismo_6 = {
+		nome = "Braçadeira do Arqueirismo",
+		tipo = "bracadeira",
+		posicao = "braço",
+		preco = 1800,
+		dano = function (self, dano, arma)
+			arma = arma:match"^[%w_]+" -- só o nome da arma
+			local essa_arma = armas[arma]
+			if (arma:match"besta" or arma:match"arco")
+				and essa_arma.tipo:match"dist.ncia" then
+				return soma_dano(self, dano, 2, "Braçadeira do Arqueirismo")
+			else
+				return dano
+			end
+		end,
+		poder = {
+			nome = "Braçadeira do Arqueirismo",
+			uso = "Diário",
+			origem = {},
+			acao = "mínima",
+			efeito = "Efeito: ignora cobertura no próximo ataque com arco ou besta neste turno.",
+		},
+	},
 	bracadeira_do_golpe_poderoso_2 = {
 		nome = "Braçadeira do Golpe Poderoso",
 		tipo = "bracadeira",
@@ -243,7 +266,21 @@ return {
 			efeito = "Efeito: você e um aliado adjacente adquirem resistência 10 contra todos os tipos\n    de dano até o FdPT.",
 		},
 	},
-	escudo_leve_flutuante = escudo_leve{
+	escudo_leve_dos_olhos_4 = escudo_leve{
+		nome = "Escudo Leve dos Olhos",
+		tipo = "escudo",
+		posicao = "braço",
+		preco = 840,
+		efeito = "Efeito: +1 na CA contra AdO.",
+		poder = {
+			nome = "Escudo Leve dos Olhos",
+			uso = "Di",
+			origem = {},
+			acao = "mínima",
+			efeito = "Efeito: até o FdPT, você não concede VdC quando estiver flanqueado.",
+		},
+	},
+	escudo_leve_flutuante_1 = escudo_leve{
 		nome = "Escudo Leve Flutuante",
 		tipo = "escudo",
 		posicao = "braço",
@@ -427,5 +464,14 @@ return {
 		nome = "Reagentes Alquímicos",
 		tipo = "reagentes",
 		posicao = "mochila",
+	},
+	sandalias_do_passo_preciso_6 = {
+		nome = "Sandálias do Passo Preciso",
+		tipo = "bota",
+		posicao = "pés",
+		preco = 1800,
+		acrobacia = 2,
+		atletismo = 2,
+		furtividade = 2,
 	},
 }
