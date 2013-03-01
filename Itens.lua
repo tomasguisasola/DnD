@@ -500,7 +500,7 @@ return {
 		poder = {
 			nome = "Sandálias de Folhas Feéricas",
 			uso = "Di",
-			origem = set("teleporte"),
+			origem = { teleporte = true, },
 			efeito = "Efeito: quando cai, ao invés disso se teleporta em segurança para a superfície\n    horizontal mais próxima a até 5 que possa suportar seu peso sem sofrer dano",
 		},
 	},
