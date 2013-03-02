@@ -475,6 +475,20 @@ return {
 		posicao = "cabeça",
 		efeito = "Ganha +1 nos ataques básicos à distância."
 	},
+	patas_de_gato_5 = {
+		nome = "Patas de Gato",
+		tipo = "luva",
+		posicao = "mãos",
+		preco = 1000,
+		efeito = "Efeito: +2 Atletismo para escalar",
+		poder = {
+			nome = "Patas de Gato",
+			uso = "Di",
+			acao = "livre",
+			origem = {},
+			efeito = "Efeito: até o FdEn, pode escalar usando seu deslocamento normal e\n    duplica qualquer deslocamento de escalada concedido por seus poderes.",
+		},
+	},
 	pocao_de_cura = {
 		nome = "Poção de Cura",
 		tipo = "poção",
