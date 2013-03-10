@@ -243,7 +243,7 @@ function Personagem:ca()
 			..self.armadura.categoria.."'")
 		magica = armadura_magica.ca or 0
 	end
-	local item = 0
+	local item, item_oportunidade = 0, 0
 	for meu_item in pairs(self.itens) do
 		local esse_item = assert (itens[meu_item], "Não achei a descrição de "..meu_item)
 		if esse_item.escudo then
@@ -253,6 +253,7 @@ function Personagem:ca()
 		else
 			item = soma_dano(self, item, esse_item.ca)
 		end
+		item_oportunidade = soma_dano(self, item, esse_item.ca_oportunidade)
 	end
 	local cajado_mago = 0
 	local implemento = 0
@@ -267,6 +268,7 @@ function Personagem:ca()
 	local ca = 10 + math.floor(self.nivel/2) + atrib + armadura + magica + item + implemento + cajado_mago + classe
 	local oportunidade = soma_dano(self, ca, racas[self.raca].ca_oportunidade, "CA oportunidade")
 	oportunidade = soma_dano(self, oportunidade, minha_classe.ca_oportunidade, "CA oportunidade")
+	oportunidade = soma_dano(self, oportunidade, item_oportunidade, "CA oportunidade")
 	for meu_talento in pairs(self.talentos) do
 		local esse_talento = talentos[meu_talento]
 		ca = soma_dano(self, ca, esse_talento.ca)
