@@ -38,6 +38,11 @@ return {
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
 		ca = 1,
 	},
+	magica_2 = {
+		nome = "Mágica +2",
+		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
+		ca = 2,
+	},
 	casca_de_arvore_5 = {
 		nome = "Casca de Árvore +1",
 		categoria = set("gibao", "brunea"),
