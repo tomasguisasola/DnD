@@ -482,5 +482,26 @@ return {
 			dano = mod.dado_mod("3[A]", "destreza", "Tiro Excruciante"),
 			efeito = "Sucesso: o alvo fica enfraquecido (TR encerra).\nFracasso: metade do dano (não fica enfraquecido).",
 		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		ajudar_companheiro = { -- LJ1
+			nome = "Ajudar Companheiro",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial"),
+			alvo = "um aliado a até 10",
+			efeito = function (self)
+				return "Efeito: um aliado a até 10 recebe +"..self.mod_sab.." de bônus nos testes de uma perícia\n    treinada por você até o FdEn."
+			end
+		},
+		deslocar_pela_turba = { -- LJ1
+			nome = "Deslocar pela Turba",
+			uso = "En",
+			acao = "int. imediata",
+			origem = set("marcial"),
+			alvo = "pessoal",
+			efeito = function (self)
+				return "Efeito: quando um inimigo ficar adjacente, você pode ajustar "..self.mod_sab
+			end
+		},
 	},
 }
