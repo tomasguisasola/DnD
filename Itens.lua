@@ -299,6 +299,7 @@ return {
 		posicao = "braço",
 		preco = 840,
 		efeito = "Efeito: +1 na CA contra AdO.",
+		ca_oportunidade = 1,
 		poder = {
 			nome = "Escudo Leve dos Olhos",
 			uso = "Di",
