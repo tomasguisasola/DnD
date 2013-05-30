@@ -40,6 +40,17 @@ return {
 	total_pericias = 4,
 	caracteristicas_classe = {
 ------- Características de Classe ----------------------------------------------
+		cancao_do_descanso = {
+			nome = "Canção do Descanso",
+			uso = "SL",
+			acao = "sem ação",
+			origem = set("arcano"),
+			alvo = "um membro",
+			efeito = function (self)
+				local bonus = self.mod_car + (self.cancao_do_descanso_adicional or 0)
+				return "Efeito: durante um descanso breve, personagem que gastar PC recupera "..bonus.." PV."
+			end,
+		},
 		palavras_de_amizade = {
 			nome = "Palavras de Amizade",
 			uso = "En",
@@ -396,6 +407,29 @@ return {
 			dano = mod.dado_mod("2d6", "carisma", "Sátira da Bravura"),
 			efeito = function(self)
 				return "Sucesso: os alvos ficam sob o efeito da Sátira da Bravura (TR encerra).\n    Sob este efeito, o alvo que terminar seu turno mais perto de você do que\n    quando começou, sobre 1d6+"..self.mod_car.." (psíquico) e fica pasmo até o FdPT.\nFracasso: metade do dano.\nEfeito: os alvos são empurrados 3 quadrados."
+			end,
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		ajuste_dramatico = { -- Arcane Power 
+			nome = "Ajuste Dramático",
+			uso = "En",
+			acao = "mínima",
+			origem = set("arcano"),
+			tipo_ataque = "rajada contígua 5",
+			alvo = "você e aliados na rajada",
+			efeito = function(self)
+				return "Efeito: até o FdPT, os alvos podem ajustar como uma ação mínima."
+			end,
+		},
+		cancao_da_conquista = { -- LJ2 55
+			nome = "Canção da Conquista",
+			uso = "En",
+			acao = "mínima",
+			origem = set("arcano"),
+			tipo_ataque = "pessoal",
+			alvo = "pessoal",
+			efeito = function(self)
+				return "Efeito: Até o FdPT, aliados a até 5 que atingirem um inimigo recebem "..(3+self.mod_con).." PVT."
 			end,
 		},
 	},
