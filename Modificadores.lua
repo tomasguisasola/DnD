@@ -45,11 +45,13 @@ return {
 			else
 				atr = self[modificador_atributo(atributo)]
 			end
+			local d
 			if self.nivel >= 21 then
-				return soma_dano(self, dobro_dado, atr, nome)
+				d = soma_dano(self, dobro_dado, atr, nome)
 			else
-				return soma_dano(self, dado, atr, nome)
+				d = soma_dano(self, dado, atr, nome)
 			end
+			return soma_dano(self, dano, d, nome)
 		end
 	end,
 

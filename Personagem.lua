@@ -651,8 +651,11 @@ function Personagem:meus_poderes()
 			end
 			for nome_item, item in pairs(self.itens or {}) do
 				local item = itens[nome_item] or item
-				if esse_poder.origem.implemento then
+				--if esse_poder.origem.implemento or esse_poder.origem.arma then
+				if caracs.ataque and item.ataque then
 					caracs.ataque = soma_dano(self, caracs.ataque, item.ataque, poder)
+				end
+				if caracs.dano and item.dano then
 					caracs.dano = soma_dano(self, caracs.dano, item.dano, poder)
 				end
 			end
