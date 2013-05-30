@@ -38,7 +38,7 @@ return {
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
 		ca = 1,
 	},
-	magica_2 = {
+	magica_6 = {
 		nome = "Mágica +2",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
 		ca = 2,
@@ -93,16 +93,26 @@ return {
 			efeito = "Propriedade: sempre que alcançar um marco, o bônus da armadura aumenta em 1.\n    O bônus é zerado após um descanso prolongado.",
 		},
 	},
-	do_explorador_1 = {
+	do_explorador_3 = {
 		nome = "do Explorador +1",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
 		ca = 1,
-		resistencia = 2, -- poder diario
 		poder = {
 			nome = "Armadura do Explorador",
 			uso = "Diário",
 			origem = set("armadura"),
 			efeito = "Repita um teste de resistência com +2 bônus",
+		},
+	},
+	do_impostor_6 = {
+		nome = "do Impostor +2",
+		categoria = set("cota", "brunea", "placas"),
+		ca = 2,
+		poder = {
+			nome = "Armadura do Impostor",
+			uso = "SL",
+			origem = set("armadura"),
+			efeito = "Efeito: você pode transformar (mínima) esta armadura em qualquer tipo de roupas\n    comuns, perdendo o bônus na CA e a penalidade no deslocamento, mas ganhan-\n    do +2 nos testes de Blefe para disfarçar sua aparência.",
 		},
 	},
 	do_sacrificio_5 = {
