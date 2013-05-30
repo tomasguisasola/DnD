@@ -444,7 +444,7 @@ return {
 			ataque = mod.destreza,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "destreza", "Postura da Cobra Cuspideira"),
-			efeito = "Efeito: enquanto adotar esta postura, você pode realizar um AtBaD (RA) contra\n    qualquer inimigo a até 5 que se aproximar.",
+			efeito = "Efeito: enquanto adotar esta postura, você pode realizar um AtBaD (RI) contra\n    qualquer inimigo a até 5 que se aproximar.",
 		},
 		tiro_corpo_a_corpo = { -- PM
 			nome = "Tiro Corpo a Corpo",
