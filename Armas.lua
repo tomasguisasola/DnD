@@ -53,6 +53,25 @@ local function da_cancao_pungente (nome, bonus) -- LJ2 204
 	return setmetatable (m, { __index = arma, })
 end
 
+local function da_transferencia (nome, bonus) -- AA 79
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." da Transferência",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d6",
+		poder = {
+			nome = "Arma da Transferência",
+			uso = "Di",
+			acao = "livre",
+			origem = {},
+			efeito = "Efeito: quando obtém sucesso em um ataque com esta arma, pode transferir para o\n    alvo uma condição ou dano contínuo que o estiver afligindo.  A condição\n    ou dano contínuo segue seu curso normal no alvo.",
+		},
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function de_drenar_vitalidade (nome, bonus) -- LJ1 234
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -462,11 +481,13 @@ local armas = {
 	arco_longo_inescapavel_3 = inescapavel ("arco_longo", 1),
 	arco_longo_da_explosao_flamejante_3 = da_explosao_flamejante ("arco_longo", 1),
 	arco_longo_da_explosao_trovejante_4 = da_explosao_trovejante ("arco_longo", 1),
+	arco_longo_da_transferencia_7 = da_transferencia ("arco_longo", 2),
 	azagaia_magica_1 = magica ("azagaia", 1),
 	espada_curta_unidas_3 = unidas ("espada_curta", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
 	espada_longa_da_cancao_pungente_3 = da_cancao_pungente ("espada_longa", 1),
+	espada_longa_da_cancao_pungente_8 = da_cancao_pungente ("espada_longa", 2),
 	espada_longa_de_drenar_vitalidade_5 = de_drenar_vitalidade ("espada_longa", 1),
 	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_longa_magica_6 = magica ("espada_longa", 2),
