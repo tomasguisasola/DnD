@@ -126,6 +126,32 @@ return {
 			efeito = "Efeito: você gasta um PC (mínima) e um aliado a até 5 recupera PV\n    como se tivesse gasto um PC.",
 		},
 	},
+	dos_anoes_2 = {
+		nome = "dos Anões +1",
+		categoria = set("cota", "brunea", "placas"),
+		ca = 1,
+		tolerancia = 1,
+		poder = {
+			nome = "Armadura dos Anões",
+			uso = "Diário",
+			origem = set("armadura"),
+			acao = "livre",
+			efeito = "Efeito: você recupera PV como se tivesse gasto um PC.",
+		},
+	},
+	dos_anoes_7 = {
+		nome = "dos Anões +2",
+		categoria = set("cota", "brunea", "placas"),
+		ca = 2,
+		tolerancia = 2,
+		poder = {
+			nome = "Armadura dos Anões",
+			uso = "Diário",
+			origem = set("armadura"),
+			acao = "livre",
+			efeito = "Efeito: você recupera PV como se tivesse gasto um PC.",
+		},
+	},
 	dos_mortos_5 = {
 		nome = "dos Mortos +1",
 		categoria = set("corselete", "gibao"),
