@@ -51,6 +51,21 @@ return {
 			end
 		end,
 	},
+	cajado_defensivo_7 = {
+		tipo = "cajado",
+		ataque = implemento_basico("cajado", 2),
+		dano = implemento_basico("cajado", 2),
+		decisivo = implemento_basico("cajado", "+1d8"),
+		preco = 2600,
+		fortitude = 1,
+		reflexos = 1,
+		vontade = 1,
+		ca = function(self)
+			if self.caracteristica_classe == "cajado" then
+				return 1
+			end
+		end,
+	},
 	cajado_magico_1 = {
 		tipo = "cajado",
 		ataque = implemento_basico("cajado", 1),
