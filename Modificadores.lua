@@ -66,6 +66,9 @@ return {
 				else
 					atr = self.mod_for
 				end
+			elseif atributo:match"+" then
+				local m1, m2 = atributo:match("^(%w+)%+(%w+)$")
+				atr = self["mod_"..m1] + self["mod_"..m2]
 			else
 				atr = self[modificador_atributo(atributo)]
 			end
