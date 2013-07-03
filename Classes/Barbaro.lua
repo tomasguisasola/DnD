@@ -10,9 +10,9 @@ return {
 		local cat = self.armadura.categoria
 		if cat == "traje" or cat == "corselete" or cat == "gibao" then
 			local bonus = math.floor((self.nivel-1)/10) + 1
-			return false, bonus
+			return bonus
 		else
-			return false, 0
+			return 0
 		end
 	end,
 	reflexos = function (self)

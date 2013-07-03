@@ -1,3 +1,12 @@
+local function resolve (v, ...)
+	local tv = type(v)
+	if tv == "function" then
+		return v (...)
+	else
+		return v
+	end
+end
+
 local function n_dado_mais(dano)
 	local n, dado, mais = dano:match"(%d+)d(%d+)%+(%d+)"
 	if not dado then
@@ -89,5 +98,6 @@ return {
 	soma = soma_dano,
 	mult = mult_dano,
 	soma_dado = soma_dado,
+	resolve = resolve,
 }
 

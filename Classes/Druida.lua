@@ -16,9 +16,9 @@ return {
 			(cat == "traje" or cat == "corselete" or cat == "gibao") then
 			local atr = math.max(self.mod_con, self.mod_des, self.mod_int)
 			atr = atr - math.max(self.mod_des, self.mod_int)
-			return false, atr
+			return atr
 		else
-			return false, 0
+			return 0
 		end
 	end,
 	deslocamento = function (self)

@@ -4,6 +4,7 @@ local string = require"string"
 local set = require"DnD.Set"
 local soma_dano = require"DnD.Soma".soma
 local mult_dano = require"DnD.Soma".mult
+local resolve = require"DnD.Soma".resolve
 
 local armaduras = require"DnD.Armaduras"
 local armas = require"DnD.Armas"
@@ -215,14 +216,7 @@ Personagem = {
 
 function Personagem:ca()
 	local minha_classe = classes[self.classe]
-	local bonus_classe = 0
-	if type(minha_classe.ca) == "function" then
-		local fim, ca = minha_classe.ca(self)
-		if fim then
-			return ca
-		end
-		bonus_classe = ca
-	end
+	local bonus_classe = resolve (minha_classe.ca, self) or 0
 	local categoria_armadura = armaduras[self.armadura.categoria]
 	local armadura_magica = armaduras[self.armadura.magica]
 	local atrib = 0

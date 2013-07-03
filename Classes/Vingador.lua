@@ -6,9 +6,9 @@ return {
 	fonte_de_poder = "divino",
 	ca = function(self)
 		if self.armadura == "traje" or self.armadura.categoria == "traje" then
-			return false, 3
+			return 3
 		end
-		return false, 0
+		return 0
 	end,
 	fortitude = 1,
 	reflexos = 1,

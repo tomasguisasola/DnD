@@ -12,9 +12,9 @@ return {
 	armaduras = set("traje"),
 	ca = function (self)
 		if (self.caracteristica_classe or ''):match"[Cc]ajado" then
-			return false, 1
+			return 1
 		else
-			return false, 0
+			return 0
 		end
 	end,
 	armas = set("adaga", "bordao"),
