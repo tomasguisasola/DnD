@@ -254,12 +254,8 @@ function Personagem:ca()
 	for meu_implemento in pairs(self.implementos) do
 		meu_implemento = implementos[meu_implemento]
 		implemento = soma_dano(self, implemento, meu_implemento.ca)
-		-- Magos que escolhem cajados ganham bônus na CA quando levam um
-		if self.classe == "mago" and self.implemento == "cajado" and meu_implemento.tipo == "cajado" then
-			cajado_mago = 1 -- esse bônus só vale uma vez
-		end
 	end
-	local ca = 10 + math.floor(self.nivel/2) + atrib + armadura + magica + item + implemento + cajado_mago + bonus_classe
+	local ca = 10 + math.floor(self.nivel/2) + atrib + armadura + magica + item + implemento + bonus_classe
 	local oportunidade = soma_dano(self, ca, racas[self.raca].ca_oportunidade, "CA oportunidade")
 	oportunidade = soma_dano(self, oportunidade, minha_classe.ca_oportunidade, "CA oportunidade")
 	oportunidade = soma_dano(self, oportunidade, item_oportunidade, "CA oportunidade")
@@ -270,7 +266,7 @@ function Personagem:ca()
 	end
 	self.ca_oportunidade = oportunidade
 --!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
---Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(cajado de mago)+%d(classe)", math.floor(self.nivel/2), atrib, armadura, magica, item, implemento, cajado_mago, bonus_classe))
+Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(classe)", math.floor(self.nivel/2), atrib, armadura, magica, item, implemento, bonus_classe))
 	return ca
 end
 
