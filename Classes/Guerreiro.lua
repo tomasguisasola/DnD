@@ -446,5 +446,203 @@ return {
 			dano = mod.dado_mod("1[A]", "forca", "Golpe Preciso"),
 		},
 ------- Poderes Diários nível 5 ------------------------------------------------
+		chuva_de_aco = { -- LJ1
+			nome = "Chuva de Aço",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("arma", "marcial", "postura"),
+			tipo_ataque = "corpo",
+			alvo = "inimigos adjacentes",
+			efeito = "Efeito: enquanto puder realizar AdO, qualquer inimigo que começar seu turno\n    adjacente a você, sofre 1[A] de dano.",
+		},
+		golpe_vertiginoso = { -- LJ1
+			nome = "Golpe Vertiginoso",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "confiável", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "forca", "Golpe Vertiginoso"),
+			efeito = "Sucesso: o alvo fica imobilizado (TR encerra).",
+		},
+		quebrar_carapaca = { -- LJ1
+			nome = "Quebrar Carapaça",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "confiável", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Quebrar Carapaça"),
+			efeito = "Sucesso: o alvo sofre 5 contínuo e -2 na CA (TR encerra ambos).",
+		},
+		acossar_da_retaguarda = { -- PM
+			nome = "Acossar da Retaguarda",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			condicao = "Deve empunhar arma de alcance",
+			defesa = "Fort",
+			dano = mod.dado_mod("2[A]", "forca", "Acossar da Retaguarda"),
+-- dano extra se for eladrin
+			efeito = "Sucesso: o alvo é empurrado 1 quadrado.\nEfeito: até o FdEn, sempre que o alvo ajustar ou realizar um ataque que não\n    inclua você, você pode ajustar 1 quadrado e realizar um AtB CaC contra ele\n    (II)",
+		},
+		assalto_agonizante = { -- PM
+			nome = "Assalto Agonizante",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Assalto Agonizante"),
+-- dano extra se usar mangual
+			efeito = "Sucesso: o alvo fica pasmo e imobilizado (TR encerra ambos).\nFracasso: metade do dano somente."
+		},
+		assalto_molestador = { -- PM
+			nome = "Assalto Molestador",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Assalto Molestador"),
+-- dano extra se usar mangual
+			efeito = "Efeito: até o FdEn, sempre que um aliado atingir o alvo com um At CaC,\n    você pode realizar um AtB CaC com VdC contra o alvo (livre; 1x rodada).",
+		},
+		corte_sutil = { -- PM
+			nome = "Corte Sutil",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			condicao = "Deve empunhar lâmina leve",
+			defesa = "CA",
+			dano = function (self, dano, arma)
+				if arma.grupo ~= "leve" then
+					return 0
+				end
+				return 10 + self.mod_des
+			end
+			efeito = function (self)
+				return "Efeito: ajuste 1 quadrado antes E depois do ataque.\nSucesso: alvo fica lento e o dano é contínuo (TR encerra ambos).\nFracasso: "..self.mod_des.." de dano contínuo (TR encerra)."
+			end,
+		},
+		investida_cometa = { -- PM
+			nome = "Investida Cometa",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			condicao = "Treinado em Atletismo",
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "for+con", "Investida Cometa"),
+			efeito = "Fracasso: metade do dano.",
+		},
+		pancada_restritiva = { -- PM
+			nome = "Pancada Restritiva",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("arma", "marcial", "revigorante"),
+			tipo_ataque = "corpo 1",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Pancada Restritiva"),
+			efeito = function (self)
+				return "Sucesso: o alvo fica imobilizado enquanto estiver adjacente a você.\n    Se empunhar uma maça, machado ou martelo, causa +"..self.mod_con..".\nFracasso: metade do dano e fica imobilizado até o FdPT."
+			end,
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		acerto_de_contas = { -- PM
+			nome = "Acerto de Contas",
+			uso = "Di",
+			acao = "RI",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			gatilho = "Você é atingido por um ataque",
+			efeito = "Efeito: até o FdEn, você recebe +2 nos ataques contra este inimigo.",
+		},
+		aproximacao_agil = { -- PM
+			nome = "Aproximação Ágil",
+			uso = "En",
+			acao = "movimento",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: ajusta 2 quadrados, desde que termine adjacente a um inimigo.\n    Se não estiver com uma armadura pesada, o ajuste é de 3 quadrados.",
+		},
+		estabilidade_rochosa = { -- PM
+			nome = "Estabilidade Rochosa",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial", "postura"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: enquanto adotar esta postura, você não pode ser derrubado\n    e o movimento forçado imposto a você pode ser reduzido em 1 quadrado.",
+		},
+		foco_poderoso = { -- PM
+			nome = "Foco Poderoso",
+			uso = "En",
+			acao = "mínima",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			efeito = function (self)
+				return "Efeito: até o FdPT, receba +"..self.mod_sab.." nos testes de Atletismo e Força."
+			end,
+		},
+		protetor_vigilante = { -- PM
+			nome = "Protetor Vigilante",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial", "postura"),
+			tipo_ataque = "pessoal",
+			condicao = "Deve empunhar um escudo",
+			efeito = function (self)
+				local bonus = 2
+				if self.raca == "draconato" then
+					bonus = 3
+				end
+				return "Efeito: enquanto adotar esta postura, sofre -1 na CA e em Reflexos, mas seus\n    aliados adjacentes recebem +"..bonus.." nessas duas defesas."
+			end,
+		},
+		indestrutivel = { -- LJ1
+			nome = "Indestrutível",
+			uso = "En",
+			acao = "RI",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			gatilho = "Você é atingido por um ataque",
+			efeito = function (self)
+				return "Efeito: reduza o dano deste ataque em "..(5+self.mod_con)
+			end,
+		},
+		prontidao_de_batalha = { -- LJ1
+			nome = "Prontidão de Batalha",
+			uso = "Di",
+			acao = "-",
+			origem = set("marcial"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: depois de determinar a iniciativa, você pode escolher aumentar em 10 o\n    resultado da sua iniciativa.",
+		},
+		treinamento_defensivo = { -- LJ1
+			nome = "Treinamento Defensivo",
+			uso = "Di",
+			acao = "mínima",
+			origem = set("marcial", "postura"),
+			tipo_ataque = "pessoal",
+			efeito = "Efeito: enquanto adotar esta postura, receba +2 em Fortitude, Reflexos e Vontade",
+		},
 	},
 }
