@@ -217,56 +217,60 @@ Personagem = {
 function Personagem:ca()
 	local minha_classe = classes[self.classe]
 	local bonus_classe = resolve (minha_classe.ca, self) or 0
+	local bonus_op_classe = resolve (minha_classe.ca_oportunidade, self) or 0
 	local categoria_armadura = armaduras[self.armadura.categoria]
-	local armadura_magica = armaduras[self.armadura.magica]
-	local atrib = 0
+	local bonus_atrib = 0
 	if categoria_armadura.tipo == "leve" then
-		atrib = math.max(self.mod_des, self.mod_int)
+		bonus_atrib = math.max(self.mod_des, self.mod_int)
 	end
-	local armadura = 0
+	local bonus_armadura = 0
 	if minha_classe.armaduras[self.armadura.categoria] or
 		self.talentos.proficiencia_com_armadura == self.armadura.categoria then
-		armadura = categoria_armadura.bonus
+		bonus_armadura = categoria_armadura.bonus
 	else
 		Personagem.warn ("\t!!! O personagem não é proficiente com esse tipo de armadura: "..self.armadura.categoria.."!!!")
 	end
-	local magica = 0
+	local armadura_magica = armaduras[self.armadura.magica]
+	local bonus_magica = 0
 	if armadura_magica then
 		assert(armadura_magica.categoria[self.armadura.categoria],
 			"Armadura "..armadura_magica.nome.." não serve para a categoria `"
 			..self.armadura.categoria.."'")
-		magica = armadura_magica.ca or 0
+		bonus_magica = armadura_magica.ca or 0
 	end
-	local item, item_oportunidade = 0, 0
+	local bonus_item, bonus_op_item = 0, 0
 	for meu_item in pairs(self.itens) do
 		local esse_item = assert (itens[meu_item], "Não achei a descrição de "..meu_item)
 		if esse_item.escudo then
 			if minha_classe.armaduras[esse_item.peso] then
-				item = soma_dano(self, item, esse_item.ca)
+				bonus_item = soma_dano(self, bonus_item, esse_item.ca)
+				bonus_op_item = soma_dano(self, bonus_op_item, esse_item.ca_oportunidade)
 			end
 		else
-			item = soma_dano(self, item, esse_item.ca)
+			bonus_item = soma_dano(self, bonus_item, esse_item.ca)
+			bonus_op_item = soma_dano(self, bonus_op_item, esse_item.ca_oportunidade)
 		end
-		item_oportunidade = soma_dano(self, item, esse_item.ca_oportunidade)
 	end
-	local cajado_mago = 0
-	local implemento = 0
+	local bonus_implemento, bonus_op_implemento = 0, 0
 	for meu_implemento in pairs(self.implementos) do
 		meu_implemento = implementos[meu_implemento]
-		implemento = soma_dano(self, implemento, meu_implemento.ca)
+		bonus_implemento = soma_dano(self, bonus_implemento, meu_implemento.ca)
+		bonus_op_implemento = soma_dano(self, bonus_op_implemento, meu_implemento.ca_oportunidade)
 	end
-	local ca = 10 + math.floor(self.nivel/2) + atrib + armadura + magica + item + implemento + bonus_classe
-	local oportunidade = soma_dano(self, ca, racas[self.raca].ca_oportunidade, "CA oportunidade")
-	oportunidade = soma_dano(self, oportunidade, minha_classe.ca_oportunidade, "CA oportunidade")
-	oportunidade = soma_dano(self, oportunidade, item_oportunidade, "CA oportunidade")
+	local bonus_talento, bonus_op_talento = 0, 0
 	for meu_talento in pairs(self.talentos) do
 		local esse_talento = talentos[meu_talento]
-		ca = soma_dano(self, ca, esse_talento.ca)
-		oportunidade = soma_dano(self, oportunidade, esse_talento.ca_oportunidade)
+		bonus_talento = soma_dano(self, bonus_talento, esse_talento.ca)
+		bonus_op_talento = soma_dano(self, bonus_op_talento, esse_talento.ca_oportunidade)
 	end
-	self.ca_oportunidade = oportunidade
---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(classe)", math.floor(self.nivel/2), atrib, armadura, magica, item, implemento, bonus_classe))
+	local ca = 10 + math.floor(self.nivel/2) + bonus_atrib + bonus_armadura + bonus_magica + bonus_item + bonus_implemento + bonus_classe + bonus_talento
+	local bonus_op_raca = resolve (racas[self.raca].ca_oportunidade, self) or 0
+	self.ca_oportunidade = ca + bonus_op_classe + bonus_op_item + bonus_op_implemento + bonus_op_talento + bonus_op_raca
+--[==[ --!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d(item)+%d(implemento)+%d(classe)+%d(talento)\n[+%d(classe)+%d(item)+%d(implemento)+%d(talento)+%d(raca)",
+	math.floor(self.nivel/2), bonus_atrib, bonus_armadura, bonus_magica, bonus_item, bonus_implemento, bonus_classe, bonus_talento,
+	bonus_op_classe, bonus_op_item, bonus_op_implemento, bonus_op_talento, bonus_op_raca))
+--]==]
 	return ca
 end
 
