@@ -22,9 +22,8 @@ end
 local function atributo(atrib)
 	return function (self)
 		local classe = classes[self.classe][atrib] or 0
-		local minha_raca = racas[self.raca]
-		local racial = minha_raca[atrib] or 0
-		local op = minha_raca.atributos_opcionais
+		local racial = self.minha_raca[atrib] or 0
+		local op = self.minha_raca.atributos_opcionais
 		local racial_opcional = 0
 		if op and self[op.nome] == atrib then
 			racial_opcional = op[self[op.nome]]
@@ -42,13 +41,12 @@ end
 local function pericia(pericia)
 	return function (self)
 		local essa_pericia = pericias[pericia]
-		local minha_raca = racas[self.raca]
-		local racial = minha_raca.pericias and minha_raca.pericias[pericia] or 0
+		local racial = self.minha_raca.pericias and self.minha_raca.pericias[pericia] or 0
 		local atributo = essa_pericia.atributo
 		local minha_classe = classes[self.classe]
 		local pericia_classe = minha_classe.pericias[pericia]
 		local treino = 0
-		if ((pericia_classe == true or minha_raca.treinamento_pericia_qualquer)
+		if ((pericia_classe == true or self.minha_raca.treinamento_pericia_qualquer)
 			and self.pericias[pericia]) or pericia_classe == "treinada" then
 			treino = 5
 		elseif minha_classe.pericias.nao_treinadas then
@@ -412,8 +410,7 @@ end
 
 function Personagem:minhas_armas()
 	local armas_classe = self.minha_classe.armas or {}
-	local minha_raca = racas[self.raca]
-	local armas_raca = minha_raca.armas or {}
+	local armas_raca = self.minha_raca.armas or {}
 	local a = {}
 	for nome in pairs(self.armas) do --{
 		local arma = assert(armas[nome], "Arma não cadastrada: "..nome)
@@ -586,8 +583,7 @@ function Personagem:meus_poderes()
 	local meio_nivel = math.floor(self.nivel/2)
 	local minha_classe = classes[self.classe]
 	-- Copia os poderes raciais
-	local minha_raca = racas[self.raca]
-	for poder, meu_poder in pairs(minha_raca.poderes) do
+	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
 	end
 	-- Copia as caracteristicas de classe
@@ -640,12 +636,8 @@ function Personagem:meus_poderes()
 				defesa = esse_poder.defesa,
 				tipo_ataque = esse_poder.tipo_ataque,
 			}
-			if type(caracs.contragolpe) == "function" then
-				caracs.contragolpe = caracs.contragolpe(self)
-			end
 			for nome_item, item in pairs(self.itens or {}) do
 				local item = itens[nome_item] or item
-				--if esse_poder.origem.implemento or esse_poder.origem.arma then
 				if caracs.ataque and item.ataque then
 					caracs.ataque = soma_dano(self, caracs.ataque, item.ataque, poder)
 				end
@@ -835,14 +827,13 @@ function Personagem:meus_talentos()
 	table.sort(r)
 	return r
 --[[
-	local minha_raca = racas[self.raca]
-	for poder, meu_poder in pairs(minha_raca.poderes) do
+	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
 	end
 	local minha_classe = classes[self.classe]
 	local a = {}
 	for poder in pairs(self.poderes) do
-		local esse_poder = assert(minha_classe.poderes[poder] or minha_raca.poderes[poder], "Poder não cadastrado: "..poder)
+		local esse_poder = assert(minha_classe.poderes[poder] or self.minha_raca.poderes[poder], "Poder não cadastrado: "..poder)
 		local caracs = {
 			alvo = esse_poder.alvo,
 			ataque = esse_poder.ataque,
@@ -943,12 +934,11 @@ end
 
 function Personagem:minhas_pericias()
 	local minha_classe = classes[self.classe]
-	local minha_raca = racas[self.raca]
 	local total_pericias = minha_classe.total_pericias
-		+ (minha_raca.pericias_adicionais or 0)
+		+ (self.minha_raca.pericias_adicionais or 0)
 	local total = 0
 	for nome, valor in pairs(self.pericias) do
-		local treinamento_pericia_qualquer = minha_raca.treinamento_pericia_qualquer
+		local treinamento_pericia_qualquer = self.minha_raca.treinamento_pericia_qualquer
 		local pericia_classe = minha_classe.pericias[nome]
 		local talento_pericia
 		if pericia_classe == "treinada" then
