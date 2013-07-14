@@ -614,6 +614,32 @@ function Personagem:importa_poderes()
 	end
 end
 
+-- Ordem de uso
+local ordem_uso = {
+	["Ca"] = 0, -- Característica
+	["SL"] = 1, -- Sem Limite
+	["Se"] = 1, -- Sem Limite
+	["En"] = 2, -- Encontro
+	["Ma"] = 2, -- Marco
+	["Di"] = 3, -- Diário
+	["Ut"] = 4, -- Utilitário
+}
+-- Função de ordenação de poderes
+local function uso (s1, s2)
+	if s2 == nil then
+		return nil
+	end
+	--local u1 = s1:match"%:%s+([^%-]*) %-"
+	--local u2 = s2:match"%:%s+([^%-]*) %-"
+	local u1 = s1:match"%:%s+(..)"
+	local u2 = s2:match"%:%s+(..)"
+	if ordem_uso[u1] == ordem_uso[u2] then
+		return s1 < s2
+	else
+		return ordem_uso[u1] < ordem_uso[u2]
+	end
+end
+
 function Personagem:meus_poderes()
 	local meio_nivel = math.floor(self.nivel/2)
 	_ = self.importa_poderes
@@ -773,30 +799,6 @@ function Personagem:meus_poderes()
 			if not caracs.ataque and #a > 0 then
 				a[#a] = a[#a]:gsub("\n%+%$ataque[^\n]*", "")
 			end
-		end
-	end
-	-- Ordem de uso
-	local ordem_uso = {
-		["Ca"] = 0, -- Característica
-		["SL"] = 1, -- Sem Limite
-		["Se"] = 1, -- Sem Limite
-		["En"] = 2, -- Encontro
-		["Ma"] = 2, -- Marco
-		["Di"] = 3, -- Diário
-		["Ut"] = 4, -- Utilitário
-	}
-	local function uso (s1, s2)
-		if s2 == nil then
-			return nil
-		end
-		--local u1 = s1:match"%:%s+([^%-]*) %-"
-		--local u2 = s2:match"%:%s+([^%-]*) %-"
-		local u1 = s1:match"%:%s+(..)"
-		local u2 = s2:match"%:%s+(..)"
-		if ordem_uso[u1] == ordem_uso[u2] then
-			return s1 < s2
-		else
-			return ordem_uso[u1] < ordem_uso[u2]
 		end
 	end
 	table.sort(a, uso)
