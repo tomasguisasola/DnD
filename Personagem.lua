@@ -574,8 +574,7 @@ function Personagem:meus_itens()
 	return i
 end
 
-function Personagem:meus_poderes()
-	local meio_nivel = math.floor(self.nivel/2)
+function Personagem:importa_poderes()
 	-- Copia os poderes raciais
 	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
@@ -613,6 +612,11 @@ function Personagem:meus_poderes()
 			self.poderes[nome] = esse_poder
 		end
 	end
+end
+
+function Personagem:meus_poderes()
+	local meio_nivel = math.floor(self.nivel/2)
+	_ = self.importa_poderes
 
 	local a = {}
 	for poder, esse_poder in pairs(self.poderes) do
