@@ -43,14 +43,13 @@ local function pericia(pericia)
 		local essa_pericia = pericias[pericia]
 		local racial = self.minha_raca.pericias and self.minha_raca.pericias[pericia] or 0
 		local atributo = essa_pericia.atributo
-		local minha_classe = classes[self.classe]
-		local pericia_classe = minha_classe.pericias[pericia]
+		local pericia_classe = self.minha_classe.pericias[pericia]
 		local treino = 0
 		if ((pericia_classe == true or self.minha_raca.treinamento_pericia_qualquer)
 			and self.pericias[pericia]) or pericia_classe == "treinada" then
 			treino = 5
-		elseif minha_classe.pericias.nao_treinadas then
-			treino = minha_classe.pericias.nao_treinadas
+		elseif self.minha_classe.pericias.nao_treinadas then
+			treino = self.minha_classe.pericias.nao_treinadas
 		end
 		local nivel = math.floor(self.nivel/2)
 		local atributo = self["mod_"..atributo:sub(1,3)]
@@ -213,16 +212,15 @@ Personagem = {
 }
 
 function Personagem:ca()
-	local minha_classe = classes[self.classe]
-	local bonus_classe = resolve (minha_classe.ca, self) or 0
-	local bonus_op_classe = resolve (minha_classe.ca_oportunidade, self) or 0
+	local bonus_classe = resolve (self.minha_classe.ca, self) or 0
+	local bonus_op_classe = resolve (self.minha_classe.ca_oportunidade, self) or 0
 	local categoria_armadura = armaduras[self.armadura.categoria]
 	local bonus_atrib = 0
 	if categoria_armadura.tipo == "leve" then
 		bonus_atrib = math.max(self.mod_des, self.mod_int)
 	end
 	local bonus_armadura = 0
-	if minha_classe.armaduras[self.armadura.categoria] or
+	if self.minha_classe.armaduras[self.armadura.categoria] or
 		self.talentos.proficiencia_com_armadura == self.armadura.categoria then
 		bonus_armadura = categoria_armadura.bonus
 	else
@@ -240,7 +238,7 @@ function Personagem:ca()
 	for meu_item in pairs(self.itens) do
 		local esse_item = assert (itens[meu_item], "Não achei a descrição de "..meu_item)
 		if esse_item.escudo then
-			if minha_classe.armaduras[esse_item.peso] then
+			if self.minha_classe.armaduras[esse_item.peso] then
 				bonus_item = soma_dano(self, bonus_item, esse_item.ca)
 				bonus_op_item = soma_dano(self, bonus_op_item, esse_item.ca_oportunidade)
 			end
@@ -273,14 +271,13 @@ Personagem.warn (string.format("10+%d(nível)+%d(leve)+%d(armadura)+%d(magica)+%d
 end
 
 function Personagem:fortitude()
-	local minha_classe = classes[self.classe]
-	if type(minha_classe.fortitude) == "function" then
-		return minha_classe.fortitude(self)
+	if type(self.minha_classe.fortitude) == "function" then
+		return self.minha_classe.fortitude(self)
 	end
 	local nivel = math.floor(self.nivel/2)
 	local atrib = math.max(self.mod_for, self.mod_con)
 	local racial = racas[self.raca].fortitude or 0
-	local classe = minha_classe.fortitude or 0
+	local classe = self.minha_classe.fortitude or 0
 	local implemento = 0
 	for meu in pairs(self.implementos) do
 		implemento = soma_dano(self, implemento, implementos[meu].fortitude)
@@ -293,16 +290,15 @@ function Personagem:fortitude()
 end
 
 function Personagem:reflexos()
-	local minha_classe = classes[self.classe]
 	local classe = 0
-	if type(minha_classe.reflexos) == "function" then
-		local fim, ref = minha_classe.reflexos(self)
+	if type(self.minha_classe.reflexos) == "function" then
+		local fim, ref = self.minha_classe.reflexos(self)
 		if fim then
 			return ref
 		end
 		classe = ref
-	elseif minha_classe.reflexos then
-		classe = minha_classe.reflexos
+	elseif self.minha_classe.reflexos then
+		classe = self.minha_classe.reflexos
 	end
 	local nivel = math.floor(self.nivel/2)
 	local atrib = math.max(self.mod_des, self.mod_int)
@@ -327,14 +323,13 @@ function Personagem:reflexos()
 end
 
 function Personagem:vontade()
-	local minha_classe = classes[self.classe]
-	if type(minha_classe.vontade) == "function" then
-		return minha_classe.vontade(self)
+	if type(self.minha_classe.vontade) == "function" then
+		return self.minha_classe.vontade(self)
 	end
 	local nivel = math.floor(self.nivel/2)
 	local atrib = math.max(self.mod_sab, self.mod_car)
 	local racial = racas[self.raca].vontade or 0
-	local classe = minha_classe.vontade or 0
+	local classe = self.minha_classe.vontade or 0
 	local implemento = 0
 	for meu in pairs(self.implementos) do
 		implemento = soma_dano(self, implemento, implementos[meu].vontade)
@@ -581,13 +576,12 @@ end
 
 function Personagem:meus_poderes()
 	local meio_nivel = math.floor(self.nivel/2)
-	local minha_classe = classes[self.classe]
 	-- Copia os poderes raciais
 	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
 	end
 	-- Copia as caracteristicas de classe
-	for poder, meu_poder in pairs(minha_classe.caracteristicas_classe) do
+	for poder, meu_poder in pairs(self.minha_classe.caracteristicas_classe) do
 		self.poderes[poder] = meu_poder
 	end
 	-- Copia os poderes dos implementos
@@ -623,7 +617,7 @@ function Personagem:meus_poderes()
 	local a = {}
 	for poder, esse_poder in pairs(self.poderes) do
 		if esse_poder == true then
-			esse_poder = assert(minha_classe.poderes[poder]
+			esse_poder = assert(self.minha_classe.poderes[poder]
 				or (talentos[poder] and talentos[poder].poder),
 				poder..": poder não cadastrado!")
 		end
@@ -694,8 +688,8 @@ function Personagem:meus_poderes()
 					if esse_poder.tipo_ataque:match(tipo) then --{
 						caracs.arma = arma.nome
 						local at = soma_dano (self, arma.ataque, ataque_poder, poder_arma)
-						if minha_classe.ataque then
-							at = soma_dano(self, at, minha_classe.ataque(self, arma), nome)
+						if self.minha_classe.ataque then
+							at = soma_dano(self, at, self.minha_classe.ataque(self, arma), nome)
 						end
 						if proficiente_arma (self, nome_arma) then
 							caracs.ataque = soma_dano (self, at, arma.proficiencia, poder)
@@ -727,11 +721,11 @@ function Personagem:meus_poderes()
 			elseif esse_poder.origem.implemento then
 				for nome_impl, implemento in pairs(self.implementos or {}) do
 					local implemento = implementos[nome_impl] or implemento
-					if minha_classe.implementos[implemento.tipo] then
+					if self.minha_classe.implementos[implemento.tipo] then
 						caracs.ataque = soma_dano(self, implemento.ataque, caracs.ataque, poder)
 						caracs.dano = soma_dano(self, implemento.dano, caracs.dano, poder)
 					else
-						Personagem.warn (nome_impl.." ("..implemento.tipo..") não é implemento da classe "..minha_classe.nome)
+						Personagem.warn (nome_impl.." ("..implemento.tipo..") não é implemento da classe "..self.minha_classe.nome)
 					end
 				end
 				caracs.ataque = soma_dano (self, meio_nivel, caracs.ataque, poder)
@@ -830,10 +824,9 @@ function Personagem:meus_talentos()
 	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
 	end
-	local minha_classe = classes[self.classe]
 	local a = {}
 	for poder in pairs(self.poderes) do
-		local esse_poder = assert(minha_classe.poderes[poder] or self.minha_raca.poderes[poder], "Poder não cadastrado: "..poder)
+		local esse_poder = assert(self.minha_classe.poderes[poder] or self.minha_raca.poderes[poder], "Poder não cadastrado: "..poder)
 		local caracs = {
 			alvo = esse_poder.alvo,
 			ataque = esse_poder.ataque,
@@ -933,13 +926,12 @@ function Personagem:meus_talentos()
 end
 
 function Personagem:minhas_pericias()
-	local minha_classe = classes[self.classe]
-	local total_pericias = minha_classe.total_pericias
+	local total_pericias = self.minha_classe.total_pericias
 		+ (self.minha_raca.pericias_adicionais or 0)
 	local total = 0
 	for nome, valor in pairs(self.pericias) do
 		local treinamento_pericia_qualquer = self.minha_raca.treinamento_pericia_qualquer
-		local pericia_classe = minha_classe.pericias[nome]
+		local pericia_classe = self.minha_classe.pericias[nome]
 		local talento_pericia
 		if pericia_classe == "treinada" then
 		elseif pericia_classe == true or treinamento_pericia_qualquer then

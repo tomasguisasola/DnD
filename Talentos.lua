@@ -35,13 +35,12 @@ local function treinamento(...)
 		else
 			ok = false
 		end
-		local minha_classe = classes[self.classe]
 		local p = {}
 		for pericia in pairs(pericias) do
 			if op == "E" then
-				ok = ok and (self.pericias[pericia] or (minha_classe.pericias[pericia] == "treinada"))
+				ok = ok and (self.pericias[pericia] or (self.minha_classe.pericias[pericia] == "treinada"))
 			else
-				ok = ok or (self.pericias[pericia] or (minha_classe.pericias[pericia] == "treinada"))
+				ok = ok or (self.pericias[pericia] or (self.minha_classe.pericias[pericia] == "treinada"))
 			end
 			p[#p+1] = pericia
 		end
