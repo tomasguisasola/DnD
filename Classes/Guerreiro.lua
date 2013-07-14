@@ -534,7 +534,7 @@ return {
 					return 0
 				end
 				return 10 + self.mod_des
-			end
+			end,
 			efeito = function (self)
 				return "Efeito: ajuste 1 quadrado antes E depois do ataque.\nSucesso: alvo fica lento e o dano é contínuo (TR encerra ambos).\nFracasso: "..self.mod_des.." de dano contínuo (TR encerra)."
 			end,
