@@ -5,6 +5,15 @@ local tipos_armas = require"DnD.TiposArmas"
 local mod = require"DnD.Modificadores"
 local Personagem = require"DnD.Personagem"
 
+local function implemento_maior_dano (self, poder)
+	local dano = 0
+	for impl, dados in pairs (self.implementos) do
+		dano = math.max (dano,
+			soma_dano (self, dados.dano, 0, poder))
+	end
+	return dano
+end
+
 return {
 	nome = "Mago",
 	fonte_de_poder = "arcano",
@@ -72,8 +81,8 @@ return {
 			nome = "Explosão Incandescente",
 			uso = "SL",
 			origem = set("arcano", "flamejante", "implemento"),
-			tipo_ataque = "explosão de área 1 a até 10",
-			alvo = "Uma criatura",
+			tipo_ataque = "explosão 1 a até 10",
+			alvo = "uma criatura",
 			ataque = mod.inteligencia,
 			defesa = "Ref",
 			dano = mod.dobra_21("1d6", "inteligencia", "Explosão Incandescente"),
@@ -83,7 +92,7 @@ return {
 			uso = "SL",
 			origem = set("arcano", "energetico", "implemento"),
 			tipo_ataque = "distancia 20",
-			alvo = "Uma criatura",
+			alvo = "uma criatura",
 			--ataque = "Sempre acerta",
 			dano = function(self)
 				if self.nivel >= 21 then
@@ -99,10 +108,12 @@ return {
 			nome = "Nuvem de Adagas",
 			uso = "SL",
 			origem = set("arcano", "energetico", "implemento"),
-			tipo_ataque = "explosão de área 1 a até 10 quadrados",
+			tipo_ataque = "explosão 1 a até 10",
 			alvo = "criaturas na área",
 			efeito = function(self)
-				return "Efeito: quem entrar ou começar o turno dentro da área, sofre "..math.max(self.mod_sab, 1).." (energético).\n    A nuvem permanece até o FdPT ou até dissipá-la (ação mínima)."
+				local dano_implemento = implemento_maior_dano (self, "Nuvem de Adagas")
+				local dano = soma_dano (self, self.mod_sab, dano_implemento, "Nuvem de Adagas")
+				return "Efeito: quem ingressar/começar o turno dentro da área, sofre "..dano.." (energético).\n    A nuvem permanece até o FdPT ou até dissipá-la (ação mínima)."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Refl",
@@ -153,6 +164,7 @@ return {
 			ataque = mod.inteligencia,
 			defesa = "Ref",
 			dano = mod.dado_mod("2d6", "inteligencia", "Mãos Ardentes"),
+			efeito = "Fracasso: metade do dano.",
 		},
 		orbe_de_energia = {
 			nome = "Orbe de Energia",
@@ -164,7 +176,9 @@ return {
 			defesa = "Ref",
 			dano = mod.dado_mod("2d8", "inteligencia", "Orbe de Energia"),
 			efeito = function(self)
-				return "Sucesso: ataque secundário contra inimigos adjacentes ao primário -> "..soma_dano(self, "1d10", self.mod_int, "Orbe de Energia")
+				local dano_implemento = implemento_maior_dano (self, "Orbe de Energia")
+				local dano = soma_dano (self, "1d10+"..self.mod_int, dano_implemento, "Orbe de Energia")
+				return "Sucesso: ataque contra criaturas adjacentes ao primário -> "..dano
 			end,
 		},
 		raio_de_enfraquecimento = {
@@ -181,8 +195,8 @@ return {
 		terreno_gelido = {
 			nome = "Terreno Gélido",
 			uso = "En",
-			origem = set("arcano", "congelante", "implemento"),
-			tipo_ataque = "explosão de área 1 a até 10 quadrados",
+			origem = set("arcano", "congelante", "implemento", "zona"),
+			tipo_ataque = "explosão 1 a até 10",
 			alvo = "criaturas na área",
 			ataque = mod.inteligencia,
 			defesa = "Ref",
@@ -195,9 +209,11 @@ return {
 			uso = "Di",
 			origem = set("arcano", "conjuracao", "flamejante", "implemento"),
 			tipo_ataque = "distancia 10",
-			alvo = "criatura adjacente à esfera",
+			alvo = "criatura adj. à esfera",
 			efeito = function(self)
-				return "Efeito: quem começar o turno adjacente à esfera sofre 1d4+"..self.mod_int.." (flamejante).\n    Deslocamento da esfera = 6.  Persiste até o FdE."
+				local dano_implemento = implemento_maior_dano (self, "Esfera Flamejante")
+				local dano = soma_dano (self, "1d4+"..self.mod_int, dano_implemento, "Esfera Flamejante")
+				return "Efeito: quem começar o turno adjacente à esfera sofre "..dano.." (flamejante).\n    Deslocamento da esfera (movimento) = 6.  Persiste até o FdEn."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Ref",
@@ -210,7 +226,9 @@ return {
 			tipo_ataque = "distancia 20",
 			alvo = "uma criatura",
 			efeito = function(self)
-				return "Sucesso: ataque secundário contra criaturas adjacentes ao primário.\n    1d8+INT (ácido) + 5 contínuo (ácido) (TR encerra)."
+				local dano_implemento = implemento_maior_dano (self, "Flecha Ácida")
+				local dano = soma_dano (self, "1d8+"..self.mod_int, dano_implemento, "Flecha Ácida")
+				return "Sucesso: +5 contínuo (TR).\nFracasso: metade do dano e +2 contínuo (TR).\nEfeito: ataque criaturas adjacentes ao primário -> "..dano.." +5 contínuo (TR)."
 			end,
 			ataque = mod.inteligencia,
 			defesa = "Ref",
@@ -219,20 +237,19 @@ return {
 		nuvem_congelante = {
 			nome = "Nuvem Congelante",
 			uso = "Di",
-			origem = set("arcano", "congelante", "implemento"),
-			tipo_ataque = "explosão de área 2 a até 10 quadrados",
+			origem = set("arcano", "congelante", "implemento", "zona"),
+			tipo_ataque = "explosão 2 a até 10",
 			alvo = "criaturas na área",
-			efeito = "Criaturas que entram ou começam o turno na área, são alvos de novos ataques.\nPersiste até o final do próximo turno ou até dissipá-la (mínima).",
+			efeito = "Fracasso: metade do dano.\nEfeito: criaturas que ingressam/começam o turno na área, sofrem 5 (congelante)\n    Persiste até o FdPT ou até dissipá-la (mínima).",
 			ataque = mod.inteligencia,
 			defesa = "Fort",
 			dano = mod.dado_mod("2d8", "inteligencia", "Nuvem Congelante"),
-			fracasso = "metade do dano",
 		},
 		sono = {
 			nome = "Sono",
 			uso = "Di",
 			origem = set("arcano", "implemento", "sono"),
-			tipo_ataque = "explosão de área 2 a até 20 quadrados",
+			tipo_ataque = "explosão 2 a até 20",
 			alvo = "criaturas na área",
 			ataque = mod.inteligencia,
 			defesa = "Von",
@@ -254,7 +271,7 @@ return {
 			uso = "Di",
 			origem = set("arcano"),
 			tipo_ataque = "distancia 10",
-			alvo = "O personagem ou uma criatura",
+			alvo = "você ou uma criatura",
 			efeito = "Ignora o dano da queda e não fica derrubado",
 		},
 		recuo_acelerado = {
@@ -272,19 +289,20 @@ return {
 			uso = "En",
 			origem = set("arcano"),
 			tipo_ataque = "distância 10",
-			alvo = "O personagem ou uma criatura",
-			efeito = "Efeito: realize um teste de Atletismo com +10 e considere com impulso, mesmo\n    sem deslocamento.",
+			alvo = "você ou uma criatura",
+			efeito = "Efeito: realize um teste de Atletismo (livre) com +10 e considere com impulso,\n    mesmo sem deslocamento.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		esfera_de_choque = {
 			nome = "Esfera de Choque",
 			uso = "En",
 			origem = set("arcano", "elétrico", "implemento"),
-			tipo_ataque = "explosão de área 2 a até 10 quadrados",
+			tipo_ataque = "explosão 2 a até 10",
 			alvo = "criaturas na área",
 			ataque = mod.inteligencia,
 			defesa = "Refl",
 			dano = mod.dado_mod("2d6", "inteligencia", "Esfera de Choque"),
+			efeito = "Fracasso: metade do dano.",
 		},
 		leque_cromatico = {
 			nome = "Leque Cromático",
@@ -302,7 +320,7 @@ return {
 			uso = "En",
 			origem = set("arcano", "implemento", "radiante"),
 			tipo_ataque = "explosão contígua 3",
-			alvo = "criaturas na rajada",
+			alvo = "inimigos na rajada",
 			ataque = mod.inteligencia,
 			defesa = "Fort",
 			dano = mod.dado_mod("1d8", "inteligencia", "Mortalha de Fogo"),
@@ -317,7 +335,7 @@ return {
 			ataque = mod.inteligencia,
 			defesa = "Refl",
 			dano = mod.dado_mod("1d10", "inteligencia", "Raios Gélidos"),
-			efeito = "Sucesso: alvos ficam imobilizados até o FdPT.",
+			efeito = "Sucesso: alvos ficam imobilizados até o FdPT.\nFracasso: alvos ficam lentos até o FdPT.",
 		},
 ------- Poderes Diários nível 5 ------------------------------------------------
 		aperto_gelido_de_bigby = {
@@ -330,15 +348,17 @@ return {
 			defesa = "Refl",
 			dano = mod.dado_mod("2d8", "inteligencia", "Aperto Gélido de Bigby"),
 			efeito = function (self)
-				return "Conjura uma mão de gelo com 1,5m de altura em um quadrado desocupado no alcance.\nAção de movimento para deslocar a mão até 6 quadrados.\nSucesso: alvo fica agarrado até escapar (defesas do mago).  Sustentação mínima: 1d8+"..self.mod_int..".\nAção padrão para atacar outro alvo se não estiver agarrando nenhum."
+				local dano_implemento = implemento_maior_dano (self, "aperto_gelido_de_bigby")
+				local dano = soma_dano (self, "1d8+"..self.mod_int, dano_implemento, "Aperto Gélido de Bigby")
+				return "Efeito: conjura uma mão de gelo (1,5m de altura) em um quadrado desocupado\n    dentro do alcance.  Ação de movimento para deslocar a mão até 6 quadrados.\nSucesso: alvo fica agarrado até escapar (defesas do mago).\n    Sustentação mínima: alvo agarrado -> "..dano.." (congelante).\n    Ação padrão para atacar outro alvo se não estiver agarrando nenhum."
 			end,
 		},
 		bola_de_fogo = {
 			nome = "Bola de Fogo",
 			uso = "Di",
 			origem = set("arcano", "flamejante", "implemento"),
-			tipo_ataque = "explosão área 3 a até 20",
-			alvo = "criaturas na explosão",
+			tipo_ataque = "explosão 3 a até 20",
+			alvo = "criaturas na área",
 			ataque = mod.inteligencia,
 			defesa = "Refl",
 			dano = mod.dado_mod("3d6", "inteligencia", "Bola de Fogo"),
@@ -348,14 +368,55 @@ return {
 			nome = "Nuvem Fétida",
 			uso = "Di",
 			origem = set("arcano", "implemento", "venenoso", "zona"),
-			tipo_ataque = "explosão área 2 a até 20",
-			alvo = "criaturas na explosão",
+			tipo_ataque = "explosão 2 a até 20",
+			alvo = "criaturas na área",
 			ataque = mod.inteligencia,
 			defesa = "Fort",
 			dano = mod.dado_mod("1d10", "inteligencia", "Nuvem Fétida"),
 			efeito = function(self)
-				return "Sucesso: gera zona de vapores nocivos que bloqueiam a visão até o FdPT.\nCriaturas que ingressam ou começam seus turnos na zona sofrem 1d10+"..self.mod_int.."\nde dano venenoso.  Sustentação mínima e ação de movimento desloca a zona 6."
+				local dano_implemento = implemento_maior_dano(self, "nuvem_fetida")
+				local dano = soma_dano (self, 5+self.mod_int, dano_implemento, "Nuvem Fétida")
+				return "Sucesso: gera zona de vapores nocivos que bloqueiam a visão até o FdPT.\n    Criaturas que ingressam/começam seus turnos na zona sofrem "..dano.." (venenoso).\n    Sustentação mínima e ação de movimento desloca a zona 6."
 			end,
+		},
+------- Poderes Utilitários nível 6 --------------------------------------------
+		dissipar_magia = {
+			nome = "Dissipar Magia",
+			uso = "En",
+			origem = set("arcano", "implemento"),
+			tipo_ataque = "distância 10",
+			acao = "padrão",
+			alvo = "conjuração ou zona",
+			ataque = mod.inteligencia,
+			defesa = "Vont",
+			efeito = "Sucesso: a conjuração ou zona é destruída, assim como seus efeitos, incluindo\n    aqueles que necessitam de um TR para encerrar.",
+		},
+		invisibilidade = {
+			nome = "Invisibilidade",
+			uso = "Di",
+			origem = set("arcano", "ilusão"),
+			tipo_ataque = "distância 5",
+			acao = "padrão",
+			alvo = "uma criatura",
+			efeito = "Efeito: o alvo fica invisível até o FdPT (sust. padrão; alcance) ou até atacar.",
+		},
+		levitacao = {
+			nome = "Levitação",
+			uso = "Di",
+			origem = set("arcano"),
+			tipo_ataque = "pessoal",
+			acao = "movimento",
+			alvo = "pessoal",
+			efeito = "Efeito: você pode se deslocar 4 quadrados verticalmente e permanecer flutuando.\n    Enquanto estiver assim, fica instável, sofrendo -2 na CA e em Reflexos.\n    Se algum efeito obrigá-lo a ficar a mais de 4 quadrados acima do solo, você\n    desce suavemente até manter este nível, sem sofrer dano de queda.\n    Pode usar uma ação de movimento para sustentar o efeito e ainda se deslocar\n    para cima ou para baixo sem ultrapassar o limite de 4 quadrados de altura\n    e 1 quadrado para um dos lados.  Se não sustentar, aterrisa suavemente.",
+		},
+		porta_dimensional = {
+			nome = "Porta Dimensional",
+			uso = "Di",
+			origem = set("arcano", "teleporte"),
+			tipo_ataque = "pessoal",
+			acao = "movimento",
+			alvo = "pessoal",
+			efeito = "Efeito: você teleporta 10 quadrados (não pode levar ninguém consigo).",
 		},
 	},
 }
