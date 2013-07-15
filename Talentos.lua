@@ -472,6 +472,29 @@ return {
 		efeito = "Recebe acesso às habilidades especiais de montaria.",
 	},
 
+	combatente_selvagem = { -- LJ1 ---------------------------------------------
+		nome = "Combatente Selvagem",
+		requisito = {
+			classe = function(self)
+				return self.classe ~= "patrulheiro"
+			end,
+			atributo = function (self)
+				return self.forca >= 13 or self.destreza >= 13,
+					"Você precisa de força >= 13 (a sua é "..self.forca
+						..") ou destreza >= 13 (a sua é "..self.destreza..")"
+			end,
+		},
+		acrobacia = treinada_escolhida"acrobacia",
+		atletismo = treinada_escolhida"atletismo",
+		exploracao = treinada_escolhida"exploracao",
+		furtividade = treinada_escolhida"furtividade",
+		natureza = treinada_escolhida"natureza",
+		percepcao = treinada_escolhida"percepcao",
+		socorro = treinada_escolhida"socorro",
+		tolerancia = treinada_escolhida"tolerancia",
+		efeito = "adquire treinamento em uma perícia de Patrulheiro e\n    pode usar a Presa do Caçador 1x/encontro.",
+	},
+
 	combater_com_duas_armas = { -- LJ1 -----------------------------------------
 		nome = "Combater com Duas Armas",
 		requisito = {
@@ -941,7 +964,7 @@ return {
 			destreza = 13,
 		},
 		ladinagem = "treinada",
-		efeito = "Adquire treinamento em Ladinagem e pode usar o At.Furtivo 1/encontro.",
+		efeito = "adquire treinamento em Ladinagem e pode usar o At.Furtivo 1x/encontro.",
 	},
 
 	golpe_primoroso = { -- PM --------------------------------------------------
@@ -1005,6 +1028,18 @@ return {
 		end,
 --]]
 		efeito = "+3 de bônus no ataque ao usar um PdA.",
+	},
+
+	iniciado_da_fe = { -- LJ1 --------------------------------------------------
+		nome = "Iniciado da Fé",
+		requisito = {
+			classe = function(self)
+				return self.classe ~= "clerigo"
+			end,
+			sabedoria = 13,
+		},
+		religiao = "treinada",
+		efeito = "adquire treinamento em Religião\n    e pode usar a Palavra de Cura 1x/dia.",
 	},
 
 	iniciativa_aprimorada = { -- LJ1 -------------------------------------------
