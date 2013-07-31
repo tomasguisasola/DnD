@@ -41,13 +41,13 @@ local function da_cancao_pungente (nome, bonus) -- LJ2 204
 		proficiencia = bonus + arma.proficiencia,
 		dano = soma_dano ({}, arma.dano, bonus),
 		decisivo = bonus.."d8",
-		efeito = "Efeito: serve como implemento de bardo e de trilha exemplar de bardo.",
+		implemento = set("bardo"),
 		poder = {
 			nome = "Lâmina da Canção Pungente",
 			uso = "Di",
 			acao = "livre",
 			origem = {},
-			efeito = "Quando atingir um inimigo com um poder trovejante usando esta lâmina,\n    os inimigos a até 2 quadrados do alvo ficam pasmos até o FdPT.",
+			efeito = "Efeito: quando atingir um inimigo com um poder trovejante usando esta lâmina,\n    os inimigos a até 2 quadrados do alvo ficam pasmos até o FdPT.",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -166,7 +166,7 @@ local function dos_ferimentos (nome, bonus) -- AA 70
 			uso = "Di",
 			acao = "livre",
 			origem = {},
-			efeito = "Quando atingir alvo com esta arma, cause "..cont.." de dano contínuo (TR).",
+			efeito = "Efeito: quando atingir alvo com esta arma, cause "..cont.." de dano contínuo (TR).",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
@@ -345,7 +345,7 @@ local function portadora_da_morte (nome, bonus) -- 76
 			uso = "Di",
 			acao = "livre",
 			origem = {},
-			efeito = "Quando atingir um inimigo com esta arma, cause "..cont.." de dano contínuo (TR, com -2 de penalidade, encerra)",
+			efeito = "Efeito: quando atingir um inimigo com esta arma, cause "..cont.." de dano contínuo (TR, com -2 de penalidade, encerra)",
 		},
 	}
 	return setmetatable (m, { __index = arma, })
