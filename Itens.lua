@@ -123,7 +123,7 @@ return {
 		posicao = "braço",
 		preco = 1800,
 		dano = function (self, dano, arma)
-			arma = arma:match"^[%w_]+" -- só o nome da arma
+			arma = arma:match"%+([%w_]+)$" -- só o nome da arma
 			local essa_arma = armas[arma]
 			if (arma:match"besta" or arma:match"arco")
 				and essa_arma.tipo:match"dist.ncia" then
@@ -146,7 +146,6 @@ return {
 		posicao = "braço",
 		dano = function(self, dano, arma)
 			local esse_poder = classes[self.classe].poderes[arma]
-			--if armas[arma].tipo:match"^corpo" then
 			if esse_poder and esse_poder.tipo_ataque:match"corpo" and esse_poder.tipo_ataque:match"basico" then
 				return soma_dano(self, dano, 2, "Braçadeira do Golpe Poderoso")
 			else
@@ -181,7 +180,7 @@ return {
 		dano = function(self, dano, arma)
 			basico = arma:match"basico"
 			if arma:match"%+" then
-				arma = arma:match"^(.-)%+"
+				arma = arma:match"%+(.-)$"
 			end
 			local essa_arma = armas[arma]
 			local esse_poder = classes[self.classe].poderes[arma]
