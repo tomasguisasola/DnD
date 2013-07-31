@@ -248,8 +248,7 @@ function Personagem:ca()
 		end
 	end
 	local bonus_implemento, bonus_op_implemento = 0, 0
-	for meu_implemento in pairs(self.implementos) do
-		meu_implemento = implementos[meu_implemento]
+	for nome, meu_implemento in pairs(self.implementos) do
 		bonus_implemento = soma_dano(self, bonus_implemento, meu_implemento.ca)
 		bonus_op_implemento = soma_dano(self, bonus_op_implemento, meu_implemento.ca_oportunidade)
 	end
@@ -278,15 +277,15 @@ function Personagem:fortitude()
 	local atrib = math.max(self.mod_for, self.mod_con)
 	local racial = racas[self.raca].fortitude or 0
 	local classe = self.minha_classe.fortitude or 0
-	local implemento = 0
-	for meu in pairs(self.implementos) do
-		implemento = soma_dano(self, implemento, implementos[meu].fortitude)
+	local impl = 0
+	for meu, implemento in pairs(self.implementos) do
+		impl = soma_dano(self, impl, implemento.fortitude)
 	end
 	local item = 0
 	for meu in pairs(self.itens) do
 		item = soma_dano(self, item, itens[meu].fortitude)
 	end
-	return 10 + nivel + atrib + racial + classe + implemento + item
+	return 10 + nivel + atrib + racial + classe + impl + item
 end
 
 function Personagem:reflexos()
@@ -303,9 +302,9 @@ function Personagem:reflexos()
 	local nivel = math.floor(self.nivel/2)
 	local atrib = math.max(self.mod_des, self.mod_int)
 	local racial = racas[self.raca].reflexos or 0
-	local implemento = 0
-	for meu in pairs(self.implementos) do
-		implemento = soma_dano(self, implemento, implementos[meu].reflexos)
+	local impl = 0
+	for meu, implemento in pairs(self.implementos) do
+		impl = soma_dano(self, impl, implemento.reflexos)
 	end
 	local item = 0
 	for meu in pairs(self.itens) do
@@ -319,7 +318,7 @@ function Personagem:reflexos()
 		escudo = 2
 	end
 --]]
-	return 10 + nivel + atrib + racial + classe + implemento + item --+ escudo
+	return 10 + nivel + atrib + racial + classe + impl + item --+ escudo
 end
 
 function Personagem:vontade()
@@ -330,15 +329,15 @@ function Personagem:vontade()
 	local atrib = math.max(self.mod_sab, self.mod_car)
 	local racial = racas[self.raca].vontade or 0
 	local classe = self.minha_classe.vontade or 0
-	local implemento = 0
-	for meu in pairs(self.implementos) do
-		implemento = soma_dano(self, implemento, implementos[meu].vontade)
+	local impl = 0
+	for meu, implemento in pairs(self.implementos) do
+		impl = soma_dano(self, impl, implemento.vontade)
 	end
 	local item = 0
 	for meu in pairs(self.itens) do
 		item = soma_dano(self, item, itens[meu].vontade)
 	end
-	return 10 + nivel + atrib + racial + classe + implemento + item
+	return 10 + nivel + atrib + racial + classe + impl + item
 end
 
 local _modelo_pericias = [[
@@ -375,11 +374,17 @@ alcance: $tipo_ataque     alvo: $alvo
 +$ataque X $defesa -> $dano$contragolpe$efeito]]
 local modelo_poder = [[	$nome:  $uso - $origem
 +$ataque X $defesa -> $dano$contragolpe - $tipo_ataque - $alvo$efeito]]
+local modelo_poder_titulo = [[	$nome:  $uso - $origem]]
+local modelo_poder_arma_ou_implemento = [[$arma_ou_implemento: +$ataque X $defesa -> $dano$contragolpe - $tipo_ataque - $alvo]]
+local modelo_poder_sem_arma = [[+$ataque X $defesa -> $dano$contragolpe - $tipo_ataque - $alvo]]
 local modelo_poder_arma_nome = [[	$nome:  $uso - $origem]]
 local modelo_poder_arma_ataque = [[$arma: +$ataque X $defesa -> $dano$contragolpe - $tipo_ataque - $alvo]]
-local modelo_poder_sem_ataque = [[	$nome:  $uso - $origem
-$dano$contragolpe - $tipo_ataque - $alvo$efeito]]
-local modelo_poder_sem_dano = [[	$nome:  $uso - $origem$efeito]]
+--local modelo_poder_sem_ataque = [[	$nome:  $uso - $origem
+--$dano$contragolpe - $tipo_ataque - $alvo$efeito]]
+local modelo_poder_sem_ataque = [[-> $dano$contragolpe - $tipo_ataque - $alvo$efeito]]
+--local modelo_poder_sem_dano = [[	$nome:  $uso - $origem$efeito]]
+--local modelo_poder_sem_dano = [[$efeito]]
+local modelo_poder_sem_dano = ''
 local modelo_talento = [[$nome: $efeito]]
 
 function Personagem:minha_classe ()
@@ -393,7 +398,7 @@ end
 local function proficiente_arma (self, nome)
 	local armas_raca = self.minha_raca.armas or {}
 	local armas_classe = self.minha_classe.armas or {}
-	local arma = armas[nome]
+	local arma = armas[nome] or {}
 	local armas_talento = self.talentos.proficiencia_com_arma or {}
 	return armas_classe[nome]
 		or armas_classe[arma.basica]
@@ -409,6 +414,10 @@ function Personagem:minhas_armas()
 	local a = {}
 	for nome in pairs(self.armas) do --{
 		local arma = assert(armas[nome], "Arma não cadastrada: "..nome)
+		if arma.implemento and arma.implemento[self.classe] then
+			-- serve como implemento para a classe do personagem
+			self.implementos[nome] = arma
+		end
 		local mod_classe = self.minha_classe[nome] or {}
 		-- Alcance
 		local alcance = arma.alcance or ""
@@ -567,6 +576,13 @@ end
 
 function Personagem:meus_itens()
 	local i = {}
+	for nome, implemento in pairs(self.implementos) do
+		if implemento == true then
+			implemento = assert(implementos[nome], "Não achei o implemento "..nome)
+			self.implementos[nome] = implemento -- guarda cópia da descrição do implemento
+		end
+		i[#i+1] = modelo_item:tagged(implemento)
+	end
 	for nome, item in pairs(self.itens) do
 		local esse_item = itens[nome] or item
 		i[#i+1] = modelo_item:tagged(esse_item)
@@ -575,6 +591,14 @@ function Personagem:meus_itens()
 end
 
 function Personagem:importa_poderes()
+	-- Importa os poderes selecionados (da classe ou dos talentos)
+	for poder, esse_poder in pairs(self.poderes) do
+		if esse_poder == true then -- importa o poder
+			self.poderes[poder] = assert(self.minha_classe.poderes[poder]
+				or (talentos[poder] and talentos[poder].poder),
+				poder..": poder não cadastrado!")
+		end
+	end
 	-- Copia os poderes raciais
 	for poder, meu_poder in pairs(self.minha_raca.poderes) do
 		self.poderes[poder] = meu_poder
@@ -584,8 +608,11 @@ function Personagem:importa_poderes()
 		self.poderes[poder] = meu_poder
 	end
 	-- Copia os poderes dos implementos
-	for nome in pairs(self.implementos) do
-		local implemento = assert(implementos[nome], "Não achei o implemento "..nome)
+	for nome, implemento in pairs(self.implementos) do
+		if implemento == true then
+			implemento = assert(implementos[nome], "Não achei o implemento "..nome)
+			self.implementos[nome] = implemento -- guarda cópia da descrição do implemento
+		end
 		local esse_poder = implemento.poder
 		if esse_poder then
 			self.poderes[nome] = esse_poder
@@ -598,20 +625,33 @@ function Personagem:importa_poderes()
 	end
 	-- Copia os poderes das armas
 	for nome in pairs(self.armas) do
-		local arma = armas[nome]
+		local arma = assert (armas[nome], "Não achei a arma "..nome)
+		self.armas[nome] = arma -- guarda cópia da descrição da arma
 		local esse_poder = arma.poder
 		if esse_poder then
-			self.poderes[arma] = esse_poder
+			self.poderes[nome] = esse_poder
 		end
 	end
 	-- Copia os poderes dos itens
 	for nome in pairs(self.itens) do
 		local item = assert(itens[nome], "Não achei o item "..nome)
+		self.itens[nome] = item -- guarda cópia da descrição do item
 		local esse_poder = item.poder
 		if esse_poder then
 			self.poderes[nome] = esse_poder
 		end
 	end
+end
+
+local function serializa_origem (origem, nome)
+	local res = {}
+	local i = 0
+	for o in pairs(assert (origem, "Poder `"..nome.."' sem origem!")) do
+		i = i+1
+		res[i] = o
+	end
+	table.sort(res)
+	return table.concat(res, ", ")
 end
 
 -- Ordem de uso
@@ -640,7 +680,87 @@ local function uso (s1, s2)
 	end
 end
 
+local caracteristicas = set("tipo_ataque", "alvo", "ataque", "defesa", "dano", "contragolpe")
 function Personagem:meus_poderes()
+	local meio_nivel = math.floor(self.nivel/2)
+	_ = self.importa_poderes
+	local ac = {}
+	for chave, poder in pairs(self.poderes) do
+		local linhas = { (modelo_poder_titulo:tagged {
+			nome = poder.nome,
+			uso = poder.uso,
+			origem = serializa_origem (poder.origem, poder.nome),
+		})}
+		local modelo_basico, itens_linha
+		if poder.origem.arma then
+			modelo_basico = modelo_poder_arma_ou_implemento
+			itens_linha = self.armas
+		elseif poder.origem.implemento then
+			modelo_basico = modelo_poder_arma_ou_implemento
+			itens_linha = self.implementos
+		else -- poderes raciais ou de classe
+			modelo_basico = modelo_poder_sem_arma
+			itens_linha = { nada = {} }
+		end
+		-- armas ou implementos
+		for arma_ou_implemento, dados in pairs(itens_linha) do
+			local poder_arma_ou_implemento = chave..'+'..arma_ou_implemento
+			local at = soma_dano (self, poder.ataque, 0, poder_arma_ou_implemento)
+			local da = soma_dano (self, poder.dano, 0, poder_arma_ou_implemento)
+			local at_arma = soma_dano (self, dados.ataque, 0, poder_arma_ou_implemento)
+			local da_arma = 0
+			if string.match (da, 'A') then
+				da = mult_dano (self, dados.dano, da, poder_arma_ou_implemento)
+			end
+			-- proficiencia
+			local proficiencia = 0
+			if poder.origem.arma and proficiente_arma (self, arma_ou_implemento) then
+				proficiencia = dados.proficiencia
+			end
+			-- itens
+			local at_itens, da_itens = 0, 0
+			for it, dados in pairs (self.itens) do
+				at_itens = soma_dano (self, dados.ataque, at_itens, poder_arma_ou_implemento)
+				da_itens = soma_dano (self, dados.dano, da_itens, poder_arma_ou_implemento)
+			end
+			-- talentos
+			local at_talentos, da_talentos = 0, 0
+			-- output
+			local modelo = poder.defesa and modelo_basico
+				or (poder.dano and modelo_poder_sem_ataque)
+				or modelo_poder_sem_dano
+			linhas[#linhas+1] = modelo:tagged{
+				--nome = esse_poder.nome,
+				--uso = esse_poder.uso,
+				--origem = origem,
+				arma_ou_implemento = dados.nome,
+				tipo_ataque = poder.tipo_ataque,
+				alvo = poder.alvo,
+				defesa = poder.defesa,
+				ataque = meio_nivel + at + proficiencia + at_arma + at_talentos + at_itens,
+				--dano = da + da_arma + da_talentos + da_itens,
+				dano = soma_dano (self,
+					soma_dano (self, da, da_arma, poder_arma_ou_implemento),
+					soma_dano (self, da_talentos, da_itens, poder_arma_ou_implemento),
+					poder_arma_ou_implemento),
+				contragolpe = poder.contragolpe or '',
+				--efeito = poder.efeito,
+			}
+		end
+		local efeito = ''
+		if poder.efeito then
+			if modelo_basico ~= modelo_poder_sem_arma then
+				efeito = '\n'
+			end
+			efeito = efeito..resolve (poder.efeito, self)
+		end
+		ac[#ac+1] = table.concat (linhas, '\n')..efeito
+	end
+	table.sort(ac, uso)
+	return ac
+end
+
+function Personagem:_meus_poderes()
 	local meio_nivel = math.floor(self.nivel/2)
 	_ = self.importa_poderes
 
