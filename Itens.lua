@@ -50,6 +50,17 @@ return {
 		preco = 520,
 		propriedade = "+2 nos TR X venenoso, enfraquecido, imobilizado ou lento.",
 	}, 1),
+	amuleto_da_resolucao_2 = amuleto ({
+		nome = "Amuleto da Resolução",
+		preco = 520,
+		poder = {
+			nome = "Amuleto da Resolução",
+			uso = "Di",
+			origem = {},
+			acao = "nenhuma",
+			efeito = "Efeito: quando fracassar em um TR, pode refazer a jogada, ficando com o segundo\n    resultado, mesmo que inferior.",
+		},
+	}),
 	bandurra_fochlucana_3 = {
 		nome = "Bandurra Fochlucana",
 		tipo = "instrumento",
@@ -245,6 +256,19 @@ return {
 		posicao = "cintura",
 		preco = 520,
 		pv_pc = 1,
+	},
+	diadema_da_segunda_chance_3 = {
+		nome = "Diadema da Segunda Chance",
+		tipo = "elmo",
+		posicao = "cabeca",
+		preco = 680,
+		poder = {
+			nome = "Diadema da Segunda Chance",
+			uso = "Di",
+			origem = {},
+			acao = "nenhuma",
+			efeito = "Efeito: quando fracassar em um TR, pode refazer a jogada, ficando com o segundo\n    resultado, mesmo que inferior.",
+		},
 	},
 	elmo_da_oportunidade_4 = {
 		nome = "Elmo da Oportunidade",
