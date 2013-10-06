@@ -115,6 +115,19 @@ return {
 			efeito = "Efeito: quando NÃO for atingido por AtCaC, ajusta 1 quadrado.",
 		},
 	},
+	bracadeiras_de_cranios_7 = {
+		nome = "Braçadeiras de Crânios",
+		tipo = "bracadeira",
+		posicao = "braço",
+		preco = 2600,
+		poder = {
+			nome = "Braçadeiras de Crânios",
+			uso = "Di",
+			origem = {},
+			acao = "mínima",
+			efeito = "Efeito: o próximo ataque bem sucedido que você realizar até o FdPT causa 1d10\n    de dano adicional.",
+		},
+	},
 	bracadeira_do_alivio_2 = {
 		nome = "Braçadeira do Alívio",
 		tipo = "bracadeira",

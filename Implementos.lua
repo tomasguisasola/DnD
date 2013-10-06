@@ -92,6 +92,12 @@ return {
 		dano = implemento_basico("lamina_da_cancao", 1),
 		decisivo = implemento_basico("lamina_da_cancao", "+1d6"),
 	},
+	simbolo_sagrado = {
+		nome = "Símbolo Sagrado",
+		tipo = "simbolo_sagrado",
+		ataque = 0,
+		dano = 0,
+	},
 	simbolo_da_vida_2 = {
 		nome = "Símbolo da Vida",
 		tipo = "simbolo_sagrado",
