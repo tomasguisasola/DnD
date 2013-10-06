@@ -650,7 +650,9 @@ return {
 		nome = "Empurrão com Escudo",
 		requisito = {
 			classe = "guerreiro",
-			desafio_de_combate = true,
+			--caracteristica_classe = function (self)
+				--return self.poderes.desafio_de_combate ~= nil
+			--end,
 		},
 		efeito = "Alvo do Desafio de Combate é empurrado 1 quadrado.",
 	},
