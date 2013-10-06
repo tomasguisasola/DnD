@@ -27,7 +27,7 @@ return {
 			origem = set("marcial"),
 			tipo_ataque = nil,
 			alvo = "aliados a até 10 quadrados",
-			efeito = "Os aliados a até 10 quadrados recebem +2 na iniciativa.",
+			efeito = "Efeito: aliados a até 10 quadrados recebem +2 na iniciativa.",
 		},
 		palavra_de_inspiracao = {
 			nome = "Palavra de Inspiração",
@@ -42,7 +42,7 @@ return {
 				if self.palavra_de_inspiracao_adicional then
 					pv_adicionais = "+"..self.palavra_de_inspiracao_adicional
 				end
-				return "O alvo pode gastar um PC e recupera "..dados_adicionais.."d6"..pv_adicionais.." PV"
+				return "Efeito: alvo pode gastar um PC e recupera "..dados_adicionais.."d6"..pv_adicionais.." PV"
 			end,
 		},
 		presenca_imponente = {
@@ -56,15 +56,15 @@ return {
 				local c = self.caracteristica_classe:lower()
 				local meio_nivel = math.floor(self.nivel/2)
 				if c:match"destemida" then -- PM
-					return "Quando um aliado na linha de visão gasta um PdA, pode escolher um benefício:\nse acertar, pode realizar um ataque básico ou ação de movimento (livre);\nse errar, concede VdC a todos os inimigos até o FdPT."
+					return "Efeito: quando aliado na linha de visão gasta um PdA, pode escolher o benefício:\n    se acertar ataque, pode realizar outro AtB ou ação de movimento (livre);\n    se errar, concede VdC a todos os inimigos até o FdPT."
 				elseif c:match"engenhosa" then -- PM
-					return "Quando um aliado na linha de visão gasta um PdA, recebe +"..(meio_nivel + self.mod_int).." no dano.\nSe fracassar, recebe "..(meio_nivel + self.mod_car).." PVT."
+					return "Efeito: quando aliado na linha de visão gasta um PdA, recebe +"..(meio_nivel + self.mod_int).." no dano;\n    se fracassar, recebe "..(meio_nivel + self.mod_car).." PVT."
 				elseif c:match"inspiradora" then -- LJ1
-					return "Quando um aliado na linha de visão gasta um PdA, recupera +"..(meio_nivel + self.mod_car).." PV perdidos."
+					return "Efeito: quando aliado na linha de visão gasta um PdA, recupera +"..(meio_nivel + self.mod_car).." PV perdidos."
 				elseif c:match"t.tica" then -- LJ1
-					return "Quando um aliado na linha de visão gasta um PdA, recebe +"..math.floor(self.mod_int/2).." no ataque."
+					return "Efeito: quando aliado na linha de visão gasta um PdA, recebe +"..math.floor(self.mod_int/2).." no ataque."
 				else
-					error"Você precisa definir a característica de classe"
+					warn"Sem característica de classe definida"
 				end
 			end,
 		},
@@ -81,7 +81,7 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dobra_21("1[A]", "forca", "Assalto Precipitado"),
-			efeito = "O alvo pode realizar um ataque básico CaC contra você (livre) com VdC.\nSe o fizer, um aliado a até 5 pode realizar ataque básico contra o alvo (livre)\ncom VdC.",
+			efeito = "Efeito: alvo pode realizar um AtB CaC contra você (livre) com VdC.\n    Se o fizer, aliado a até 5 pode realizar AtB contra o alvo (livre) com VdC.",
 		},
 		encontrao_inicial = {
 			nome = "Encontrão Inicial",
@@ -94,7 +94,7 @@ return {
 			defesa = "Ref",
 			dano = nil,
 			efeito = function(self)
-				return "O alvo é empurrado 1 quadrado e um aliado na linha de visão ajusta "..self.mod_int.." quadrados OU realiza um ataque básico CaC contra o alvo."
+				return "Efeito: alvo é empurrado 1 quadrado e um aliado na linha de visão ajusta "..self.mod_int.."\n    OU realiza um AtB CaC contra o alvo."
 			end,
 		},
 		golpe_da_vibora = {
@@ -117,13 +117,13 @@ return {
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
 			ataque = function(self)
-				return "um aliado realiza um ataque básico corpo-a-corpo contra o alvo."
+				return 0, "um aliado realiza um ataque básico corpo-a-corpo contra o alvo."
 			end,
 			dano = function(self)
-				return "dano do aliado +"..self.mod_int
+				return 0, "dano do aliado +"..self.mod_int
 			end,
 			efeito = function (self)
-				return "um aliado realiza um ataque básico CaC contra o alvo com +"..self.mod_int.." no dano."
+				return "Efeito: aliado realiza um AtB CaC contra o alvo com +"..self.mod_int.." no dano."
 			end,
 		},
 		pancada_furiosa = {

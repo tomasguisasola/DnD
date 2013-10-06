@@ -1,3 +1,4 @@
+local mod = require"DnD.Modificadores"
 local set = require"DnD.Set"
 local tipos_armas = require"DnD.TiposArmas"
 
@@ -35,6 +36,18 @@ return {
 	},
 	poderes = {
 ------- Poderes Sem Limite nível 1 ---------------------------------------------
+		golpe_uivante = {
+			nome = "Golpe Uivante",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("arma", "primitivo"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dobra_21("[A]+1d6", "forca", "Golpe Uivante"),
+			efeito = "    Durante uma investida, você pode usar este poder no lugar do AtB CaC.",
+		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 ------- Poderes Diários nível 1 ------------------------------------------------
 ------- Poderes Utilitários nível 2 --------------------------------------------
