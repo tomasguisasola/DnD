@@ -432,5 +432,18 @@ return {
 				return "Efeito: Até o FdPT, aliados a até 5 que atingirem um inimigo recebem "..(3+self.mod_con).." PVT."
 			end,
 		},
+------- Poderes por Encontro nível 7 -------------------------------------------
+		desviar_a_atencao = { -- LJ2 55
+			nome = "Desviar a Atenção",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arcano"),
+			tipo_ataque = "Vont",
+			alvo = "uma criatura",
+			efeito = function(self)
+--
+return "Falta descrever"
+			end,
+		},
 	},
 }

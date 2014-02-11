@@ -177,6 +177,17 @@ return {
 			efeito = "Propriedade: +2 em Acrobacia para escapar.",
 		},
 	},
+	escorregadia_7 = {
+		nome = "Escorregadia +2",
+		categoria = set("traje", "corselete", "gibao"),
+		ca = 2,
+		poder = {
+			nome = "Armadura Escorregadia",
+			uso = "SL",
+			origem = set("armadura"),
+			efeito = "Propriedade: +4 em Acrobacia para escapar.",
+		},
+	},
 	invocada_6 = {
 		nome = "Invocada +2",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),

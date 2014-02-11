@@ -203,6 +203,15 @@ return {
 		},
 	},
 
+	ampliar_magia = { -- PA ----------------------------------------------------
+		nome = "Ampliar Magia",
+		requisito = {
+			classe = "mago",
+			sabedoria = 13,
+		},
+		efeito = "Antes de usar um poder arcano, você pode escolher sofrer -2 de penalidade em\n    cada dado rolado e aumentar em +1 a área ou rajada.",
+	},
+
 	animal_treinado = { -- PM --------------------------------------------------
 		nome = "Animal Treinado",
 		requisito = {
@@ -438,6 +447,14 @@ return {
 			pericias = treinamento"furtividade",
 		},
 		efeito = "Se tiver cobertura ou ocultação em campo aberto, recebe +5 em furtividade.",
+	},
+
+	canalizacao_do_draconato = { -- PM2 ----------------------------------------
+		nome = "Canalização do Draconato",
+		requisito = {
+			classe = OU("guerreiro", "ladino", "patrulheiro", "senhor_da_guerra"),
+		},
+		efeito = "Quando atinge um inimigo com um poder marcial, pode\n    usar o sopro contra ele, com sucesso automático.",
 	},
 
 	canalizar_lamina_feiticeira = { -- LJ2 -------------------------------------
@@ -1223,6 +1240,21 @@ return {
 		end,
 	},
 
+	marca_da_garra_do_dragao = { -- PM2 ----------------------------------------
+		nome = "Marca da Garra do Dragão",
+		requisito = {
+			classe = "guerreiro",
+			raca = "draconato",
+			aplicar_bonus = function (self)
+				self.bonus_sopro = self.mod_for
+				return true
+			end,
+		},
+		efeito = function (self)
+			return "O sopro causa +"..self.bonus_sopro.." de dano a criaturas marcadas por você"
+		end,
+	},
+
 	mare_de_melora = { -- LJ1 --------------------------------------------------
 		nome = "Maré de Melora",
 		requisito = set("canalizar_divindade", "melora"),
@@ -1561,6 +1593,16 @@ return {
 			-- colera_infernal = true,
 		},
 		efeito = "Quando obtiver sucesso em um ataque usando Cólera Infernal, o alvo também é empurrado 1 quadrado.",
+	},
+
+	retirar_primeiro_sangue = { -- PM2 -----------------------------------------
+		nome = "Retirar Primeiro Sangue",
+		requisito = {
+			classe = OU("guerreiro", "ladino", "patrulheiro", "senhor_da_guerra"),
+		},
+		efeito = function (self)
+			return "Seus ataques básicos contra inimigos que ainda não\n    tomaram dano causa +"..self.mod_sab.." de dano extra."
+		end,
 	},
 
 	reserva_arcana = { -- AP ---------------------------------------------------

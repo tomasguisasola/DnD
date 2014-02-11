@@ -503,5 +503,16 @@ return {
 				return "Efeito: quando um inimigo ficar adjacente, você pode ajustar "..self.mod_sab
 			end
 		},
+------- Poderes por Encontro nível 7 -------------------------------------------
+		espigos_da_manticora = { -- LJ1
+			nome = "Espigos da Mantícora",
+			uso = "En",
+			acao = "padrão",
+			origem = set("marcial"),
+			alvo = "?",
+			efeito = function (self)
+				return "Efeito: falta cadastrar!!!!!!!!!!!!!"
+			end
+		},
 	},
 }
