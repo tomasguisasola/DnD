@@ -67,12 +67,13 @@ return {
 				end,
 				defesa = "Ref",
 				dano = function(self)
+					local bonus = self.bonus_sopro or 0
 					if self.nivel >= 21 then
-						return "3d6+"..self.mod_con
+						return "3d6+"..(self.mod_con + bonus)
 					elseif self.nivel >= 11 then
-						return "2d6+"..self.mod_con
+						return "2d6+"..(self.mod_con + bonus)
 					else
-						return "1d6+"..self.mod_con
+						return "1d6+"..(self.mod_con + bonus)
 					end
 				end,
 			},
