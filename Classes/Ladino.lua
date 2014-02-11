@@ -30,16 +30,16 @@ return {
 	reflexos = 2,
 	armaduras = set("traje", "corselete"),
 	ca_oportunidade = function(self, oportunidade)
-		if self.caracteristica_classe:match"[Ee]squivo" then
-			return oportunidade + self.mod_car
+		if self.caracteristica_classe:lower():match"esquivo h.*bil" then
+			return (oportunidade or 0) + self.mod_car
 		else
-			return oportunidade
+			return (oportunidade or 0)
 		end
 	end,
 	armas = set("adaga", "besta_mao", "shuriken", "funda", "espada_curta"),
 	implementos = {},
 	ataque = function (self, arma)
-		if arma.nome:match"Adaga" then
+		if arma.nome:lower():match"adaga" then
 			return 1
 		else
 			return 0
@@ -120,7 +120,18 @@ return {
 			ataque = mod.destreza,
 			defesa = "CA",
 			dano = mod.dobra_21("[A]", "destreza", "Golpe Decidido"),
-			efeito = "Você pode se mover 2 quadrados antes do ataque.",
+			efeito = "Efeito: você pode se mover 2 quadrados antes do ataque.",
+		},
+		golpe_desencorajador = {
+			nome = "Golpe Desencorajador",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("arma", "aturdir", "marcial"),
+			tipo_ataque = "corpo/distância",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dobra_21("[A]", "destreza", "Golpe Desencorajador"),
 		},
 		golpe_em_resposta = {
 			nome = "Golpe em Resposta",
@@ -152,6 +163,36 @@ return {
 			dano = mod.dobra_21("[A]", "destreza", "Golpe Perfurante"),
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
+		ameaca_final = {
+			nome = "Ameaça Final",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "aturdir", "marcial"),
+			tipo_ataque = "corpo/distancia",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "Refl",
+			dano = mod.dado_mod("1[A]", "destreza+carisma", "Ameaça Final"),
+			efeito = function(self)
+				if self.caracteristica_classe:lower():match"rufi.*o implac.*vel" then
+					return "Efeito: se o alvo estiver sofrendo a penalidade de um ataque de ladino com a\n    palavra-chave aturdir, ele também fica imobilizado até o FdPT."
+				end
+			end,
+ 		},
+		ataque_ponderado = {
+			nome = "Ataque Ponderado",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distancia",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "destreza", "Ataque Ponderado"),
+			efeito = function(self)
+				return "Sucesso: se o alvo realizar um AtCaC contra você antes do CdPT, você pode usar\n    uma II para atacá-lo: Força X CA -> 1[A] + "..self.mod_for.." e o alvo sofre -2 de penalidade no ataque que ativou a II."
+			end,
+ 		},
 		castelo_real = {
 			nome = "Castelo Real",
 			uso = "En",
@@ -163,6 +204,25 @@ return {
 			defesa = "Refl",
 			dano = mod.dado_mod("2[A]", "destreza", "Castelo Real"),
  		},
+		gambito_da_raposa = {
+			nome = "Gambito da Raposa",
+			-- condicao = treinamento em Acrobacia
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "Refl",
+			dano = mod.dado_mod("1[A]", "destreza", "Gambito da Raposa"),
+			efeito = function(self)
+				local ajuste = 1
+				if self.caracteristica_classe:lower():match"esquivo h.*bil" then
+					ajuste = self.mod_des
+				end
+				return "Sucesso: o alvo encerra todas as suas marcas e não pode marcar nenhum outro alvo\n    até o FdPT.\nEfeito: ajusta "..ajuste.." quadrado(s)."
+			end,
+		},
 		golpe_de_posicionamento = {
 			nome = "Golpe de Posicionamento",
 			uso = "En",
@@ -174,7 +234,23 @@ return {
 			defesa = "Vont",
 			dano = mod.dado_mod("1[A]", "destreza", "Golpe de Posicionamento"),
 			efeito = function(self)
-				return "Sucesso: o alvo é conduzido "..self.mod_car.." quadrados."
+				if self.caracteristica_classe:lower():match"esquivo h.*bil" then
+					return "Sucesso: o alvo é conduzido "..self.mod_car.." quadrados."
+				end
+			end,
+		},
+		golpe_ofuscante = {
+			nome = "Golpe Ofuscante",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "destreza", "Golpe Ofuscante"),
+			efeito = function(self)
+				return "Sucesso: o alvo fica pasmo até o FdPT."
 			end,
 		},
 		golpe_tortuoso = {
@@ -187,7 +263,7 @@ return {
 			ataque = mod.destreza,
 			defesa = "CA",
 			dano = function(self)
-				if self.vigarista_brutal then
+				if self.caracteristica_classe:lower():match"vigarista.brutal" then
 					return "2[A]+"..self.mod_for
 				else
 					return "2[A]"
@@ -205,7 +281,7 @@ return {
 			ataque = mod.des,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "destreza", "Alvo Fácil"),
-			efeito = "O alvo fica lento e concede VdC (TR encerra).\nFracasso: metade do dano + VdC até o final do próximo turno.",
+			efeito = "Efeito: o alvo fica lento e concede VdC (TR encerra).\nFracasso: metade do dano + VdC até o final do próximo turno.",
 		},
 		barragem_cegante = {
 			nome = "Barragem Cegante",
