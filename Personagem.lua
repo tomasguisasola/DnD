@@ -687,7 +687,7 @@ function Personagem:meus_poderes()
 	local ac = {}
 	for chave, poder in pairs(self.poderes) do
 		local linhas = { (modelo_poder_titulo:tagged {
-			nome = poder.nome,
+			nome = assert(poder, "Poder '"..chave.."' mal cadastrado: "..tostring(poder)).nome,
 			uso = poder.uso,
 			origem = serializa_origem (poder.origem, poder.nome),
 		})}
