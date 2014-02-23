@@ -317,6 +317,15 @@ return {
 			poder.uso = "En"
 			return poder
 		end,
+		jeito_para_o_sucesso = {
+			nome = "Jeito para o Sucesso",
+			uso = "En",
+			acao = "padrão",
+			origem = {},
+			tipo_ataque = "explosão contígua 5",
+			alvo = "você ou um aliado",
+			efeito = "Efeito: alvo pode escolher entre:\n    * realizar um TR (livre)\n    * ajustar 2 quadrados (livre)\n    * ganhar +2 de bônus no próximo ataque até o FdPT (do alvo)\n    * ganhar +4 no próximo teste de perícia até o FdPT (do alvo)",
+		},
 		poderes = {
 			-- diletante = require"Racas".meio_elfo.diletante(require"Classes.<Nome da Classe>".poderes.<nome_do_poder>),
 		},
