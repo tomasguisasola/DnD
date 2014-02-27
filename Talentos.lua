@@ -558,6 +558,15 @@ return {
 		efeito = "Depois de realizar um descanso breve ou prolongado, quaisquer poderes de cura que o personagem utilizar até o começo do próximo encontro recuperam o número máximo de pontos de vida.",
 	},
 
+	defesa_coletiva = { -- DP --------------------------------------------------
+		nome = "Defesa Coletiva",
+		requisito = {
+			classe = "paladino",
+			raca = "meio_elfo",
+		},
+		efeito = "Aliados ganham +1 em todas as defesas contra ataques de criaturas marcadas por você.",
+	},
+
 	defesa_com_duas_armas = { -- LJ1 -------------------------------------------
 		nome = "Defesa com Duas Armas",
 		requisito = {
