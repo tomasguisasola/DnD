@@ -199,6 +199,18 @@ return {
 			efeito = "O personagem bane a armadura para um local extradimensional seguro. Em qualquer\nmomento no futuro -- a menos que esteja usando outra armadura -- ele pode usar\noutra ação mínima para fazer com que a armadura retorne, aparecendo no corpo do personagem como se ele a tivesse vestido normalmente.",
 		},
 	},
+	reforcada_4 = {
+		nome = "Reforçada +1",
+		categoria = set("brunea", "placas"),
+		ca = 1,
+		poder = {
+			nome = "Armadura Reforçada",
+			uso = "SL",
+			acao = "livre",
+			origem = set("armadura"),
+			efeito = "Propriedade: sempre que for atingido por um ataque CaC, recebe +1 em todas as\n    defesas até o CdPT.",
+		},
+	},
 	repulsora_7 = {
 		nome = "Repulsora +2",
 		categoria = set("traje", "corselete"),

@@ -1,4 +1,5 @@
 return {
+	-- armas CaC simples -----------------------------------------------
 	adaga = {
 		nome = "Adaga",
 		empunhadura = "uma_mao",
@@ -88,6 +89,7 @@ return {
 		dano = "2d4",
 		grupo = "pesada",
 	},
+	-- armas CaC militares ----------------------------------------------
 	cimitarra = {
 		nome = "Cimitarra",
 		empunhadura = "uma_mao",
@@ -252,6 +254,7 @@ return {
 		dano = "2d6",
 		grupo = "mangual",
 	},
+	-- armas CaC superiores ---------------------------------------------
 	montante = {
 		nome = "Montante",
 		empunhadura = "duas_maos",
@@ -288,6 +291,15 @@ return {
 		dano = "1d8",
 		grupo = "leve",
 	},
+	sabre = {
+		nome = "Sabre",
+		empunhadura = "uma_mao",
+		tipo = "corpo superior",
+		proficiencia = 3,
+		dano = "1d8",
+		grupo = "leve",
+		decisivo_elevado = true,
+	},
 	corrente_com_cravos = {
 		nome = "Corrente com Cravos",
 		empunhadura = "duas_maos",
@@ -297,6 +309,7 @@ return {
 		grupo = "mangual",
 		de_alcance = true,
 	},
+	-- armas distância simples -----------------------------------------
 	besta_mao = {
 		nome = "Besta de Mão",
 		empunhadura = "uma_mao",
@@ -327,6 +340,7 @@ return {
 		grupo = "besta",
 		recarga_minima = true,
 	},
+	-- armas distância militares ---------------------------------------
 	arco_curto = {
 		nome = "Arco Curto",
 		empunhadura = "duas_maos",
@@ -348,6 +362,7 @@ return {
 		grupo = "arco",
 		recarga_livre = true,
 	},
+	-- armas distância superiores --------------------------------------
 	arco_grande = {
 		nome = "Arco Grande",
 		empunhadura = "duas_maos",
