@@ -511,7 +511,7 @@ return {
 				if self.caracteristica_classe:lower():match"tomo" then
 					return efeito.."Sucesso: quando o alvo fizer o primeiro ataque até o FdPT, o limo explode e\n    causa "..dano.." de dano ácido a todos os inimigos a até 2 do alvo e o\n    efeito se encerra."
 				else
-					return efeito.."Sucesso: até o FdPT, toda vez que o alvo fizer um ataque, sofre "..dano.." de dano\n    ácido.",
+					return efeito.."Sucesso: até o FdPT, toda vez que o alvo fizer um ataque, sofre "..dano.." de dano\n    ácido."
 				end
 			end,
 		},
