@@ -656,7 +656,7 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Cólera do Grifo"),
 			efeito = function (self)
-				return "Sucesso: o alvo sofre -2 na CA até o FdPT.",
+				return "Sucesso: o alvo sofre -2 na CA até o FdPT."
 			end,
 		},
 		golpe_temerario = {
@@ -677,7 +677,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Ímpeto Súbito"),
 			efeito = function(self)
@@ -691,7 +691,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Reduto de Ferro"),
 			efeito = function(self)
@@ -712,7 +712,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "explosão contígua 3",
 			alvo = "criaturas na explosão",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "Vont",
 			dano = mod.dado_mod("1[A]", "forca", "Vem Buscar"),
 			efeito = function(self)
@@ -726,7 +726,7 @@ return {
 			origem = set("arma", "marcial", "revigorante"),
 			tipo_ataque = "corpo",
 			alvo = "quem ativou o gatilho",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("0", "forca", "Bloqueio Selvagem"),
 			efeito = function(self)
@@ -741,7 +741,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "quem ativou o gatilho",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Não Tão Rápido"),
 			efeito = "Gatilho: um inimigo adjacente se afasta de você.\nSucesso: até o FdPT o alvo\n    fica lento (ou imobilizado, se você usar um mangual ou picareta)."
@@ -753,7 +753,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "No Chão!"),
 			efeito = function(self)
@@ -767,7 +767,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Rajada Restritiva"),
 			efeito = function(self)
@@ -781,7 +781,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "quem ativou o gatilho",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "Ref",
 			dano = mod.dado_mod("1[A]", "forca", "Tombar"),
 			efeito = function(self)
@@ -795,7 +795,7 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "duas criaturas",
-			ataque = mod.forca
+			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Tormento Duplo"),
 			efeito = function(self)
