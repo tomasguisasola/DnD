@@ -644,5 +644,163 @@ return {
 			tipo_ataque = "pessoal",
 			efeito = "Efeito: enquanto adotar esta postura, receba +2 em Fortitude, Reflexos e Vontade",
 		},
+------- Poderes por Encontro nível 7 -----------------------------------------
+		colera_do_grifo = {
+			nome = "Cólera do Grifo",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Cólera do Grifo"),
+			efeito = function (self)
+				return "Sucesso: o alvo sofre -2 na CA até o FdPT.",
+			end,
+		},
+		golpe_temerario = {
+			nome = "Golpe Temerário",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = function(self) return self.mod_for - 2 end,
+			defesa = "CA",
+			dano = mod.dado_mod("3[A]", "forca", "Golpe Temerário"),
+		},
+		impeto_subito = {
+			nome = "Ímpeto Súbito",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Ímpeto Súbito"),
+			efeito = function(self)
+				return "Efeito: você se desloca "..math.max(self.mod_des, 1).." quadrados."
+			end,
+		},
+		reduto_de_ferro = {
+			nome = "Reduto de Ferro",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "Reduto de Ferro"),
+			efeito = function(self)
+				local bonus = 1
+				for nome, item in pairs(self.itens) do
+					if item.escudo then
+						bonus = 2
+						break
+					end
+				end
+				return "Efeito: você recebe +"..bonus.." na CA até o FdPT."
+			end,
+		},
+		vem_buscar = {
+			nome = "Vem Buscar",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "explosão contígua 3",
+			alvo = "criaturas na explosão",
+			ataque = mod.forca
+			defesa = "Vont",
+			dano = mod.dado_mod("1[A]", "forca", "Vem Buscar"),
+			efeito = function(self)
+				return "Sucesso: alvos são puxados 2 quadrados até um quadrado adjacente (se não puder,\n    não se move) e então sofrem o dano."
+			end,
+		},
+		bloqueio_selvagem = {
+			nome = "Bloqueio Selvagem",
+			uso = "En",
+			acao = "II",
+			origem = set("arma", "marcial", "revigorante"),
+			tipo_ataque = "corpo",
+			alvo = "quem ativou o gatilho",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("0", "forca", "Bloqueio Selvagem"),
+			efeito = function(self)
+				local dano = self.mod_con
+				return "Gatilho: um aliado é atingido por um AtCaC.\nSucesso: o aliado sofre metade do dano.\n    Se estiver usando uma maça, machado ou martelo, causa +"..dano.." de dano."
+			end,
+		},
+		nao_tao_rapido = {
+			nome = "Não Tão Rápido",
+			uso = "En",
+			acao = "II",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "quem ativou o gatilho",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Não Tão Rápido"),
+			efeito = "Gatilho: um inimigo adjacente se afasta de você.\nSucesso: até o FdPT o alvo\n    fica lento (ou imobilizado, se você usar um mangual ou picareta)."
+		},
+		no_chao = {
+			nome = "No Chão!",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "forca", "No Chão!"),
+			efeito = function(self)
+				return "Sucesso: se o alvo estiver derrubado, sofre +"..self.mod_des.." de dano e não pode\n    se levantar até o FdPT."
+			end,
+		},
+		rajada_restritiva = {
+			nome = "Rajada Restritiva",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Rajada Restritiva"),
+			efeito = function(self)
+				return "Condição: empunhar duas armas de combate CaC.\nEfeito: um ataque com cada arma.\nSucesso: alvo fica lento até o FdPT. Se acertar os dois ataques, causa +"..self.mod_des
+			end,
+		},
+		tombar = {
+			nome = "Tombar",
+			uso = "En",
+			acao = "livre",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "quem ativou o gatilho",
+			ataque = mod.forca
+			defesa = "Ref",
+			dano = mod.dado_mod("1[A]", "forca", "Tombar"),
+			efeito = function(self)
+				return "Gatilho: você atinge um inimigo com um AtB CaC.\nSucesso: alvo fica lento até o FdPT. Se usar lança ou arma de haste, fica\n    derrubado ao invés de lento."
+			end,
+		},
+		tormento_duplo = {
+			nome = "Tormento Duplo",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "duas criaturas",
+			ataque = mod.forca
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "forca", "Tormento Duplo"),
+			efeito = function(self)
+				return "Condição: empunhar duas armas de combate CaC.\nEfeito: um ataque por alvo.\nSucesso: alvo é empurrado "..(1+self.mod_des).." quadrados. Se tiver VdC, causa +"..self.mod_des
+			end,
+		},
 	},
 }
