@@ -5,6 +5,10 @@ local classes = require"DnD.Classes"
 local implemento_basico = require"DnD.Implemento_Basico"
 
 return {
+	bastao = {
+		nome = "Bastão",
+		tipo = "bastao",
+	},
 	bastao_magico_1 = {
 		nome = "Bastão Mágico",
 		tipo = "bastao",
@@ -20,6 +24,10 @@ return {
 		dano = implemento_basico("bastao", 1),
 		decisivo = implemento_basico("bastao", "+1d6"),
 		preco = 640,
+	},
+	cajado = {
+		nome = "Cajado",
+		tipo = "cajado",
 	},
 	cajado_das_tempestades_5 = {
 		nome = "Cajado das Tempestades",
@@ -155,6 +163,10 @@ return {
 			dano = "regeneração +2 (encontro)",
 			efeito = "Quando acertar um inimigo, aliado a 5 adquire regeneração 2 (encontro).",
 		},
+	},
+	varinha = {
+		nome = "Varinha",
+		tipo = "varinha",
 	},
 	varinha_magica_1 = {
 		nome = "Varinha Mágica",
