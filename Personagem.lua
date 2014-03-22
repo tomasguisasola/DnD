@@ -249,6 +249,7 @@ function Personagem:ca()
 	end
 	local bonus_implemento, bonus_op_implemento = 0, 0
 	for nome, meu_implemento in pairs(self.implementos) do
+		local meu_implemento = assert (implementos[nome], "Não achei a descrição do implemento '"..nome.."'")
 		bonus_implemento = soma_dano(self, bonus_implemento, meu_implemento.ca)
 		bonus_op_implemento = soma_dano(self, bonus_op_implemento, meu_implemento.ca_oportunidade)
 	end
@@ -279,6 +280,7 @@ function Personagem:fortitude()
 	local classe = self.minha_classe.fortitude or 0
 	local impl = 0
 	for meu, implemento in pairs(self.implementos) do
+		implemento = assert (implementos[meu], "Não achei a descrição do implemento '"..meu.."'")
 		impl = soma_dano(self, impl, implemento.fortitude)
 	end
 	local item = 0
@@ -304,6 +306,7 @@ function Personagem:reflexos()
 	local racial = racas[self.raca].reflexos or 0
 	local impl = 0
 	for meu, implemento in pairs(self.implementos) do
+		implemento = assert (implementos[meu], "Não achei a descrição do implemento '"..meu.."'")
 		impl = soma_dano(self, impl, implemento.reflexos)
 	end
 	local item = 0
@@ -331,6 +334,7 @@ function Personagem:vontade()
 	local classe = self.minha_classe.vontade or 0
 	local impl = 0
 	for meu, implemento in pairs(self.implementos) do
+		implemento = assert (implementos[meu], "Não achei a descrição do implemento '"..meu.."'")
 		impl = soma_dano(self, impl, implemento.vontade)
 	end
 	local item = 0
