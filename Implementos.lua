@@ -128,6 +128,10 @@ return {
 		dano = implemento_basico("simbolo_sagrado", 1),
 		decisivo = implemento_basico("simbolo_sagrado", "+1d8"),
 	},
+	totem = {
+		nome = "Totem",
+		tipo = "totem",
+	},
 	totem_magico_1 = {
 		nome = "Totem Mágico",
 		tipo = "totem",
