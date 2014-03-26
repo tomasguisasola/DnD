@@ -61,8 +61,8 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.sab,
 			defesa = "Ref",
-			dano = mod.dobra_21("d8", "sabedoria", "Acometida"),
-			efeito = "Pode ser usado como ataque básico em uma investida.",
+			dano = mod.dobra_21("1d8", "sabedoria", "Acometida"),
+			efeito = "Especial: pode ser usado como AtB CaC ao realizar uma investida.",
 		},
 		chamado_da_fera = {
 			nome = "Chamado da Fera",
@@ -75,8 +75,20 @@ return {
 			defesa = "Vont",
 			dano = '',
 			efeito = function(self)
-				return "Os alvos não podem adquirir VdC até o final do próximo turno do druida.\nO alvo que realizar um ataque contra um aliado que não seja o mais próximo dele recebe "..soma_dano(self, 5, self.mod_sab).." de dano psíquico."
+				return "Sucesso: até o FdPT, alvos não podem adquirir VdC e sempre que realizarem um\n    ataque sem incluir o aliado mais próximo dele, sofre "..soma_dano(self, 5, self.mod_sab).." de dano psíquico."
 			end,
+		},
+		chicote_de_espinhos = {
+			nome = "Chicote de Espinhos",
+			uso = "SL",
+			acao = "padrão",
+			origem = set("implemento", "primitivo"),
+			tipo_ataque = "distância 10",
+			alvo = "uma criatura",
+			ataque = mod.sab,
+			defesa = "Fort",
+			dano = mod.dobra_21("1d8", "sabedoria", "Chicote de Espinhos"),
+			efeito = "Sucesso: alvo é puxado 2 quadrados.",
 		},
 		dilaceramento_selvagem = {
 			nome = "Dilaceramento Selvagem",
@@ -87,8 +99,8 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.sab,
 			defesa = "Refl",
-			dano = mod.dobra_21("d8", "sabedoria", "Dilaceramento Selvagem"),
-			efeito = "O alvo é conduzido 1 quadrado.",
+			dano = mod.dobra_21("1d8", "sabedoria", "Dilaceramento Selvagem"),
+			efeito = "Sucesso: alvo é conduzido 1 quadrado.\nEspecial: pode ser usado como AtB CaC.",
 		},
 		garras_aderentes = {
 			nome = "Garras Aderentes",
@@ -99,8 +111,8 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.sabedoria,
 			defesa = "Refl",
-			dano = mod.dobra_21("d8", "sabedoria", "Garras Aderentes"),
-			efeito = "O alvo fica lento até o final do próximo turno do druida.",
+			dano = mod.dobra_21("1d8", "sabedoria", "Garras Aderentes"),
+			efeito = "Sucesso: alvo fica lento até o FdPT.\nEspecial: pode ser usado como AtB CaC.",
 		},
 		semente_flamejante = {
 			nome = "Semente Flamejante",
@@ -111,9 +123,9 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.sabedoria,
 			defesa = "Ref",
-			dano = mod.dado_mod("1d6", "sabedoria", "Semente Flamejante"),
+			dano = mod.dado_mod("1d6", "", "Semente Flamejante"),
 			efeito = function(self)
-				return "Sucesso: os quadrados adjacentes ao alvo tornam-se área flamejante até o FdPT,\n         causando "..self.mod_sab.." de dano."
+				return "Sucesso: quadrados adjacentes ao alvo tornam-se zona flamejante até o FdPT,\n    causando "..self.mod_sab.." de dano a quem ingressar ou começar seu turno nela."
 			end,
 		},
 		tempestade_de_espigos = {
@@ -125,7 +137,7 @@ return {
 			alvo = "uma criatura",
 			ataque = mod.sabedoria,
 			defesa = "Refl",
-			dano = mod.dobra_21("d8", "sabedoria", "Tempestade de Espigos"),
+			dano = mod.dobra_21("1d8", "sabedoria", "Tempestade de Espigos"),
 			efeito = function(self)
 				return "Se o alvo não se mover pelo menos 2 quadrados, sofre "..self.mod_sab.." de dano elétrico."
 			end,
@@ -136,11 +148,11 @@ return {
 			acao = "padrão",
 			origem = set("congelante", "implemento", "primitivo"),
 			tipo_ataque = "explosão área 1 a até 10",
-			alvo = "as criaturas na explosão",
+			alvo = "criaturas na explosão",
 			ataque = mod.sabedoria,
 			defesa = "Fort",
-			dano = mod.dobra_21("d6", "", "Vento Resfriante"),
-			efeito = "O alvo é conduzido 1 quadrado.",
+			dano = mod.dobra_21("1d6", "", "Vento Resfriante"),
+			efeito = "Sucesso: alvo é conduzido 1 quadrado.",
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
 		lampejo_algido = {
@@ -148,7 +160,7 @@ return {
 			uso = "En",
 			acao = "padrão",
 			origem = set("congelante", "implemento", "primitivo"),
-			tipo_ataque = "distância 1",
+			tipo_ataque = "distância 10",
 			alvo = "uma criatura",
 			ataque = mod.sabedoria,
 			defesa = "Fort",
@@ -161,18 +173,6 @@ return {
 			end,
 			efeito = "Sucesso: o alvo fica imobilizado até o FdPT.",
 		},
-		convocar_relampagos = {
-			nome = "Convocar Relâmpagos",
-			uso = "En",
-			acao = "padrão",
-			origem = set("elétrico", "implemento", "primitivo", "trovejante"),
-			tipo_ataque = "explosão área 1 a até 10",
-			alvo = "as criaturas na explosão",
-			ataque = mod.sab,
-			defesa = "Refl",
-			dano = mod.dado_mod("1d8", "sabedoria", "Convocar Relâmpagos"),
-			efeito = "A explosão cria uma zona de trovões que persiste até o final do próximo turno.\nA zona causa -2 de penalidade no ataque dos inimigos dentro dela e quem sair da\nzona sofre 5 de dano trovejante.",
-		},
 		mordida_brusca = {
 			nome = "Mordida Brusca",
 			uso = "En",
@@ -184,9 +184,25 @@ return {
 			defesa = "Refl",
 			dano = mod.dado_mod("1d10", "sabedoria", "Mordida Brusca"),
 			efeito = function(self)
+				local ajuste = 2
+				if self.caracteristica_classe:lower():match"predador" then
+					ajuste = self.mod_des
+				end
 				return "Se acertar pelo menos um ataque, o druida ajusta "
-					..self.mod_des.." quadrados."
+					..ajuste.." quadrados."
 			end,
+		},
+		separar_o_rebanho = {
+			nome = "Separar o Rebanho",
+			uso = "En",
+			acao = "padrão",
+			origem = set("encanto", "forma animal", "implemento", "primitivo"),
+			tipo_ataque = "distância 5",
+			alvo = "uma criatura",
+			ataque = mod.sabedoria,
+			defesa = "Vont",
+			dano = mod.dado_mod("2d8", "sabedoria", "Separar o Rebanho"),
+			efeito = "Sucesso: o alvo é puxado 3 quadrados.",
 		},
 		vinhas_retorcidas = {
 			nome = "Vinhas Retorcidas",
@@ -261,6 +277,19 @@ return {
 			efeito = function(self)
 				return "+"..self.mod_con.." na CA até o FdPT."
 			end,
+		},
+------- Poderes por Encontro nível 3 -----------------------------------------
+		convocar_relampagos = {
+			nome = "Convocar Relâmpagos",
+			uso = "En",
+			acao = "padrão",
+			origem = set("elétrico", "implemento", "primitivo", "trovejante"),
+			tipo_ataque = "explosão área 1 a até 10",
+			alvo = "as criaturas na explosão",
+			ataque = mod.sab,
+			defesa = "Refl",
+			dano = mod.dado_mod("1d8", "sabedoria", "Convocar Relâmpagos"),
+			efeito = "A explosão cria uma zona de trovões que persiste até o final do próximo turno.\nA zona causa -2 de penalidade no ataque dos inimigos dentro dela e quem sair da\nzona sofre 5 de dano trovejante.",
 		},
 	},
 }
