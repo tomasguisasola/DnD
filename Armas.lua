@@ -509,6 +509,7 @@ local armas = {
 	espada_longa_da_cancao_pungente_8 = da_cancao_pungente ("espada_longa", 2),
 	espada_longa_de_drenar_vitalidade_5 = de_drenar_vitalidade ("espada_longa", 1),
 	espada_longa_dinamica_6 = dinamica ("espada_longa", 2),
+	espada_bastarda_dinamica_6 = dinamica ("espada_bastarda", 2),
 	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_longa_magica_6 = magica ("espada_longa", 2),
 	espada_longa_lamina_do_sol_9 = lamina_do_sol ("espada_longa", 2),
