@@ -38,10 +38,10 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "adjacente marcado",
-			ataque = mod.forca,
+			ataque = mod.soma_mod("forca", "sabedoria"),
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Desafio de Combate"),
-			efeito = "Só pode ser usado contra alvos marcados adjacentes que ajustem ou que ataquem\n    sem incluir o guerreiro como alvo.",
+			efeito = "Condição: apenas contra alvos adjacentes marcados que ajustem ou que ataquem sem\n    incluir o guerreiro como alvo.",
 		},
 		superioridade_em_combate = {
 			nome = "Superioridade em Combate",
@@ -185,7 +185,7 @@ return {
 			ataque = mod.forca,
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Lâmina da Serpente de Aço"),
-			efeito = "O alvo fica lento e não pode ajustar até o final do próximo turno.",
+			efeito = "Sucesso: o alvo fica lento e não pode ajustar até o FdPT.",
 		},
 		rasteira_giratoria = {
 			nome = "Rasteira Giratória",
@@ -198,6 +198,24 @@ return {
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Rasteira Giratória"),
 			efeito = "Sucesso: alvo fica derrubado.",
+		},
+		choque_com_escudo = {
+			nome = "Choque com Escudo",
+			uso = "En",
+			acao = "padrão",
+			origem = set("marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = function(self) return self.mod_for+2 end,
+			defesa = "Ref",
+			dano = function(self, valor, poder_arma)
+				local atr = self.mod_for
+				if self.raca == "anao" then
+					atr = atr + self.mod_sab
+				end
+				return soma_dano(self, "1d10", atr, "Choque com Escudo")
+			end,
+			efeito = "\nSucesso: alvo é empurrado 1 quadrado e fica derrubado.\nEspecial: pode ser usado como um AtB CaC ao realizar uma investida.",
 		},
 ------- Poderes Diários nível 1 ------------------------------------------------
 		ameacar_o_vilao = {
@@ -279,7 +297,7 @@ return {
 			acao = "mínima",
 			origem = set("marcial"),
 			tipo_ataque = "pessoal",
-			efeito = "Efeito: até o FdPT, +2 -> CA e Reflexos e não concede VdC a quem o estiver\n    flanquenado.",
+			efeito = "Efeito: até o FdPT, +2 na CA e Reflexos e não concede VdC por flanqueamento.",
 		},
 		irrefreavel = {
 			nome = "Irrefreável",
@@ -391,10 +409,18 @@ return {
 			origem = set("arma", "marcial"),
 			tipo_ataque = "corpo",
 			alvo = "uma criatura",
-			ataque = mod.forca,
+			ataque = function(self) return self.mod_for+1 end, -- investida
 			defesa = "CA",
 			dano = mod.dado_mod("2[A]", "forca", "Golpe do Rinoceronte"),
-			efeito = "Condição: você deve realizar uma investida e usar este poder no lugar do AtB CaC\n    Se empunhar um escudo, o movimento não provoca AdO.",
+			efeito = function (self)
+				local bonus_escudo = ''
+				for n, it in pairs(self.itens) do
+					if it.escudo then
+						bonus_escudo = "(sem provocar AdO) "
+					end
+				end
+				return "Condição: realize uma investida "..bonus_escudo.."e use este poder como AtB CaC"
+			end,
 		},
 		golpe_esmagador = {
 			nome = "Golpe Esmagador",
@@ -444,6 +470,18 @@ return {
 			end,
 			defesa = "CA",
 			dano = mod.dado_mod("1[A]", "forca", "Golpe Preciso"),
+		},
+		esquadrinhar = {
+			nome = "Esquadrinhar",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.forca,
+			defesa = "Ref",
+			dano = mod.dado_mod("1[A]", "forca", "Esquadrinhar"),
+			efeito = "Sucesso: ganha +4 no próximo ataque contra o alvo até o FdPT.\nEspecial: pode ser usado como um AtB CaC ao realizar um AdO.",
 		},
 ------- Poderes Diários nível 5 ------------------------------------------------
 		chuva_de_aco = { -- LJ1
