@@ -209,7 +209,7 @@ return {
 			classe = "mago",
 			sabedoria = 13,
 		},
-		efeito = "Antes de usar um poder arcano, você pode escolher sofrer -2 de penalidade em\n    cada dado rolado e aumentar em +1 a área ou rajada.",
+		efeito = "Antes de usar um poder arcano, você pode escolher sofrer -2 de penalidade em\n    cada dado de dano rolado e aumentar em +1 a área ou rajada.",
 	},
 
 	animal_treinado = { -- PM --------------------------------------------------
@@ -1876,6 +1876,40 @@ return {
 		},
 	},
 
+	derrubar_com_escudo = {
+		nome = "Derrubar com Escudo",
+		requisito = {
+			classe = "guerreiro",
+			--caracteristica_classe = function (self)
+				--return self.poderes.desafio_de_combate ~= nil
+			--end,
+		},
+		efeito = "Alvo do Desafio de Combate é derrubado.",
+	},
+
+	engajamento_brutal = { ----------------------------------------------------
+		nome = "Engajamento Brutal",
+		requisito = {
+			classe = "novo",
+		},
+		dano_adicional = function(self, dano, arma)
+			if type(dano) == "string" then
+				return dano:gsub("d6", "d8")
+			else
+				return dano
+			end
+		end,
+		efeito = "Aumenta o dado do dano adicional do engajamento de d6 para d8.",
+	},
+
+	engajamento_longo = { ----------------------------------------------------
+		nome = "Engajamento Longo",
+		requisito = {
+			classe = "novo",
+		},
+		efeito = "Aumenta em 2 quadrados o alcançe do engajamento do personagem.",
+	},
+
 	maldicao_aprimorada = { ----------------------------------------------------
 		nome = "Maldição Aprimorada",
 		requisito = {
@@ -1889,5 +1923,13 @@ return {
 			end
 		end,
 		efeito = "Aumenta o dado da Maldição do Bruxo de d6 para d8.",
+	},
+
+	moldar_magia = { ----------------------------------------------------
+		nome = "Moldar Magia",
+		requisito = {
+			classe = "mago",
+		},
+		efeito = "Antes de usar um poder de área ou de rajada, você pode escolher\n    sofrer -2 de penalidade em cada dado de dano e ampliar a área ou rajada em\n    1, ou ganhar +2 em cada dado de dano e reduzir a área ou rajada em 1.",
 	},
 }
