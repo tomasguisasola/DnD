@@ -493,7 +493,9 @@ end
 
 local armas = {
 	adaga_magica_1 = magica ("adaga", 1),
+	adaga_magica_6 = magica ("adaga", 2),
 	adaga_do_duelista_3 = do_duelista ("adaga", 1),
+	adaga_do_duelista_8 = do_duelista ("adaga", 2),
 	adaga_inescapavel_8 = inescapavel ("adaga", 2),
 	adaga_rapida_3 = rapida ("adaga", 1),
 	adaga_traicoeira_4 = traicoeira ("adaga", 1),
@@ -502,6 +504,7 @@ local armas = {
 	arco_longo_da_explosao_trovejante_4 = da_explosao_trovejante ("arco_longo", 1),
 	arco_longo_da_transferencia_7 = da_transferencia ("arco_longo", 2),
 	azagaia_magica_1 = magica ("azagaia", 1),
+	azagaia_magica_6 = magica ("azagaia", 2),
 	espada_curta_unidas_3 = unidas ("espada_curta", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
