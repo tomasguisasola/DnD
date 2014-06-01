@@ -418,5 +418,24 @@ return {
 				return "Efeito: se estiver marcado, a marca se encerra e pode ajustar o deslocamento."
 			end,
 		},
+------- Poderes por Encontro nível 7 -------------------------------------------
+		das_sombras = {
+			nome = "Das Sombras",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo/distância",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("1[A]", "destreza", "Das Sombras"),
+			efeito = function (self)
+				local ajuste = 2
+				if self.caracteristica_classe:lower():match"esquivo" then
+					ajuste = 1 + self.mod_car
+				end
+				return "Efeito: ajuste "..ajuste.." antes do ataque; se estava fora da linha de visão, obtém VdC.\nSucesso: ajuste "..ajuste.."; se terminar com alguma cobertura ou ocultação, pode realizar\n    um teste de Furtividade usando uma ação livre."
+			end,
+		},
 	},
 }
