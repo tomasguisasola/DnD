@@ -270,6 +270,22 @@ return {
 		preco = 520,
 		pv_pc = 1,
 	},
+	colar_de_gorkan_8 = {
+		nome = "Colar de Gorkan",
+		tipo = "colar",
+		posicao = "pescoço",
+		fortitude = 2,
+		reflexos = 2,
+		vontade = 2,
+		efeito = "Propriedade: aura 3; aliados sangrando que começarem ou terminarem seus turnos dentro da aura recebem 4 PV.",
+		poder = {
+			nome = "Colar de Gorkan",
+			uso = "En",
+			origem = {},
+			acao = "livre",
+			efeito = "Você ou um aliado adjacente pode realizar um TR com +2 de bônus",
+		},
+	},
 	diadema_da_segunda_chance_3 = {
 		nome = "Diadema da Segunda Chance",
 		tipo = "elmo",
