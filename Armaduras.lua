@@ -93,6 +93,12 @@ return {
 			efeito = "Propriedade: sempre que alcançar um marco, o bônus da armadura aumenta em 1.\n    O bônus é zerado após um descanso prolongado.",
 		},
 	},
+	do_espirito_protetor_2 = {
+		nome = "do Espírito Protetor +1",
+		categoria = set("corselete"),
+		ca = 1,
+		ca_oportunidade = 4,
+	},
 	do_explorador_3 = {
 		nome = "do Explorador +1",
 		categoria = set("traje", "corselete", "gibao", "cota", "brunea", "placas"),
