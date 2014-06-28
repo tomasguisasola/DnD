@@ -139,6 +139,19 @@ return {
 		dano = implemento_basico("totem", 1),
 		decisivo = implemento_basico("totem", "+1d6"),
 	},
+	totem_dos_espiritos_famintos_2 = {
+		nome = "Totem dos Espíritos Famintos",
+		tipo = "totem",
+		ataque = implemento_basico("totem", 1),
+		dano = implemento_basico("totem", 1),
+		decisivo = implemento_basico("totem", "+1d10"), -- e o CE pode ir para um espaço adjacente ao alvo
+		poder = {
+			nome = "Totem dos Espíritos Famintos",
+			origem = {},
+			uso = "Diário",
+			efeito = "Efeito: quando atingir um inimigo adjacente ao CE usando este totem, você e um\n    aliado a até 2 do inimigo atingido podem gastar um PC.",
+		},
+	},
 	totem_do_crescimento_de_verao_3 = {
 		nome = "Totem do Crescimento do Verão",
 		tipo = "totem",
