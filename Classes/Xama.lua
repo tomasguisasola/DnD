@@ -183,6 +183,30 @@ return {
 			end,
 		},
 ------- Poderes por Encontro nível 1 -------------------------------------------
+		chamado_ao_combatente_ancestral = {
+			nome = "Chamado ao Combatente Ancestral",
+			uso = "En",
+			acao = "padrão",
+			origem = set("espírito", "implemento", "primitivo"),
+			tipo_ataque = "corpo 1",
+			alvo = "uma criatura",
+			ataque = mod.sab,
+			defesa = "Refl",
+			dano = mod.dado_mod("1d10", "sabedoria", "Chamado ao Combatente Ancestral"),
+			efeito = "Efeito: até o FdPT, você e seus aliados recebem +2 em todas as defesas enquanto\n    estiverem adjacentes ao CE.",
+		},
+		chamado_ao_defensor_ancestral = {
+			nome = "Chamado ao Defensor Ancestral",
+			uso = "En",
+			acao = "padrão",
+			origem = set("espírito", "implemento", "primitivo"),
+			tipo_ataque = "corpo 1",
+			alvo = "uma criatura",
+			ataque = mod.sab,
+			defesa = "Fort",
+			dano = mod.dado_mod("2d8", "sabedoria", "Chamado ao Defensor Ancestral"),
+			efeito = "Efeito: até o FdPT, você e seus aliados recebem +5 na CA contra AdO enquanto\n    estiverem adjacentes ao CE.",
+		},
 		panteras_gemeas = {
 			nome = "Panteras Gêmeas",
 			uso = "En",
@@ -193,7 +217,25 @@ return {
 			ataque = mod.sab,
 			defesa = "Refl",
 			dano = mod.dado_mod("1d8", "sabedoria", "Panteras Gêmeas"),
-			efeito = "Dois ataques.  O Xamã e aliados ganham VdC contra os inimigos adjacentes ao CE.",
+			efeito = "Sucesso: você e aliados ganham VdC nos At.CaC contra os inimigos adjacentes ao\n    CE até o FdPT.\nEfeito: realize outro ataque contra o mesmo ou outro alvo.",
+		},
+		protecao_do_urso_do_trovao = {
+			nome = "Proteção do Urso do Trovão",
+			uso = "En",
+			acao = "padrão",
+			origem = set("implemento", "primitivo", "trovejante"),
+			tipo_ataque = "distancia 5",
+			alvo = "uma criatura",
+			ataque = mod.sab,
+			defesa = "Fort",
+			dano = mod.dado_mod("1d6", "sabedoria", "Proteção do Urso do Trovão"),
+			efeito = function(self)
+				local extra = ""
+				if self.caracteristica_classe:lower():match"protetor" then
+					extra = "\n    Além disso, você ou um de seus aliados a até 5 recebe "..self.mod_con.." PVT."
+				end
+				return "Efeito: até o FdPT, você e seus aliados adquirem resistência "..self.mod_con.." contra todos os\n    tipos de dano enquanto estiverem adjacentes ao companheiro."..extra
+			end,
 		},
 ------- Poderes Diários nível 1 ------------------------------------------------
 		colera_do_mundo_espiritual = {
@@ -225,6 +267,14 @@ return {
 			origem = set("primitivo", "zona"),
 			tipo_ataque = "explosão área 5 a até 10",
 			efeito = "A explosão cria uma zona que concede +1 de bônus no ataque dos aliados.",
+		},
+		espirito_da_vida = {
+			nome = "Espírito da Vida",
+			uso = "Di",
+			acao = "padrão",
+			origem = set("cura", "primitivo"),
+			tipo_ataque = "explosão contígua 10",
+			efeito = "Você ou um aliado recupera PV como se tivesse gasto um PC.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
 		espirito_do_fogo_gelido = {
