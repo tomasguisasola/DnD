@@ -257,6 +257,19 @@ return {
 			efeito = "Adquire resitência 10 contra todos os tipos de dano até o FdPT.",
 		},
 	},
+	sebo_de_cobra_3 = {
+		nome = "Sebo de Cobra +1",
+		categoria = set("corselete", "gibao"),
+		preco = 840,
+		ca = 1,
+		poder = {
+			nome = "Armadura Sebo de Cobra",
+			uso = "Diário",
+			acao = "RI",
+			origem = set("armadura", "venenoso"),
+			efeito = "Quando não for atingido por um ataque, o inimigo sofre 5 de dano contínuo (TR)\n    e o personagem ajusta 1 quadrado.",
+		},
+	},
 	skald_3 = {
 		nome = "de Skald +1",
 		categoria = set("corselete", "cota"),
