@@ -303,6 +303,18 @@ local function lamina_do_sol (nome, bonus)
 	return setmetatable (m, { __index = arma, })
 end
 
+local function malevola (nome, bonus)
+	local arma = ArmasBasicas[nome]
+	local m = {
+		nome = arma.nome.." Malévola",
+		basica = nome,
+		proficiencia = bonus + arma.proficiencia,
+		dano = soma_dano ({}, arma.dano, bonus),
+		decisivo = bonus.."d12",
+	}
+	return setmetatable (m, { __index = arma, })
+end
+
 local function matadora_dragoes (nome, bonus)
 	local arma = ArmasBasicas[nome]
 	local m = {
@@ -505,6 +517,7 @@ local armas = {
 	arco_longo_da_transferencia_7 = da_transferencia ("arco_longo", 2),
 	azagaia_magica_1 = magica ("azagaia", 1),
 	azagaia_magica_6 = magica ("azagaia", 2),
+	espada_bastarda_dinamica_6 = dinamica ("espada_bastarda", 2),
 	espada_curta_unidas_3 = unidas ("espada_curta", 1),
 	espada_longa_magica_1 = magica ("espada_longa", 1),
 	espada_longa_algida_3 = algida ("espada_longa", 1),
@@ -512,10 +525,10 @@ local armas = {
 	espada_longa_da_cancao_pungente_8 = da_cancao_pungente ("espada_longa", 2),
 	espada_longa_de_drenar_vitalidade_5 = de_drenar_vitalidade ("espada_longa", 1),
 	espada_longa_dinamica_6 = dinamica ("espada_longa", 2),
-	espada_bastarda_dinamica_6 = dinamica ("espada_bastarda", 2),
-	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
-	espada_longa_magica_6 = magica ("espada_longa", 2),
 	espada_longa_lamina_do_sol_9 = lamina_do_sol ("espada_longa", 2),
+	espada_longa_magica_6 = magica ("espada_longa", 2),
+	espada_longa_malevola_2 = magica ("espada_longa", 1),
+	espada_longa_trovejante_3 = trovejante ("espada_longa", 1),
 	espada_grande_algida_3 = algida ("espada_grande", 1),
 	espada_grande_matadora_de_dragoes_7 = matadora_dragoes ("espada_grande", 2),
 	espada_grande_lamina_do_sol_9 = lamina_do_sol ("espada_grande", 2),
