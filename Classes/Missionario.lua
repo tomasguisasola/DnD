@@ -169,7 +169,7 @@ return {
 			dano = 0,
 			efeito = "Sucesso: o alvo fica dominado até o FdPT. O personagem pode transferir uma de\n    suas ações ao alvo durante o seu turno. Sustentação mínima.",
 		},
-		salvação = {
+		salvacao = {
 			nome = "Salvação",
 			uso = "Di",
 			acao = "padrão",
@@ -181,7 +181,7 @@ return {
 			dano = 0,
 			efeito = function(self)
 				local bonus = ''
-				if self.caracteristica_classe:lower()match"carism" then
+				if self.caracteristica_classe:lower():match"carism" then
 					bonus = " e recupera "..self.mod_car.." PV adicionais"
 				end
 				return "Sucesso: o alvo é conduzido 2 quadrados e fica impedido (TR). Aliado adjacente\n    ao alvo (antes da condução) pode gastar um PC"..bonus.."."
@@ -234,6 +234,34 @@ return {
 			efeito = "Efeito: (só quando o missionário for atingido por um At CaC) o inimigo que ativou o gatilho fica pasmo até o FdPT.",
 		},
 ------- Poderes por Encontro nível 3 -------------------------------------------
+		baixar_a_guarda = {
+			nome = "Baixar a Guarda",
+			uso = "En",
+			acao = "padrão",
+			tipo_ataque = "distância 10",
+			alvo = "uma criatura",
+			origem = set("divino", "implemento"),
+			ataque = mod.sab,
+			defesa = "Vont",
+			dano = 0,
+			efeito = function (self)
+				return "Sucesso: alvo provoca AdO e concede VdC contra quem atacar até o FdPT."
+			end,
+		},
+		feitico_de_cura = {
+			nome = "Feitiço de Cura",
+			uso = "En",
+			acao = "padrão",
+			tipo_ataque = "distância 10",
+			alvo = "uma criatura",
+			origem = set("divino", "implemento"),
+			ataque = mod.sab,
+			defesa = "Fort",
+			dano = 0,
+			efeito = function (self)
+				return "Sucesso: alvo fica enfeitiçado até o FdPT; enquanto isso qualquer aliado que\n    causar dano ao alvo recupera "..self.mod_int.." PV."
+			end,
+		},
 ------- Poderes Diários nível 5 ------------------------------------------------
 	},
 }
