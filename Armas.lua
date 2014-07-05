@@ -533,6 +533,7 @@ local armas = {
 	espada_grande_matadora_de_dragoes_7 = matadora_dragoes ("espada_grande", 2),
 	espada_grande_lamina_do_sol_9 = lamina_do_sol ("espada_grande", 2),
 
+	maca_estrela_trovejante_3 = trovejante ("maca_estrela", 1),
 	manopla_shuriken_rapida_3 = rapida ("manopla_shuriken", 1),
 	montante_magica_1 = magica ("montante", 1),
 	montante_magico_1 = magica ("montante", 1),
