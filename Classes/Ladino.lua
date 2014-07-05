@@ -377,6 +377,18 @@ return {
 			dano = mod.dado_mod("1[A]", "destreza", "Desabar"),
 			efeito = "Sucesso: o alvo fica derrubado.",
 		},
+		golpe_de_preparacao = {
+			nome = "Golpe de Preparação",
+			uso = "En",
+			acao = "padrão",
+			origem = set("arma", "marcial"),
+			tipo_ataque = "corpo",
+			alvo = "uma criatura",
+			ataque = mod.destreza,
+			defesa = "CA",
+			dano = mod.dado_mod("2[A]", "destreza", "Golpe de Preparação"),
+			efeito = "Sucesso: o alvo concede VdC ao ladino até o FdPT.",
+		},
 		lamina_do_trapaceiro = {
 			nome = "Lâmina do Trapaçeiro",
 			uso = "En",
